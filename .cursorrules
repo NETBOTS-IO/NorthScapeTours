@@ -1,0 +1,38 @@
+[rules]
+# Prevent frontend developers from changing styles during API integration
+restrict_changes = frontend/**/*.css, frontend/**/*.scss, frontend/**/*.tailwind.css, frontend/**/*.theme.js, frontend/styles/**/* 
+
+# Enforce backend structure for clean, robust API
+require_structure = backend/src/controllers/*, backend/src/services/*, backend/src/models/*, backend/src/middlewares/*, backend/src/routes/*
+
+# Enforce REST API principles
+require_restful_endpoints = true
+
+# Ensure all API requests have validation
+require_validation = backend/src/middlewares/validation.js, backend/src/utils/validators.js
+
+# Restrict direct database access (must go through services)
+restrict_db_access = backend/src/controllers/* (allow only backend/src/services/*)
+
+# Require consistent error handling middleware
+require_error_handling = backend/src/middlewares/errorHandler.js
+
+# Enforce authentication and authorization
+require_auth = backend/src/middlewares/auth.js
+
+# Ensure frontend and backend maintain separate workflows
+restrict_branch_merging = frontend_integration -> only backend_team
+restrict_branch_merging = styling_changes -> only frontend_team
+
+# Prevent frontend developers from modifying backend files
+restrict_changes = backend/**/* (allow only backend_team)
+
+# Prevent backend developers from modifying frontend UI files
+restrict_changes = frontend/src/components/**/*, frontend/src/pages/**/* (allow only frontend_team)
+
+# Require documentation for API endpoints
+require_docs = backend/docs/api.md
+
+# Enforce linting and formatting
+require_linting = eslint, prettier
+require_formatting = prettier

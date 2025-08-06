@@ -1,0 +1,47 @@
+[rules]
+# Enforce MVC structure
+require_structure = backend/src/controllers/*, backend/src/services/*, backend/src/models/*, backend/src/middlewares/*, backend/src/routes/*, backend/src/utils/*
+
+# Ensure all API endpoints follow RESTful principles
+require_restful_endpoints = true
+
+# Require request validation for all API endpoints
+require_validation = backend/src/middlewares/validation.js, backend/src/utils/validators.js
+
+# Restrict direct database access (must go through services)
+restrict_db_access = backend/src/controllers/* (allow only backend/src/services/*)
+
+# Require error handling middleware for all routes
+require_error_handling = backend/src/middlewares/errorHandler.js
+
+# Enforce authentication and authorization for protected routes
+require_auth = backend/src/middlewares/auth.js
+
+# Require consistent API response format
+require_response_format = { "success": Boolean, "message": String, "data": Object, "error": Object }
+
+# Prevent inconsistent field names in models and API
+require_field_consistency = backend/src/models/tourModel.js, backend/src/controllers/tourController.js, backend/src/services/tourService.js
+
+# Require documentation for all API endpoints
+require_docs = backend/docs/api.md
+
+# Enforce linting and formatting
+require_linting = eslint, prettier
+require_formatting = prettier
+
+# Prevent breaking changes in API contracts without approval
+restrict_api_changes = backend/src/routes/tourRoutes.js, backend/src/controllers/tourController.js
+
+# Ensure environment variables are properly managed
+require_env_management = backend/.env, backend/config.js
+
+# Enforce standardized error codes and messages
+require_error_codes = backend/src/utils/errorCodes.js
+
+# Restrict frontend developers from modifying backend files
+restrict_changes = backend/**/* (allow only backend_team)
+
+# Prevent unused code or console logs in production
+restrict_console_logs = true
+restrict_unused_code = true
