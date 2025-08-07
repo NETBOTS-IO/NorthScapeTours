@@ -185,3 +185,14 @@ export interface Booking {
   status: "Pending" | "Confirmed" | "Cancelled"; 
 }
 
+export interface Testimonials {
+  _id?: string,
+  name: string,
+  location: string,
+  description: string,
+  image: string,
+  rating: number,
+  occupation: string,
+  createdAt:string,
+  tags: string[];
+}

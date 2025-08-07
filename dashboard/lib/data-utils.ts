@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { BASE_URL } from "@/Var";
-import { Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking } from "./types";
+import { Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials } from "./types";
 
 const inquiriesData: Inquiry[] = [
   {
@@ -373,7 +373,6 @@ export async function deleteCar(id: string): Promise<boolean> {
 // ✅ Update car
 export async function updateCar(id: string, formData: FormData): Promise<boolean> {
   try {
-    console.log('id', id)
     await axios.put(`${BASE_URL}/api/rent/${id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
@@ -442,7 +441,7 @@ export async function updatingBookingById(id: string, status: string) {
 // create rent car api
 export async function createTestimonials(formData: FormData) {
   try {
-    const response = await axios.post(`${BASE_URL}/api/rent/`, formData, {
+    const response = await axios.post(`${BASE_URL}/api/testimonials/`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true,
     });
@@ -452,7 +451,7 @@ export async function createTestimonials(formData: FormData) {
     throw new Error(
       error.response?.data?.message ||
         error.message ||
-        "Failed to create gallery photo"
+        "Failed to create testimonials"
     );
   }
 }
@@ -468,7 +467,36 @@ export async function getTestimonials(query: {
   if (query.limit) params.append("limit", query.limit.toString());
   if (query.search) params.append("search", query.search);
 
-  const res = await axios.get(`${BASE_URL}/api/testimonials?${params.toString()}`);
+  const res = await axios.get(`${BASE_URL}/api/testimonials/?${params.toString()}`);
   return res.data.data; // Return the data bookings from the response
 }
 
+export async function updatingTestimonialsById(id: string, formData: FormData) {
+  try {
+    const res = await axios.put(`${BASE_URL}/api/testimonials/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data || null;
+  } catch (error) {
+    console.error(`❌ Failed to fetch testimonials with ID ${id}:`, error);
+    return null;
+  }
+}
+export async function deleteTestimonialsById(id: string) {
+  try {
+    const res = await axios.delete(`${BASE_URL}/api/testimonials/${id}`);
+    return res.data || null;
+  } catch (error) {
+    console.error(`❌ Failed to fetch testimonials with ID ${id}:`, error);
+    return null;
+  }
+}
+export async function getTestimonialsById(id: string): Promise<Testimonials | null> {
+  try {
+    const res = await axios.get(`${BASE_URL}/api/testimonials/${id}`);
+    return res.data.data || null;
+  } catch (error) {
+    console.error(`❌ Failed to fetch testimonials with ID ${id}:`, error);
+    return null;
+  }
+}

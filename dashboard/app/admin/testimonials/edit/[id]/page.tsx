@@ -4,21 +4,21 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import GalleryForm from "@/components/GalleryForm";
-import { getCarById } from "@/lib/data-utils";
-import { RentCar } from "@/lib/types";
-import RentForm from "@/components/RentForm";
+import {  getTestimonialsById } from "@/lib/data-utils";
+import { Testimonials } from "@/lib/types";
+import TestimonialsForm
+ from "@/components/TestimonialsForm";
 
 export default function EditGalleryPhotoPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [car, setCar] = useState<RentCar | null>(null);
+  const [car, setCar] = useState<Testimonials | null>(null);
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {
   if (id) {
-    getCarById(id as string).then((car) => {
-      setCar(car || null);
+    getTestimonialsById(id as string).then((testimonial) => {
+      setCar(testimonial || null);
       setLoading(false);
     });
   }
@@ -33,7 +33,7 @@ useEffect(() => {
         <ChevronLeft className="mr-2 h-4 w-4" /> Back
       </Button>
       <h1 className="text-3xl font-bold mb-6">Edit Car Details</h1>
-      <RentForm initialData={car} onSuccess={() => router.push("/admin/rent")} />
+      <TestimonialsForm initialData={car} testimonialId={id as string} />
     </div>
   );
 } 

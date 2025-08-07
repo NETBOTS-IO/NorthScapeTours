@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import RentForm from "@/components/RentForm";
+import TestimonialsForm from "@/components/TestimonialsForm";
+import { Metadata } from "next";
 
 
-
-export default function AddGalleryPhotoPage() {
+export default function AddTestimonials() {
   const router = useRouter();
 
   return (
@@ -15,8 +15,8 @@ export default function AddGalleryPhotoPage() {
       <Button variant="outline" onClick={() => router.back()} className="mb-4">
         <ChevronLeft className="mr-2 h-4 w-4" /> Back
       </Button>
-      <h1 className="text-3xl font-bold mb-6">Add New Car Details</h1>
-      <RentForm onSuccess={() => router.push("/admin/rent")} />
+      <h1 className="text-3xl font-bold mb-6">Add Testimonials</h1>
+      <TestimonialsForm />
     </div>
   );
 } 
