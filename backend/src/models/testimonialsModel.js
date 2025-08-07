@@ -15,4 +15,4 @@ const testimonialsSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.Model("Testimonials", testimonialsSchema);
+export default mongoose.model("Testimonials", testimonialsSchema);

@@ -26,6 +26,8 @@ const storage = multer.diskStorage({
       uploadPath = path.join(__dirname, '../uploads/gallery');
     } else if (req.originalUrl.includes('/rent')) {
       uploadPath = path.join(__dirname, '../uploads/rent');
+    } else if (req.originalUrl.includes('/testimonials')) {
+      uploadPath = path.join(__dirname, '../uploads/testimonials');
     }
 
     ensureDirectoryExists(uploadPath);
