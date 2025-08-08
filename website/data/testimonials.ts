@@ -16,6 +16,7 @@ export interface Testimonial {
   verified: boolean
   featured: boolean
   highlights?: string[]
+  data?:[]
 }
 
 export const testimonialsData: Testimonial[] = [

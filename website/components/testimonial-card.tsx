@@ -9,7 +9,7 @@ interface TestimonialCardProps {
   index: number
   isHovered?: boolean
   onHover?: (id: number | null) => void
-}
+} 
 
 const TestimonialCard = ({ testimonial, index, isHovered, onHover }: TestimonialCardProps) => {
   const renderStars = (rating: number) => {

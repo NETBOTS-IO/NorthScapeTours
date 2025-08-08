@@ -13,7 +13,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { testimonialsData } from "@/data/testimonials";
+import { getTestimonials } from "@/lib/api";
+import page from "@/app/rent/page";
+
+ interface Testimonials {
+  _id?: string,
+  name: string,
+  location: string,
+  description: string,
+  image: string,
+  rating: number,
+  occupation: string,
+  createdAt:string,
+  tags: string[];
+}
 
 export default function EnhancedTestimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,6 +35,8 @@ export default function EnhancedTestimonials() {
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [testimonialsData, setTestimonialsData] = useState<Testimonials[]>([]);
+
 
   // Check for mobile view
   useEffect(() => {
@@ -30,7 +45,7 @@ export default function EnhancedTestimonials() {
       setIsMobile(isMobileView);
       // Auto-expand all cards on mobile
       if (isMobileView) {
-        const allIds = testimonialsData.map((t) => t.id);
+        const allIds = testimonialsData.map((t) => t._id);
         setExpandedCards(new Set(allIds));
       }
     };
@@ -41,7 +56,7 @@ export default function EnhancedTestimonials() {
   }, [testimonialsData]);
 
   useEffect(() => {
-    if (expandedCards.has(currentTestimonial?.id || 0) && cardRef.current) {
+    if (expandedCards.has(currentTestimonial?._id || 0) && cardRef.current) {
       cardRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [expandedCards, currentIndex]);
@@ -327,26 +342,26 @@ export default function EnhancedTestimonials() {
                         isMobile ? "" : "md:col-span-2"
                       } pr-2 cursor-pointer flex flex-col justify-center min-h-[180px]`}
                       onClick={() =>
-                        toggleExpanded(currentTestimonial?.id || 0)
+                        toggleExpanded(currentTestimonial?._id || 0)
                       }
                     >
                       <motion.div
                         className={`${
                           isMobile ? "text-base" : "text-lg md:text-xl"
                         } text-gray-700 leading-relaxed ${
-                          expandedCards.has(currentTestimonial?.id || 0)
+                          expandedCards.has(currentTestimonial?._id || 0)
                             ? ""
                             : "line-clamp-3"
                         }`}
                         initial={false}
                         animate={{
-                          height: expandedCards.has(currentTestimonial?.id || 0)
+                          height: expandedCards.has(currentTestimonial?._id || 0)
                             ? "auto"
                             : "4.5em",
                         }}
                         transition={{ duration: 0.3 }}
                       >
-                        {currentTestimonial?.content}
+                        {currentTestimonial?.description}
                       </motion.div>
 
                       {/* Highlights section remains the same */}

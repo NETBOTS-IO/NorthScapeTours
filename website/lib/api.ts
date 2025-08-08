@@ -1,6 +1,7 @@
 import { Blog, BlogAPIResponse, SearchBlogsResponse } from "@/data/blogs-types";
 import { GalleryPhoto } from "@/data/gallery-data";
 import { RentCar } from "@/data/rent-data";
+import { Testimonial } from "@/data/testimonials";
 import axios from "axios";
 
 const BASE_URL =
@@ -315,3 +316,20 @@ export const getRelatedBlogs = async (blogId: string): Promise<Blog[]> => {
     );
   }
 };
+
+//TESTIMONIALS APIS
+export async function getTestimonials(query: {
+  page?: number;
+  limit?: number;
+  search?: string;
+}) {
+  const params = new URLSearchParams();
+
+  if (query.page) params.append("page", query.page.toString());
+  if (query.limit) params.append("limit", query.limit.toString());
+  if (query.search) params.append("search", query.search);
+
+  const res = await axios.get<Testimonial>(`${BASE_URL}/testimonials/?${params.toString()}`);
+  console.log('res', res)
+  return res.data.data; // Return the data bookings from the response
+}
