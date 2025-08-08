@@ -5,14 +5,16 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import {  getTestimonialsById } from "@/lib/data-utils";
-import { Testimonials } from "@/lib/types";
+import { Testimonials, TestimonialsFormState } from "@/lib/types";
 import TestimonialsForm
  from "@/components/TestimonialsForm";
+
+
 
 export default function EditGalleryPhotoPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [car, setCar] = useState<Testimonials | null>(null);
+  const [car, setCar] = useState<TestimonialsFormState | null>(null);
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {

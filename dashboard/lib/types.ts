@@ -196,3 +196,18 @@ export interface Testimonials {
   createdAt:string,
   tags: string[];
 }
+
+ export interface TestimonialsFormState {
+  name: string;
+  location: string;
+  description: string;
+  image: File | string;
+  tags: string[];
+  rating: number;
+  occupation: string;
+  tripName: string;
+  tripDate: string;
+  verified: boolean;
+  featured: boolean;
+  createdAt?: string
+}

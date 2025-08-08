@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { BASE_URL } from "@/Var";
-import { Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials } from "./types";
+import { Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials, TestimonialsFormState } from "./types";
 
 const inquiriesData: Inquiry[] = [
   {
@@ -491,7 +491,7 @@ export async function deleteTestimonialsById(id: string) {
     return null;
   }
 }
-export async function getTestimonialsById(id: string): Promise<Testimonials | null> {
+export async function getTestimonialsById(id: string): Promise<TestimonialsFormState | null> {
   try {
     const res = await axios.get(`${BASE_URL}/api/testimonials/${id}`);
     return res.data.data || null;
