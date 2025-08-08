@@ -6,10 +6,20 @@ const getImageUrls = (files) => {
   return files.image.map((file) => `/uploads/testimonials/${file.filename}`);
 };
 
+const getImageUrl = (fileOrFiles) => {
+  if (!fileOrFiles) return [];
+
+  // If it's a single file (req.file)
+  if (fileOrFiles.filename) {
+    return [`/uploads/testimonials/${fileOrFiles.filename}`];
+  }
+
+  // If it's an array of files (req.files)
+  return fileOrFiles.map((file) => `/uploads/testimonials/${file.filename}`);
+};
+
 export const createTestimonials = async (req, res) => {
   try {
-    // Parse the JSON string sent under "data"
-    const data = JSON.parse(req.body.data);
 
     if (req.files && req.files.image) {
       req.body.image = getImageUrls(req.files);
@@ -20,9 +30,9 @@ export const createTestimonials = async (req, res) => {
     }
 
     const newTestimonials = new Testimonials({
-      ...data,
-      rating: data.rating ? Number(data.rating) : undefined,
-      tags: Array.isArray(data.tags) ? data.tags : [data.tags],
+      ...req.body,
+      rating: req.body.rating ? Number(req.body.rating) : undefined,
+      tags: Array.isArray(req.body.tags) ? req.body.tags : [req.body.tags],
       image: req.body.image,
     });
 
@@ -62,23 +72,20 @@ export const getTestimonials = async (req, res) => {
 // Assuming you're using Multer for handling file uploads
 export const updateTestimonial = async (req, res) => {
   try {
-    const data = JSON.parse(req.body.data);
-
     const testimonial = await Testimonials.findById(req.params.id);
     if (!testimonial) {
       return res.status(404).json({ message: "Testimonial not found" });
     }
 
     // Handle new uploaded image (if exists), otherwise keep old one
-    const imageUrl = req.file ? getImageUrls(req.file) : testimonial.image;
-
+    const imageUrl = req.file ? getImageUrl(req.file) : testimonial.image;
     // Now update the record
-    testimonial.name = data.name || testimonial.name;
-    testimonial.description = data.description || testimonial.description;
-    testimonial.location = data.location || testimonial.location;
-    testimonial.occupation = data.occupation || testimonial.occupation;
-    testimonial.rating = data.rating || testimonial.rating;
-    testimonial.tags = data.tags || testimonial.tags;
+    testimonial.name = req.body.name || testimonial.name;
+    testimonial.description = req.body.description || testimonial.description;
+    testimonial.location = req.body.location || testimonial.location;
+    testimonial.occupation = req.body.occupation || testimonial.occupation;
+    testimonial.rating = req.body.rating || testimonial.rating;
+    testimonial.tags = req.body.tags || testimonial.tags;
     testimonial.image = imageUrl;
 
     await testimonial.save();
