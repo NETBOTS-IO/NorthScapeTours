@@ -209,5 +209,6 @@ export interface Testimonials {
   tripDate: string;
   verified: boolean;
   featured: boolean;
-  createdAt?: string
+  createdAt?: string;
+  updatedAt?: string;
 }
