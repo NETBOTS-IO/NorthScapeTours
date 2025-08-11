@@ -13,31 +13,33 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { getTestimonials } from "@/lib/api";
-import page from "@/app/rent/page";
+import { getTestimonials, TestimonialsFormState } from "@/lib/api";
 
- interface Testimonials {
-  _id?: string,
-  name: string,
-  location: string,
-  description: string,
-  image: string,
-  rating: number,
-  occupation: string,
-  createdAt:string,
-  tags: string[];
-}
 
 export default function EnhancedTestimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const [testimonialsData, setTestimonialsData] = useState<Testimonials[]>([]);
+  const [testimonialsData, setTestimonialsData] = useState<TestimonialsFormState[]>([]);
 
 
+  useEffect(() => {
+  (async () => {
+    try {
+      const response = await getTestimonials({});
+      setTestimonialsData(response.testimonials || []);
+    } catch (error) {
+      console.error("Error fetching testimonials", error);
+    }
+  })();
+}, []);
+
+
+
+  const currentTestimonial = testimonialsData[currentIndex];
   // Check for mobile view
   useEffect(() => {
     const checkMobile = () => {
@@ -45,7 +47,9 @@ export default function EnhancedTestimonials() {
       setIsMobile(isMobileView);
       // Auto-expand all cards on mobile
       if (isMobileView) {
-        const allIds = testimonialsData.map((t) => t._id);
+       const allIds = testimonialsData
+        .map((t) => t._id)
+        .filter((id): id is string => typeof id === "string");
         setExpandedCards(new Set(allIds));
       }
     };
@@ -53,10 +57,10 @@ export default function EnhancedTestimonials() {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, [testimonialsData]);
+  }, []);
 
   useEffect(() => {
-    if (expandedCards.has(currentTestimonial?._id || 0) && cardRef.current) {
+    if (expandedCards.has(currentTestimonial?._id || "") && cardRef.current) {
       cardRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [expandedCards, currentIndex]);
@@ -111,7 +115,7 @@ export default function EnhancedTestimonials() {
     );
   };
 
-  const toggleExpanded = (id: number) => {
+  const toggleExpanded = (id: string) => {
     const newExpanded = new Set(expandedCards);
     if (newExpanded.has(id)) {
       newExpanded.delete(id);
@@ -138,7 +142,7 @@ export default function EnhancedTestimonials() {
     ));
   };
 
-  const currentTestimonial = testimonialsData[currentIndex];
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -293,7 +297,7 @@ export default function EnhancedTestimonials() {
                         transition={{ duration: 0.3 }}
                       >
                         <Image
-                          src={currentTestimonial?.image || "/placeholder.svg"}
+                          src={`${BASE_URL}${currentTestimonial?.image}` || "/placeholder.svg"}
                           alt={currentTestimonial?.name || "Testimonial"}
                           fill
                           className="rounded-full object-cover border-4 border-orange-100"
@@ -315,7 +319,7 @@ export default function EnhancedTestimonials() {
                       </motion.h4>
 
                       <motion.p className="text-sm md:text-base text-gray-700 mb-2">
-                        {currentTestimonial?.title}
+                        {currentTestimonial?.description}
                       </motion.p>
 
                       <motion.p className="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">
@@ -342,20 +346,20 @@ export default function EnhancedTestimonials() {
                         isMobile ? "" : "md:col-span-2"
                       } pr-2 cursor-pointer flex flex-col justify-center min-h-[180px]`}
                       onClick={() =>
-                        toggleExpanded(currentTestimonial?._id || 0)
+                        toggleExpanded(currentTestimonial?._id || "")
                       }
                     >
                       <motion.div
                         className={`${
                           isMobile ? "text-base" : "text-lg md:text-xl"
                         } text-gray-700 leading-relaxed ${
-                          expandedCards.has(currentTestimonial?._id || 0)
+                          expandedCards.has(currentTestimonial?._id || "")
                             ? ""
                             : "line-clamp-3"
                         }`}
                         initial={false}
                         animate={{
-                          height: expandedCards.has(currentTestimonial?._id || 0)
+                          height: expandedCards.has(currentTestimonial?._id || "")
                             ? "auto"
                             : "4.5em",
                         }}
@@ -365,14 +369,14 @@ export default function EnhancedTestimonials() {
                       </motion.div>
 
                       {/* Highlights section remains the same */}
-                      {currentTestimonial?.highlights && (
+                      {currentTestimonial?.tags && (
                         <motion.div
                           className="bg-white flex flex-wrap gap-2 justify-center md:justify-start mt-4"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.2 }}
                         >
-                          {currentTestimonial.highlights.map(
+                          {currentTestimonial.tags.map(
                             (highlight, index) => (
                               <motion.span
                                 key={index}

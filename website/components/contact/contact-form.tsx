@@ -52,7 +52,7 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="bg-gray-900 rounded-2xl p-8 border border-gray-800 animate-fade-in">
+    <div className="bg-green-900 rounded-2xl p-8 border border-green-800 animate-fade-in">
       <h3 className="text-2xl font-bold text-white mb-6">Send us a Message</h3>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -68,7 +68,7 @@ const ContactForm = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors"
+            className="w-full p-3 bg-green-800 border border-green-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors"
             placeholder="Enter your full name"
           />
         </div>
@@ -85,7 +85,7 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors"
+            className="w-full p-3 bg-green-800 border border-green-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors"
             placeholder="Enter your email address"
           />
         </div>
@@ -100,7 +100,7 @@ const ContactForm = () => {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-[#f5530c] transition-colors"
+            className="w-full p-3 bg-green-800 border border-green-700 rounded-lg text-white focus:outline-none focus:border-[#f5530c] transition-colors"
           >
             <option value="">Select a subject</option>
             <option value="general">General Inquiry</option>
@@ -123,7 +123,7 @@ const ContactForm = () => {
             onChange={handleChange}
             required
             rows={6}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors resize-none"
+            className="w-full p-3 bg-green-800 border border-green-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#f5530c] transition-colors resize-none"
             placeholder="Tell us about your travel plans or ask any questions..."
           />
         </div>

@@ -72,7 +72,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
             <motion.div
               key={post._id}
               variants={itemVariants}
-              className="group bg-white shadow-md overflow-hidden border border-green-600 hover:shadow-xl transition-all duration-500"
+              className="group bg-white shadow-md overflow-hidden border border-orange-600 hover:shadow-xl transition-all duration-500"
               whileHover="hover"
             >
               <div className="relative h-56 overflow-hidden">

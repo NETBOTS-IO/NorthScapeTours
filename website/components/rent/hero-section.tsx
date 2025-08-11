@@ -43,13 +43,13 @@ const HeroSection = () => {
                 Book Now
               </button>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <button
                 className="border-2 border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300"
               >
                 View Fleet
               </button>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </section>

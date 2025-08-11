@@ -318,18 +318,40 @@ export const getRelatedBlogs = async (blogId: string): Promise<Blog[]> => {
 };
 
 //TESTIMONIALS APIS
+export interface TestimonialsFormState {
+  _id?:string;
+  name: string;
+  location: string;
+  description: string;
+  image: File | string;
+  tags: string[];
+  rating: number;
+  occupation: string;
+  tripName: string;
+  tripDate: string;
+  verified: boolean;
+  featured: boolean;
+  createdAt?: string
+}
+interface GetTestimonialsResponse {
+  data: {
+    testimonials: TestimonialsFormState[];
+    total: number;
+  };
+}
+
 export async function getTestimonials(query: {
   page?: number;
   limit?: number;
   search?: string;
-}) {
+}): Promise<GetTestimonialsResponse["data"]> {
   const params = new URLSearchParams();
 
   if (query.page) params.append("page", query.page.toString());
   if (query.limit) params.append("limit", query.limit.toString());
   if (query.search) params.append("search", query.search);
 
-  const res = await axios.get<Testimonial>(`${BASE_URL}/testimonials/?${params.toString()}`);
-  console.log('res', res)
+  const res = await axios.get<GetTestimonialsResponse>(`${BASE_URL}/testimonials/?${params.toString()}`);
   return res.data.data; // Return the data bookings from the response
 }
+ 
