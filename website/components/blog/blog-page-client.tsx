@@ -19,7 +19,7 @@ useEffect(() => {
   async function fetchBlogs() {
     try {
       const data = await getBlogs({});
-      setBlogsData(data); // ✅ whole object now
+      setBlogsData(data); 
       setIsLoading(false)
     } catch (error) {
       console.log("Error fetching blogs", error);

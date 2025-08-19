@@ -105,7 +105,7 @@ const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
                       What's Included
                     </h4>
                     <ul className="space-y-2">
-                      {destination.included.map((item, index) => (
+                      {destination.inclusions.map((item, index) => (
                         <motion.li
                           key={index}
                           initial={{ x: -20, opacity: 0 }}
@@ -128,7 +128,7 @@ const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
                       Not Included
                     </h4>
                     <ul className="space-y-2">
-                      {destination.notIncluded.map((item, index) => (
+                      {destination.exclusions.map((item, index) => (
                         <motion.li
                           key={index}
                           initial={{ x: -20, opacity: 0 }}
@@ -158,21 +158,21 @@ const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
                         <Calendar className="w-5 h-5 text-orange-600" />
                         <div>
                           <div className="font-semibold text-gray-900">Best Time</div>
-                          <div className="text-gray-600">{destination.bestTimeToVisit}</div>
+                          <div className="text-gray-600">{destination.bestTime}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <Clock className="w-5 h-5 text-green-600" />
                         <div>
                           <div className="font-semibold text-gray-900">Duration</div>
-                          <div className="text-gray-600">{destination.duration}</div>
+                          <div className="text-gray-600">{destination.days}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <MapPin className="w-5 h-5 text-blue-600" />
                         <div>
                           <div className="font-semibold text-gray-900">Location</div>
-                          <div className="text-gray-600">{destination.location.nearestAirport}</div>
+                          <div className="text-gray-600">{destination.location}</div>
                         </div>
                       </div>
                     </div>
@@ -181,7 +181,7 @@ const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
               </motion.div>
 
               {/* Weather Info */}
-              <motion.div variants={cardVariants}>
+              {/* <motion.div variants={cardVariants}>
                 <Card className="p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <CardContent className="p-0">
                     <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -205,7 +205,7 @@ const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </motion.div> */}
 
               {/* Tags */}
               <motion.div variants={cardVariants}>

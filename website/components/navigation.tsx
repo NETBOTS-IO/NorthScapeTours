@@ -22,10 +22,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", href: "/" },
-    // { name: "Destinations", href: "/destinations" },
-    { name: "Trips", href: "/trips" },
-    { name: "Car Rent", href: "/rent" },
+    { name: "Tours", href: "/trips" },
+    { name: "Car Rental", href: "/rent" },
+    { name: "Destinations", href: "/destinations" },
     { name: "Gallery", href: "/gallery" },
+    { name: "International Travelers", href: "/international-travelers" },
     { name: "Blogs", href: "/blog" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
@@ -55,7 +56,7 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed  top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-lg"
           : "bg-white/80 backdrop-blur-sm"
@@ -80,7 +81,7 @@ const Navigation = () => {
               >
                 <Link
                   href={item.href}
-                  className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`flex items-center space-x-1 px-1 py-2 text-sm font-medium transition-colors duration-200  ${
                     pathname === item.href
                       ? "text-orange-600 border-b-2 border-orange-600"
                       : "text-slate-700 hover:text-orange-600"

@@ -11,7 +11,7 @@ import Link from "next/link"
 import { getRelatedDestinations } from "@/data/destinations-data"
 
 interface RelatedDestinationsProps {
-  destinationId: number
+  destinationId: string
 }
 
 const RelatedDestinations = ({ destinationId }: RelatedDestinationsProps) => {

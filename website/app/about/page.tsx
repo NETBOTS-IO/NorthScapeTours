@@ -21,7 +21,7 @@ export default function AboutPage() {
       <ValuesSection />
       <TeamSection />
       <AwardsSection />
-      <CertificationsSection />
+      {/* <CertificationsSection /> */}
     </div>
   )
 }

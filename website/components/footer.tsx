@@ -10,8 +10,32 @@ import {
   MapPin,
 } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { fetchTourCategories } from "@/lib/api";
+
+interface TripCategory {
+  _id: string; // category name
+  count: number;
+  categoryId: string;
+}
 
 const Footer = () => {
+  const [categories, setCategories] = useState<TripCategory[]>([])
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    const fetchCategories = async()=>{
+      try {
+        const response = await fetchTourCategories()
+        setCategories(response);
+      } catch (error) {
+        console.log('error', error)
+      }finally{
+        setLoading(false);
+      }
+    }
+    fetchCategories();
+  },[]);
   return (
     <footer className="bg-green-800 border-t border-slate-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -69,19 +93,19 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                "About Us",
-                "Destinations",
-                "Tours & Packages",
-                "Blog",
-                "Gallery",
-                "Contact",
+               {title: "About Us", href:'/about'},
+                {title:"Destinations", href: "/destinations"},
+                {title:"Tours & Packages", href:"/trip"},
+                {title: "Blog", href:"/blog"},
+                {title:"Gallery", href:"/gallery"},
+                {title:"Contact", href:'/contact'},
               ].map((item) => (
-                <li key={item}>
+                <li key={item.title}>
                   <Link
-                    href="#"
+                    href={item.href}
                     className="text-slate-300 hover:text-[#f5530c] transition-colors duration-200 text-sm"
                   >
-                    {item}
+                    {item.title}
                   </Link>
                 </li>
               ))}
@@ -94,24 +118,27 @@ const Footer = () => {
               Travel Categories
             </h3>
             <ul className="space-y-2">
-              {[
-                "Adventure Tours",
-                "Luxury Travel",
-                "Cultural Experiences",
-                "Family Vacations",
-                "Trekking & Hiking",
-                "Expeditions",
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="text-slate-300 hover:text-[#f5530c] transition-colors duration-200 text-sm"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+  {loading ? (
+    // Show 6 loading placeholders
+    Array.from({ length: 3 }).map((_, index) => (
+      <li key={index} className="text-slate-400 text-sm">
+        Loading...
+      </li>
+    ))
+  ) : (
+    categories.slice(0, 6).map((item) => (
+      <li key={item.categoryId}>
+        <Link
+          href={`/trips/category?category=${encodeURIComponent(item.categoryId)}&tripType=${item._id}`}
+          className="text-slate-300 hover:text-[#f5530c] transition-colors duration-200 text-sm"
+        >
+          {item._id}
+        </Link>
+      </li>
+    ))
+  )}
+</ul>
+
           </div>
 
           {/* Contact Info */}

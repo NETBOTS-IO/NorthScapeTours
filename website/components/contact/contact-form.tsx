@@ -4,8 +4,13 @@ import type React from "react"
 
 import { useState } from "react"
 import { Send, User, Mail, MessageSquare } from "lucide-react"
+import { useRouter } from "next/navigation";
+import { createContact } from "@/lib/api";
+import { ContactDataTypes } from "@/data/contact-data";
 
 const ContactForm = () => {
+
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,16 +20,51 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    const contactData: ContactDataTypes = {
+    name: formData?.name || "",
+    email: formData?.email || "",
+    subject: formData?.subject || "",
+    message: formData?.message || "",
+  };
 
-    setIsSubmitted(true)
-    setIsSubmitting(false)
-    setFormData({ name: "", email: "", subject: "", message: "" })
+//  through whatsapp contact details send
+  const message = `*Contact Us Details*
+  Name: ${contactData.name}
+  Email: ${contactData.email}
+  Subject: ${contactData.subject}
+  Message: ${contactData.message}
+
+  `
+
+  const phoneNumber = 923480578106
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+  window.open(whatsappUrl, "_blank")
+
+  //through api nodemailer email send 
+  try {
+    const result =( await createContact(contactData)) as {success: boolean, message: string};
+    if (result.success) {
+      alert("Booking request sent! The owner has been notified.");
+      setFormData({
+        name: "",
+        email:"",
+        subject: "",
+        message: "",
+      });
+      router.push('/contact')
+    } else {
+      alert(`${result.message}`);
+    }
+  } catch (error) {
+    alert(`Error sending contact request.`);
+  } finally {
+     setIsSubmitting(false)
+  }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

@@ -18,7 +18,7 @@ const CarDetails = () => {
   const [car, setCar] = useState<RentCar | null>(null); 
   const [isSending, setIsSending] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-const router = useRouter();
+
   const params = useParams();
   const id = params?.id as string | undefined; 
 
@@ -63,6 +63,8 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
     }))
   }
 
+console.log('car', car)
+
   const handleBookNow = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -72,47 +74,78 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
     return;
   }
 
-  setIsLoading(true);
 
-  const bookingData = {
-    carId: car?._id,
-    carName: car?.carName,
-    carModel: car?.carModel,
-    pricePerDay: car?.pricePerDay,
-    ...formData
-  };
-  try {
-    const res = await fetch(`${BASE_API_URL}/bookings/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(bookingData)
-    });
+  const message = `*Car Details*
+Car Name: ${car?.carName}
+Car Model: ${car?.carModel}
+Price: ${car?.pricePerDay}
+Seater: ${car?.seats}
+Driver Name: ${car?.driverName}
+Transmission(auto/petrol): ${car?.transmission}
+Fuel Tyoe: ${car?.fuelType}
+Phone: ${car?.transmission}
 
-    const result = await res.json();
-    console.log('result', result)
-    if (result.success) {
-      alert("Booking request sent! The owner has been notified.");
-      setFormData({
-        customerName: "",
-        customerEmail:"",
-        phoneNumber: "",
-        pickupLocation: "",
-        dropoffLocation: "",
-        pickupDate: "",
-        dropoffDate: "",
-        pickupTime: "",
-        dropoffTime: "",
-        specialRequirements: "",
-      });
-      router.push('/rent')
-    } else {
-      alert(`${result.message}`);
-    }
-  } catch (error) {
-    alert(`Error sending booking request.`);
-  } finally {
-    setIsLoading(false);
-  }
+
+*Customer Details*
+Customer Name: ${formData.customerName},
+Customer Email:${formData.customerEmail},
+Phone Number: ${formData.phoneNumber},
+Pickup Location: ${formData.pickupLocation},
+Dropoff Location: ${formData.dropoffLocation},
+pickup Date: ${formData.pickupDate},
+dropoff Date: ${formData.dropoffDate},
+pickup Time: ${formData.pickupTime},
+dropoff Time: ${formData.dropoffTime},
+special Requirements: ${formData.specialRequirements},`
+
+  // WhatsApp API link (replace with your number)
+  const phoneNumber = "923480578106"; // in international format
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(whatsappUrl, "_blank");
+
+
+  // setIsLoading(true);
+
+  // const bookingData = {
+  //   carId: car?._id,
+  //   carName: car?.carName,
+  //   carModel: car?.carModel,
+  //   pricePerDay: car?.pricePerDay,
+  //   ...formData
+  // };
+  // try {
+  //   const res = await fetch(`${BASE_API_URL}/bookings/`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(bookingData)
+  //   });
+
+  //   const result = await res.json();
+  //   console.log('result', result)
+  //   if (result.success) {
+  //     alert("Booking request sent! The owner has been notified.");
+  //     setFormData({
+  //       customerName: "",
+  //       customerEmail:"",
+  //       phoneNumber: "",
+  //       pickupLocation: "",
+  //       dropoffLocation: "",
+  //       pickupDate: "",
+  //       dropoffDate: "",
+  //       pickupTime: "",
+  //       dropoffTime: "",
+  //       specialRequirements: "",
+  //     });
+  //     router.push('/rent')
+  //   } else {
+  //     alert(`${result.message}`);
+  //   }
+  // } catch (error) {
+  //   alert(`Error sending booking request.`);
+  // } finally {
+  //   setIsLoading(false);
+  // }
 };
 
 

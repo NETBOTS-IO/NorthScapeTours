@@ -2,7 +2,10 @@ import { Blog, BlogAPIResponse, SearchBlogsResponse } from "@/data/blogs-types";
 import { GalleryPhoto } from "@/data/gallery-data";
 import { RentCar } from "@/data/rent-data";
 import { Testimonial } from "@/data/testimonials";
+import { Tour } from "@/data/trips-data";
+import { ContactDataTypes } from "@/data/contact-data";
 import axios from "axios";
+import { Destination } from "@/data/destinations-data";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
@@ -355,3 +358,50 @@ export async function getTestimonials(query: {
   return res.data.data; // Return the data bookings from the response
 }
  
+export async function updateTourBookingById(
+  id: string,
+  tourData: Partial<Tour>
+): Promise<Tour | undefined> {
+  try {
+    const response = await axios.put(`${BASE_URL}/tours/update-tour/${id}`, tourData);
+    console.log("Updated tour:", response.data.data);
+    return response.data.data; // Adjust based on actual API response structure
+  } catch (error) {
+    console.error(`Failed to fetch tour with ID ${id}:`, error);
+    return undefined;
+  }
+}
+
+export async function createContact(contactData: ContactDataTypes) {
+  try {
+    const res = await axios.post(`${BASE_URL}/contact/`, contactData);
+    console.log('res', res)
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    return null;
+  }
+}
+
+// ---------- Destinations ----------
+export async function getDestinations(): Promise<Destination[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/destinations/`);
+    // console.log('response', response)
+    return response.data.data
+  } catch (error) {
+    console.error("Failed to fetch Destinations:", error);
+    return [];
+  }
+}
+
+export async function getDestinationById(id: string): Promise<Destination | null> {
+  try {
+    const res = await axios.get<{ data: Destination }>(`${BASE_URL}/destinations/${id}`)
+    console.log('res', res)
+    return res.data.data 
+  } catch (error) {
+    console.error(`Failed to fetch destination with ID ${id}:`, error)
+    return null
+  }
+}

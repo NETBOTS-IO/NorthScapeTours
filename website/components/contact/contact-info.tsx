@@ -12,7 +12,7 @@ const ContactInfo = () => {
     {
       icon: Phone,
       title: "Call Us",
-      details: ["(0320) 507-7123", "(0355) 575-8727"],
+      details: ["(0320) 507-7123"],
       description: "Speak directly with our travel experts",
       color: "text-green-600",
       bgColor: "bg-green-50",
@@ -20,7 +20,7 @@ const ContactInfo = () => {
     {
       icon: Mail,
       title: "Email Us",
-      details: ["Info@northscapetours.com", "bookings@travelmaker.com"],
+      details: ["Info@northscapetours.com"],
       description: "Get detailed responses to your inquiries",
       color: "text-blue-600",
       bgColor: "bg-blue-50",

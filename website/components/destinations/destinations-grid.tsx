@@ -1,22 +1,66 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 // import { generateSlug } from "@/lib/slug"
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { MapPin, Clock, Users, Star, Heart, Share2 } from "lucide-react"
-import { destinationsData } from "@/data/destinations-data"
+import { Destination, destinationsData } from "@/data/destinations-data"
+import { getDestinations } from "@/lib/api"
 
 const DestinationsGrid = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [favorites, setFavorites] = useState<number[]>([])
+  const [favorites, setFavorites] = useState<string[]>([])
+  const [destinations, setDestinations] = useState<Destination[]>([])
+  const [loading, setLoading]= useState(true)
+  const [visibleCount, setVisibleCount] = useState(6) // show 6 destinations initially
 
-  const toggleFavorite = (id: number) => {
+const visibleDestinations = destinations.slice(0, visibleCount)
+
+
+useEffect(()=>{
+  const fetchDestinations = async()=>{
+    try{
+      const response = await getDestinations()
+      setDestinations(response)
+      setLoading(false)
+    }catch(error){
+      console.log('error', error)
+    }
+  }
+  fetchDestinations();
+},[])
+
+  const toggleFavorite = (id?: string) => {
+      if (!id) return; // prevent crash
     setFavorites((prev) => (prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]))
+    // Find the destination by id
+ 
   }
 
+  const handleBooking = (id?: string)=>{
+if (!id) return;
+    const destination = destinations.find((d) => d._id === id);
+    if (!destination) return;
+  
+      // const phoneNumber = "923480578106"
+      const phoneNumber = "923555758727"
+  
+      const message = `*Destination Booking Details*
+     "Destinaton Name:" ${destination?.name}
+     "Price:" ${destination?.price}
+     "Destinaton Duration:" ${destination.days}
+     "Description:" ${destination.shortDescription}
+     "Country:" ${destination.country}
+     "Location:" ${destination.location}
+     "Destinaton Days:" ${destination.days}
+      `
+       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  
+    window.open(whatsappUrl, "_blank");
+  } 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -85,6 +129,12 @@ const DestinationsGrid = () => {
         return "bg-slate-600"
     }
   }
+  
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+
+const handleMore = () => {
+  setVisibleCount((prev) => prev + 6) // load 6 more each time
+}
 
   return (
     <section ref={ref} className="section-padding bg-slate-50">
@@ -97,10 +147,10 @@ const DestinationsGrid = () => {
           className="flex justify-between items-center mb-8"
         >
           <div>
-            <h2 className="text-2xl font-bold text-slate-800">{destinationsData.length} Destinations Found</h2>
+            <h2 className="text-2xl font-bold text-slate-800">{destinations.length} Destinations Found</h2>
             <p className="text-slate-600">Discover your next adventure</p>
           </div>
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             <select className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:border-orange-600">
               <option>Sort by Popularity</option>
               <option>Price: Low to High</option>
@@ -108,7 +158,7 @@ const DestinationsGrid = () => {
               <option>Duration: Short to Long</option>
               <option>Rating: High to Low</option>
             </select>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* Destinations Grid */}
@@ -118,9 +168,15 @@ const DestinationsGrid = () => {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {destinationsData.map((destination, index) => (
+          {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+         Loading...
+         </div>
+        ) : visibleDestinations.length === 0 ?
+       (<div>"No Destination Found"</div>) : 
+         (visibleDestinations.map((destination, index) => (
             <motion.div
-              key={destination.id}
+              key={destination._id}
               variants={itemVariants}
               whileHover="hover"
               className="bg-white overflow-hidden border border-orange-600 card-shadow"
@@ -129,7 +185,7 @@ const DestinationsGrid = () => {
                 <div className="relative overflow-hidden">
                   <motion.img
                     variants={imageHoverVariants}
-                    src={destination.heroImage || "/placeholder.svg"}
+                    src={`${BASE_URL}${destination.images[0]}` || "/placeholder.svg"}
                     alt={destination.name}
                     className="w-full h-64 object-cover"
                   />
@@ -172,8 +228,8 @@ const DestinationsGrid = () => {
 
                   {/* Price Badge */}
                   <div className="absolute top-4 right-4 bg-white/90 text-slate-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    <span className="line-through text-slate-500 mr-1">${destination.price.from}</span>
-                    ${destination.price.from}
+                    <span className="line-through text-slate-500 mr-1">${destination.price}</span>
+                    ${destination.price}
                   </div>
 
                   {/* Action Buttons */}
@@ -181,14 +237,14 @@ const DestinationsGrid = () => {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => toggleFavorite(destination.id)}
+                      onClick={() => toggleFavorite(destination?._id)}
                       className={`p-2 rounded-full backdrop-blur-sm transition-colors duration-300 ${
-                        favorites.includes(destination.id)
+                       destination?._id &&  favorites.includes(destination._id)
                           ? "bg-red-500 text-white"
                           : "bg-white/80 text-slate-700 hover:bg-white"
                       }`}
                     >
-                      <Heart className={`w-4 h-4 ${favorites.includes(destination.id) ? "fill-current" : ""}`} />
+                      <Heart className={`w-4 h-4 ${ destination?._id && favorites.includes(destination._id) ? "fill-current" : ""}`} />
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -206,13 +262,13 @@ const DestinationsGrid = () => {
                       <h3 className="text-xl font-bold text-slate-800 mb-1">{destination.name}</h3>
                       <div className="flex items-center text-slate-500 text-sm">
                         <MapPin className="w-4 h-4 mr-1" />
-                        <span>{destination.country}</span>
+                        <span>{`${destination.country}, ${destination.location}`}</span>
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
                       <span className="text-sm font-semibold text-slate-700">{destination.rating}</span>
-                      <span className="text-xs text-slate-500">({destination.reviewCount})</span>
+                      <span className="text-xs text-slate-500">({destination.reviews})</span>
                     </div>
                   </div>
 
@@ -222,18 +278,18 @@ const DestinationsGrid = () => {
                   <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
                     <div className="flex items-center text-slate-600">
                       <Clock className="w-4 h-4 mr-2 text-orange-600" />
-                      <span>{destination.duration}</span>
+                      <span>{destination.days}, Days</span>
                     </div>
                     <div className="flex items-center text-slate-600">
                       <Users className="w-4 h-4 mr-2 text-orange-600" />
-                      <span>{destination.groupSize}</span>
+                      <span>{destination.groupSize}, Person</span>
                     </div>
                   </div>
 
                   {/* Best Time */}
                   <div className="mb-4">
                     <p className="text-xs text-slate-500 mb-1">Best Time to Visit</p>
-                    <p className="text-sm text-slate-700 font-medium">{destination.bestTimeToVisit}</p>
+                    <p className="text-sm text-slate-700 font-medium">{destination.bestTime}</p>
                   </div>
 
                   {/* Highlights */}
@@ -256,7 +312,7 @@ const DestinationsGrid = () => {
                   <div className="flex space-x-3 items-center">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                       <Link
-                        href={`/destinations/${destination.slug}`}
+                        href={`/destinations/${destination._id}`}
                         className="block bg-orange-600 hover:bg-green-600 text-white text-center py-3 px-4 rounded-lg font-semibold transition-all duration-300"
                       >
                         View Details
@@ -264,7 +320,8 @@ const DestinationsGrid = () => {
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Link
-                        href="/booking"
+                      href="/destinations"
+                      onClick={()=>handleBooking(destination._id)}
                         className="bg-green-600 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap"
                       >
                         Book Now
@@ -274,20 +331,27 @@ const DestinationsGrid = () => {
                 </div>
               </motion.div>
             </motion.div>
-          ))}
+          )))}
         </motion.div>
 
         {/* Load More Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="text-center mt-12"
-        >
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-outline">
-            Load More Destinations
-          </motion.button>
-        </motion.div>
+        {visibleCount < destinations.length && (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+    transition={{ duration: 0.6, delay: 1.2 }}
+    className="text-center mt-12"
+  >
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="btn-outline"
+      onClick={handleMore}
+    >
+      Load More Destinations
+    </motion.button>
+  </motion.div>
+)}
       </div>
     </section>
   )

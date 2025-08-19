@@ -7,8 +7,60 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { Destination } from "@/data/destinations-data"
 
+// interface Destination {
+//   id: string;
+//   name: string;
+//   country: string;
+//   location: string;
+//   category: string;
+//   days: number;
+//   groupSize: string;
+//   difficulty: "Easy" | "Moderate" | "Challenging" | "Expert";
+//   rating: number;
+//   reviews: number;
+//   price: number;
+//   originalPrice: number;
+//   images: string[];
+//   availability: string;
+//   nextDeparture: string;
+//   features: string[];
+//   highlights: string[];
+//   included: string[];
+//   inclusions: string[];
+//   exclusions: string[];
+//   shortDescription: string;
+//   longDescription: string;
+//   overview: string;
+//   whyChoose: { title: string; description: string }[];
+//   physicalRequirements: string;
+//   bestTime: string;
+//   itineraries: {
+//     day: number;
+//     title: string;
+//     description: string;
+//     activities: string[];
+//     accommodation: string;
+//     meals: string[];
+//     location: string;
+//     duration: string;
+//     type: string;
+//     highlights: string[];
+//     images: string[];
+//   }[];
+//   featured: boolean;
+//   tags: string[];
+//   relatedTrips: string[];
+//   destination: string;
+//   faqs: { question: string; answer: string }[];
+//   termsAndConditions: string[];
+//   policies: string[];
+//   map: { latitude: number; longitude: number };
+//   createdAt?: string;
+//   updatedAt?: string;
+// }
+
 interface DestinationDetailHeroProps {
-  destination: Destination
+  destination: Destination 
 }
 
 const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
@@ -76,13 +128,15 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
     }
   }
 
+  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+
   return (
     <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Parallax Background */}
       <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${destination.heroImage})` }}
+          style={{ backgroundImage: `url(${BASE_URL}${destination.images[0]})` || "./placeholder.jpg"}}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -116,7 +170,7 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
 
         {/* Description */}
         <motion.p variants={itemVariants} className="text-xl text-gray-200 max-w-3xl mx-auto mb-8 leading-relaxed">
-          {destination.description}
+          {destination.shortDescription}
         </motion.p>
 
         {/* Stats Row */}
@@ -124,12 +178,12 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
             <span className="text-white font-semibold">{destination.rating}</span>
-            <span className="text-gray-300">({destination.reviewCount} reviews)</span>
+            <span className="text-gray-300">({destination.reviews} reviews)</span>
           </div>
 
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
             <Clock className="w-4 h-4 text-green-400" />
-            <span className="text-white">{destination.duration}</span>
+            <span className="text-white">{destination.days}</span>
           </div>
 
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
@@ -148,7 +202,7 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
         {/* Price and CTA */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-1">From ${destination.price.from.toLocaleString()}</div>
+            <div className="text-3xl font-bold text-white mb-1">From ${destination.price}</div>
             <div className="text-gray-300">per person</div>
           </div>
 

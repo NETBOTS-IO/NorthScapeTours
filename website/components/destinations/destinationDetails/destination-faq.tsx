@@ -113,7 +113,7 @@ const DestinationFAQ = ({ destination }: DestinationFAQProps) => {
           </div>
 
           {/* Contact CTA */}
-          <motion.div variants={itemVariants} className="text-center mt-12">
+          {/* <motion.div variants={itemVariants} className="text-center mt-12">
             <div className="bg-gradient-to-r from-orange-50 to-green-50 p-8 rounded-xl">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Still Have Questions?</h3>
               <p className="text-gray-600 mb-6">Our travel experts are here to help you plan the perfect adventure</p>
@@ -129,7 +129,7 @@ const DestinationFAQ = ({ destination }: DestinationFAQProps) => {
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </section>

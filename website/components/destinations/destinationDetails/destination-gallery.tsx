@@ -42,15 +42,17 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
 
   const nextImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % destination.gallery.length)
+      setSelectedImage((selectedImage + 1) % destination.images.length)
     }
   }
 
   const prevImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? destination.gallery.length - 1 : selectedImage - 1)
+      setSelectedImage(selectedImage === 0 ? destination.images.length - 1 : selectedImage - 1)
     }
   }
+
+const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
   return (
     <section ref={ref} className="py-20 bg-white">
@@ -68,7 +70,7 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {destination.gallery.map((image, index) => (
+            {destination?.images?.map((image, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
@@ -79,7 +81,7 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
               >
                 <div className="aspect-w-16 aspect-h-12 bg-gray-200">
                   <img
-                    src={image || "/placeholder.svg"}
+                    src={`${BASE_URL}${image}` || "/placeholder.svg"}
                     alt={`${destination.name} gallery image ${index + 1}`}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -98,7 +100,7 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
 
                 {/* Image Number */}
                 <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {index + 1} / {destination.gallery.length}
+                  {index + 1} / {destination.images.length}
                 </div>
               </motion.div>
             ))}
@@ -157,14 +159,14 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              src={destination.gallery[selectedImage]}
+              src={`${BASE_URL}${destination.images[selectedImage]}`}
               alt={`${destination.name} gallery image ${selectedImage + 1}`}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
             />
 
             {/* Image Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
-              {selectedImage + 1} / {destination.gallery.length}
+              {selectedImage + 1} / {destination.images.length}
             </div>
           </motion.div>
         </motion.div>

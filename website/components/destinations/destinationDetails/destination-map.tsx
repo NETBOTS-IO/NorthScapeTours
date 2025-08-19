@@ -42,7 +42,7 @@ const DestinationMap = ({ destination }: DestinationMapProps) => {
     },
   }
 
-  const mapUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4${destination.location.coordinates[0]}!2d${destination.location.coordinates[1]}!3d${destination.location.coordinates[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM0JzQ4LjAiTiA4NsKwNTUnMzAuMCJF!5e0!3m2!1sen!2sus!4v1635959823456!5m2!1sen!2sus`
+  const mapUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4${destination.location.coordinates[0]}!2d${destination.location?.coordinates[1]}!3d${destination.location?.coordinates[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM0JzQ4LjAiTiA4NsKwNTUnMzAuMCJF!5e0!3m2!1sen!2sus!4v1635959823456!5m2!1sen!2sus`
 
   return (
     <section ref={ref} className="py-20 bg-white">
@@ -110,7 +110,7 @@ const DestinationMap = ({ destination }: DestinationMapProps) => {
                             <div>
                               <div className="font-semibold text-gray-900">Coordinates</div>
                               <div className="text-gray-600">
-                                {destination.location.coordinates[0]}°N, {destination.location.coordinates[1]}°E
+                                {destination.location?.coordinates[0]}°N, {destination.location?.coordinates[1]}°E
                               </div>
                             </div>
                           </div>
@@ -118,7 +118,7 @@ const DestinationMap = ({ destination }: DestinationMapProps) => {
                             <Clock className="w-5 h-5 text-green-600" />
                             <div>
                               <div className="font-semibold text-gray-900">Timezone</div>
-                              <div className="text-gray-600">{destination.location.timezone}</div>
+                              <div className="text-gray-600">{destination.location?.timezone}</div>
                             </div>
                           </div>
                         </div>
@@ -208,15 +208,15 @@ const DestinationMap = ({ destination }: DestinationMapProps) => {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900 mb-1">Continent</div>
-                      <div className="text-gray-600">{destination.continent}</div>
+                      <div className="text-gray-600">{destination.location}</div>
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900 mb-1">Best Time to Visit</div>
-                      <div className="text-gray-600">{destination.bestTimeToVisit}</div>
+                      <div className="text-gray-600">{destination.bestTime}</div>
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900 mb-1">Trip Duration</div>
-                      <div className="text-gray-600">{destination.duration}</div>
+                      <div className="text-gray-600">{destination.days}</div>
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900 mb-1">Difficulty Level</div>

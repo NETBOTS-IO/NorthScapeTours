@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Users, Shield, Award, Clock, Star } from "lucide-react";
 import { Trip } from "@/data/trips-data";
+import { fetchTourById, updateTourBookingById } from "@/lib/api";
 
 interface TripBookingWidgetProps {
   trip: Trip;
@@ -13,13 +14,19 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [travelers, setTravelers] = useState(1);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [form, setForm] = useState({
+    firstName:"",
+    lastName:"",
+    email:"",
+    phone:""
+  })
 
   const departureDates = [
-    { date: "2024-03-15", price: 2499, availability: "Available", spots: 8 },
-    { date: "2024-04-12", price: 2599, availability: "Available", spots: 12 },
-    { date: "2024-05-10", price: 2699, availability: "Limited", spots: 3 },
-    { date: "2024-09-15", price: 2499, availability: "Available", spots: 10 },
-    { date: "2024-10-20", price: 2599, availability: "Available", spots: 15 },
+    { date: "2024-03-15", price: trip.price, availability: "Available", spots: 8 },
+    { date: "2024-04-12", price: trip.price, availability: "Available", spots: 12 },
+    { date: "2024-05-10", price: trip.price, availability: "Limited", spots: 3 },
+    { date: "2024-09-15", price: trip.price, availability: "Available", spots: 10 },
+    { date: "2024-10-20", price: trip.price, availability: "Available", spots: 15 },
   ];
 
   const calculateTotal = () => {
@@ -57,6 +64,77 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
     },
   };
 
+console.log('trip ', trip )
+
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+
+  // Send booking via WhatsApp
+ const handleBooking = () => {
+  const updatedAvailability = !trip.availability;
+
+  async function updatingBooking() {
+    try {
+      const response = await updateTourBookingById(trip._id, {
+        availability: updatedAvailability.toString(),
+      });
+      if (response) {
+        alert("Your Tour Booked successfully");
+        window.location.reload();
+        setForm({});
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
+  updatingBooking();
+
+  const message = `*Booking Request:*
+First Name: ${form.firstName}
+Last Name: ${form.lastName}
+Email: ${form.email}
+Phone: ${form.phone}
+
+*Customer Details*
+Number of Travelers: ${travelers}
+Selected Date: ${selectedDate}
+Total Price:  ${calculateTotal().toString()}
+
+*Tour Details*
+Tour Name: ${trip.name}
+Tour Name: ${trip.name}
+Days: ${trip.days}
+Original Price: ${trip.originalPrice}
+Market Price: ${trip.price}
+Tour Category: ${trip.category}
+Country: ${trip.country}
+Location: ${trip.location}
+Next Departure: ${trip.nextDeparture}
+Traveler Destination: ${trip.destination}
+Difficulties: ${trip.difficulty}
+Short Description: ${trip.shortDescription}
+Long Description: ${trip.longDescription}
+Physical Requirements: ${trip.physicalRequirements}
+Tour Overview: ${trip.overview}
+Travelling Best Time: ${trip.bestTime}
+Total Price: ${calculateTotal().toString()}
+`;
+
+  // WhatsApp API link (replace with your number)
+  const phoneNumber = "923480578106"; // in international format
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(whatsappUrl, "_blank");
+};
+
+
   return (
     <motion.div
       variants={widgetVariants}
@@ -89,7 +167,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
               Next departure:{" "}
               {trip.nextDeparture ? new Date(trip.nextDeparture).toLocaleDateString() : "N/A"}
             </span>
-            <span className="bg-white/20 px-2 py-1 rounded">
+            <span className="bg-orange-400 px-2 py-1 rounded">
               {trip.availability ? "Available" : "Limited"}
             </span>
           </div>
@@ -187,48 +265,60 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
           </div>
 
           {/* Quick Booking Form */}
-          <motion.div
-            variants={formVariants}
-            initial="hidden"
-            animate={showBookingForm ? "visible" : "hidden"}
-            className="overflow-hidden"
+           <motion.div
+      initial="hidden"
+      animate={showBookingForm ? "visible" : "hidden"}
+      className="overflow-hidden"
+    >
+      {showBookingForm && (
+        <div className="space-y-4 pt-4 border-t border-slate-200">
+          <h4 className="font-semibold text-slate-800">Quick Booking</h4>
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={form.firstName}
+              onChange={handleInputChange}
+              className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={form.lastName}
+              onChange={handleInputChange}
+              className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+            />
+          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleInputChange}
+            className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            value={form.phone}
+            onChange={handleInputChange}
+            className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+          />
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleBooking}
+            disabled={!trip.availability}
+            className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300"
           >
-            {showBookingForm && (
-              <div className="space-y-4 pt-4 border-t border-slate-200">
-                <h4 className="font-semibold text-slate-800">Quick Booking</h4>
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-                  />
-                </div>
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300"
-                >
-                  Complete Booking
-                </motion.button>
-              </div>
-            )}
-          </motion.div>
-
+          {!trip.availability ? "Booked": "Complete Booking"}  
+          </motion.button>
+        </div>
+      )}
+    </motion.div>
           {/* Trust Indicators */}
           <div className="pt-6 border-t border-slate-200">
             <div className="grid grid-cols-3 gap-4 text-center">

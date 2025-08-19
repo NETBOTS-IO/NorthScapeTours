@@ -12,29 +12,29 @@ export interface Attraction {
 }
 
 export interface Destination {
-  id: number
-  slug: string
+  _id?: string
+  slug: string | undefined
   name: string
   country: string
   continent: string
   description: string
   longDescription: string
-  heroImage: string
+  shortDescription?: string
+  inclusions:string[]
+  exclusions:string[]
+  images: string[]
   gallery: string[]
-  highlights: string[]
-  bestTimeToVisit: string
-  duration: string
+  highlights: string[] 
+  bestTime: string
+  days: string
   difficulty: "Easy" | "Moderate" | "Challenging" | "Expert"
   groupSize: string
-  price: {
-    from: number
-    currency: string
-  }
+  price: string
   rating: number
-  reviewCount: number
+  reviews: number
   included: string[]
   notIncluded: string[]
-  itinerary: {
+  itineraries: {
     day: number
     title: string
     description: string
@@ -42,11 +42,7 @@ export interface Destination {
     accommodation?: string
     meals?: string[]
   }[]
-  location: {
-    coordinates: [number, number]
-    nearestAirport: string
-    timezone: string
-  }
+  location: string
   weather: {
     season: string
     temperature: string

@@ -218,7 +218,7 @@ export const aboutFounders = {
   image: "/images/b2.jpeg",
   alt: "Our founders",
   paragraphs: [
-    "TOURMAKER was founded by two passionate travelers who believed that everyone deserves to experience the transformative power of travel. After years of exploring remote corners of the world, they realized that the most meaningful journeys happen when you connect with local cultures and step outside your comfort zone.",
+    "NORTHSCAPE TOURS AND TRAVELS was founded by two passionate travelers who believed that everyone deserves to experience the transformative power of travel. After years of exploring remote corners of the world, they realized that the most meaningful journeys happen when you connect with local cultures and step outside your comfort zone.",
     "What started as a small operation organizing treks in Nepal has grown into a global network of travel experts, local guides, and adventure enthusiasts. Today, we're proud to offer life-changing experiences across six continents, always staying true to our core values of authenticity, sustainability, and respect for local communities."
   ],
   stats: [

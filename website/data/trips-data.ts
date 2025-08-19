@@ -1,3 +1,55 @@
+export interface Tour {
+  id: string;
+  name: string;
+  country: string;
+  location: string;
+  category: string;
+  days: number;
+  groupSize: string;
+  difficulty: "Easy" | "Moderate" | "Challenging" | "Expert";
+  rating: number;
+  reviews: number;
+  price: number;
+  originalPrice: number;
+  images: string[];
+  availability: string;
+  nextDeparture: string;
+  features: string[];
+  highlights: string[];
+  included: string[];
+  inclusions: string[];
+  exclusions: string[];
+  shortDescription: string;
+  longDescription: string;
+  overview: string;
+  whyChoose: { title: string; description: string }[];
+  physicalRequirements: string;
+  bestTime: string;
+  itineraries: {
+    day: number;
+    title: string;
+    description: string;
+    activities: string[];
+    accommodation: string;
+    meals: string[];
+    location: string;
+    duration: string;
+    type: string;
+    highlights: string[];
+    images: string[];
+  }[];
+  featured: boolean;
+  tags: string[];
+  relatedTrips: string[];
+  destination: string;
+  faqs: { question: string; answer: string }[];
+  termsAndConditions: string[];
+  policies: string[];
+  map: { latitude: number; longitude: number };
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface Trip {
   _id: string;
   name: string;

@@ -66,7 +66,7 @@ const DestinationItinerary = ({ destination }: DestinationItineraryProps) => {
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-600 via-green-600 to-orange-600 hidden md:block" />
 
             <div className="space-y-8">
-              {destination.itinerary.map((day, index) => {
+              {destination.itineraries.map((day, index) => {
                 const isExpanded = expandedDays.includes(day.day)
 
                 return (
@@ -179,13 +179,13 @@ const DestinationItinerary = ({ destination }: DestinationItineraryProps) => {
           <motion.div variants={itemVariants} className="text-center mt-12">
             <Button
               onClick={() => {
-                const allDays = destination.itinerary.map((d) => d.day)
+                const allDays = destination.itineraries.map((d) => d.day)
                 setExpandedDays(expandedDays.length === allDays.length ? [] : allDays)
               }}
               variant="outline"
               className="border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white px-8 py-3 font-semibold"
             >
-              {expandedDays.length === destination.itinerary.length ? "Collapse All" : "Expand All Days"}
+              {expandedDays.length === destination.itineraries.length ? "Collapse All" : "Expand All Days"}
             </Button>
           </motion.div>
         </motion.div>
