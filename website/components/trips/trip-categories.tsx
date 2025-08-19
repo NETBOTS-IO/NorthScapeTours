@@ -33,6 +33,8 @@ const TripCategories = () => {
   const router = useRouter();
   const selectedCategory = searchParams.get("category");
 
+console.log('categoriesData', categoriesData)
+
   useEffect(() => {
     async function getCategories() {
       try {
@@ -48,40 +50,12 @@ const TripCategories = () => {
     getCategories();
   }, []);
 
-  const iconMap: { [key: string]: React.ComponentType<any> } = {
-    mountain: Mountain,
-    telescope: Telescope,
-    users: Users,
-    crown: Crown,
-    waves: Waves,
-    camera: Camera,
-    tree: TreePine,
-    compass: Compass,
-  };
-
-  const getIconString = (title: string) => {
-    switch (title.toLowerCase()) {
-      case "trekking":
-      case "trekking & hiking":
-        return "mountain";
-      case "wildlife safaris":
-        return "telescope";
-      case "cultural tours":
-        return "users";
-      case "luxury escapes":
-        return "crown";
-      case "water adventures":
-        return "waves";
-      case "photography tours":
-        return "camera";
-      case "eco adventures":
-        return "tree";
-      case "expeditions":
-        return "compass";
-      default:
-        return "mountain";
-    }
-  };
+    const iconMap: Record<string, React.ComponentType<any>> = {
+  "adventure": Mountain,
+  "cultural": Telescope,
+  "custom family tour": Compass,
+  "trekking": Crown,
+};
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -136,8 +110,7 @@ const TripCategories = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {categoriesData.map((category, index) => {
-            const iconString = getIconString(category._id);
-            const IconComponent = iconMap[iconString] || Mountain;
+            const IconComponent = iconMap[category._id.toLowerCase()] || Mountain; 
             return (
               <motion.div key={index} variants={itemVariants} className=  "group">
                 <Link href={`/trips/category?category=${encodeURIComponent(category.categoryId)}&tripType=${category._id}`}>
@@ -208,19 +181,6 @@ const TripCategories = () => {
             );
           })}
         </motion.div>
-        {/* Clear Filter Button */}
-        {/* {selectedCategory && (
-          <div className="text-center mt-8">
-            <button
-              className="inline-block px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
-              onClick={() => router.push("/trips")}
-            >
-              Clear Category Filter
-            </button>
-          </div>
-        )} */}
-
-        {/* Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}

@@ -69,7 +69,8 @@ const InternationTravelersHero = () => {
                                   whileTap={{ scale: 0.95 }}
                                 >
                                   <Link
-                                    href={``}
+                                    href={`https://visa.nadra.gov.pk/e-visa/`}
+                                    target="_blank"
                                     className="bg-orange-600 hover:bg-green-600 text-white py-3 px-6 font-semibold transition-all duration-300"
                                   >
                                     Apply Now

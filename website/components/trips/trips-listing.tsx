@@ -28,6 +28,7 @@ const TripsListing = () => {
   const [tours, setTours] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+   const [visibleCount, setVisibleCount] = useState(6)
 
 
   const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
@@ -182,6 +183,13 @@ const TripsListing = () => {
   if (loading) return <p>Loading tours...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  const visibleTours = sortedTrips.slice(0, visibleCount)
+
+const handleMore = () => {
+  setVisibleCount((prev) => prev + 6) // load 6 more each time
+}
+
+
   return (
     <section ref={container} className="section-padding bg-slate-50">
       <div ref={ref} className="max-w-7xl mx-auto">
@@ -196,7 +204,7 @@ const TripsListing = () => {
             <h2 className="text-3xl font-bold text-slate-800 mb-2">
               Available <span className="text-orange-600">Adventures</span>
             </h2>
-            <p className="text-slate-600">{sortedTrips.length} adventures found</p>
+            <p className="text-slate-600">{visibleTours.length} adventures found</p>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -250,7 +258,7 @@ const TripsListing = () => {
               : "space-y-6"
           }
         >
-          {sortedTrips.map((trip, index) => (
+          {visibleTours.map((trip, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
@@ -580,6 +588,7 @@ const TripsListing = () => {
         </motion.div>
 
         {/* Load More */}
+         {visibleCount < visibleTours.length && (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -590,10 +599,12 @@ const TripsListing = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn-outline"
+                onClick={handleMore}
           >
             Load More Adventures
           </motion.button>
         </motion.div>
+)}
       </div>
     </section>
   );
