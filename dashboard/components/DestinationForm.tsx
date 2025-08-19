@@ -31,30 +31,26 @@ import {
   Activity,
   MountainSnow,
 } from "lucide-react";
-import { getTourById } from "@/lib/data-utils";
+import { getDestinationById } from "@/lib/data-utils";
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "@/Var";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import type { Tour } from "@/lib/data-utils";
+import { Destination } from "@/lib/types";
 
 const tourCategories = [
-  "Trekking",
-  "Adventure",
-  "Sightseeing",
-  "Wildlife",
-  "Historical",
-  "Mountaineering",
-  "Custom Family Tour",
-  "religious and Culture Tours",
-  "Exclusive Private Tours",
-  "Group Tours",
-  "Hiking",
-  "Honeymoon Tours",
-  "Luxury",
-  "By Air Tours",
-  "By Road Tours",
-  "Weekend Retreat"
+  "Swat",
+  "Skardu",
+  "Shogran-SiriPaye",
+  "Neelum Valley",
+  "Naran Kaghan",
+  "Murree",
+  "Malam Jabba",
+  "Lahore",
+  "Khanpur Dam",
+  "Islamabad",
+  "Karachi",
+  "Hunza Valley",
 ];
 
 const ImagePreview = ({
@@ -84,7 +80,7 @@ const ImagePreview = ({
   );
 };
 
-const defaultTour: Tour = {
+const defaultTour: Destination = {
   id: "",
   name: "",
   country: "",
@@ -138,14 +134,14 @@ const defaultTour: Tour = {
   updatedAt: "",
 };
 
-export default function TourForm({
+export default function DestinationForm({
   tourId = null,
   initialData = null,
 }: {
   tourId?: string | null;
-  initialData?: Tour | null;
+  initialData?: Destination | null;
 }) {
-  const [tour, setTour] = useState<Tour>(initialData ?? defaultTour);
+  const [tour, setTour] = useState<Destination>(initialData ?? defaultTour);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [itineraryImageFiles, setItineraryImageFiles] = useState<{
     [dayIndex: number]: File[];
@@ -155,11 +151,13 @@ export default function TourForm({
     [dayIndex: number]: string[];
   }>({});
   const router = useRouter();
+  
+console.log('initialData', initialData)
 
   useEffect(() => {
     const fetchTour = async () => {
       if (tourId && !initialData) {
-        const fetchedTour = await getTourById(tourId);
+        const fetchedTour = await getDestinationById(tourId);
         if (fetchedTour) {
           setTour(fetchedTour);
           if (fetchedTour.images && fetchedTour.images.length > 0) {
@@ -200,24 +198,24 @@ export default function TourForm({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number | null = null,
-    field: keyof Tour | null = null
+    field: keyof Destination | null = null
   ) => {
     const { name, value } = e.target;
     if (index !== null && field) {
-      setTour((prevTour: Tour) => ({
+      setTour((prevTour: Destination) => ({
         ...prevTour,
         [field]: (prevTour[field] as any[]).map((item: any, i: number) =>
           i === index ? { ...item, [name]: value } : item
         ),
       }));
     } else {
-      setTour((prevTour: Tour) => ({ ...prevTour, [name]: value }));
+      setTour((prevTour: Destination) => ({ ...prevTour, [name]: value }));
     }
   };
 
   const handleMapChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       map: { ...prevTour.map, [name]: Number.parseFloat(value) },
     }));
@@ -226,10 +224,10 @@ export default function TourForm({
   const handleArrayChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
-    field: keyof Tour
+    field: keyof Destination
   ) => {
     const { value } = e.target;
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       [field]: (prevTour[field] as string[]).map((item: string, i: number) =>
         i === index ? value : item
@@ -237,15 +235,15 @@ export default function TourForm({
     }));
   };
 
-  const addArrayItem = (field: keyof Tour) => {
-    setTour((prevTour: Tour) => ({
+  const addArrayItem = (field: keyof Destination) => {
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       [field]: [...(prevTour[field] as string[]), ""],
     }));
   };
 
-  const removeArrayItem = (index: number, field: keyof Tour) => {
-    setTour((prevTour: Tour) => ({
+  const removeArrayItem = (index: number, field: keyof Destination) => {
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       [field]: (prevTour[field] as string[]).filter(
         (_, i: number) => i !== index
@@ -254,7 +252,7 @@ export default function TourForm({
   };
 
   const updateItineraryDays = (days: number) => {
-    setTour((prevTour: Tour) => {
+    setTour((prevTour: Destination) => {
       const newItineraries = [...prevTour.itineraries];
       const currentDays = newItineraries.length;
       if (days > currentDays) {
@@ -286,7 +284,7 @@ export default function TourForm({
     setImageFiles((prev) => [...prev, ...files]);
     const fileUrls = files.map((file) => URL.createObjectURL(file));
     setImagePreviews((prev) => [...prev, ...fileUrls]);
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       images: [...prevTour.images, ...fileUrls],
     }));
@@ -298,7 +296,7 @@ export default function TourForm({
     }
     setImageFiles((prev) => prev.filter((_, i) => i !== index));
     setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       images: prevTour.images.filter((_, i) => i !== index),
     }));
@@ -319,7 +317,7 @@ export default function TourForm({
       ...prev,
       [dayIndex]: [...(prev[dayIndex] || []), ...fileUrls],
     }));
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       itineraries: prevTour.itineraries.map((day, i) =>
         i === dayIndex ? { ...day, images: [...day.images, ...fileUrls] } : day
@@ -340,7 +338,7 @@ export default function TourForm({
       ...prev,
       [dayIndex]: (prev[dayIndex] || []).filter((_, i) => i !== imageIndex),
     }));
-    setTour((prevTour: Tour) => ({
+    setTour((prevTour: Destination) => ({
       ...prevTour,
       itineraries: prevTour.itineraries.map((day, i) =>
         i === dayIndex
@@ -355,11 +353,9 @@ export default function TourForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Tour data:", tour);
-    console.log("Tour Id:", tourId);
 
     const formData = new FormData();
-
+console.log('tour', tour)
     if (!tour) {
       // console.error("Tour data is undefined!");
       toast.error("Tour data is missing!");
@@ -401,7 +397,7 @@ export default function TourForm({
 
     // ✅ Append text data as JSON
     formData.append(
-      "tourData",
+      "DestinationData",
       JSON.stringify({
         ...tourData,
         ...(isUpdating ? { id: tour.id } : {}),
@@ -409,9 +405,10 @@ export default function TourForm({
       })
     );
 
+
     const url = isUpdating
-      ? `${BASE_URL}/api/tours/${tourId}`
-      : `${BASE_URL}/api/tours`;
+      ? `${BASE_URL}/api/destinations/${tourId}`
+      : `${BASE_URL}/api/destinations/`;
     const method = isUpdating ? "put" : "post";
     console.log(`Submitting tour with method: ${method}, URL: ${url}`);
 
@@ -430,21 +427,21 @@ export default function TourForm({
 
       // ✅ Ensure a successful request before showing success toast
       if (response.status >= 200 && response.status < 300) {
-        toast.success(`Tour ${isUpdating ? "updated" : "added"} successfully`);
-        router.push("/admin/tours");
+        toast.success(`Destination ${isUpdating ? "updated" : "added"} successfully`);
+        router.push("/admin/destinations");
       }
     } catch (error) {
       if (error instanceof Error) {
         console.error(
-          "Error saving tour:",
+          "Error saving destinations:",
           (error as any).response?.data || error.message
         );
         toast.error(
-          (error as any).response?.data?.message || "Failed to save tour"
+          (error as any).response?.data?.message || "Failed to save destinations"
         );
       } else {
-        console.error("Unknown error saving tour:", error);
-        toast.error("Failed to save tour");
+        console.error("Unknown error saving destinations:", error);
+        toast.error("Failed to save destinations");
       }
     }
   };
@@ -470,6 +467,7 @@ export default function TourForm({
     };
   }, [imagePreviews, itineraryImagePreviews]);
 
+ 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Basic Information Section */}
@@ -485,7 +483,7 @@ export default function TourForm({
             <div className="space-y-2">
               <Label htmlFor="name" className="flex items-center">
                 <MountainSnow className="w-4 h-4 mr-2" />
-                Tour Name
+                Destination Name
               </Label>
               <Input
                 id="name"
@@ -743,7 +741,7 @@ export default function TourForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="overview">Tour Overview</Label>
+            <Label htmlFor="overview">Destination Overview</Label>
             <Textarea
               id="overview"
               name="overview"
@@ -767,15 +765,19 @@ export default function TourForm({
         <CardContent>
           <div className="space-y-4">
             <div>
-              <Label>Tour Images</Label>
+              <Label>Destination Images</Label>
               <p className="text-sm text-muted-foreground mb-2">
-                Upload high-quality images that showcase your tour
+                Upload high-quality images that showcase your destination
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {imagePreviews.map((preview, index) => (
                   <ImagePreview
                     key={index}
-                    src={preview}
+                     src={
+                        typeof preview === "string" && !preview.startsWith("blob:")
+                        ? `${BASE_URL}${preview}`
+                        : preview
+                        }
                     onRemove={() => removeImage(index)}
                   />
                 ))}
@@ -802,7 +804,7 @@ export default function TourForm({
           <CardHeader className="bg-gray-50">
             <CardTitle className="flex items-center">
               <Star className="w-5 h-5 mr-2" />
-              Tour Highlights
+              Destination Highlights
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -850,15 +852,15 @@ export default function TourForm({
                 <div key={index} className="flex items-center mb-2">
                   <Input
                     value={item}
-                    onChange={(e) => handleArrayChange(e, index, "included")}
+                    onChange={(e) => handleArrayChange(e, index, "inclusions")}
                     className="flex-grow"
-                    placeholder="What's included"
+                    placeholder="What's inclusions"
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    onClick={() => removeArrayItem(index, "included")}
+                    onClick={() => removeArrayItem(index, "inclusions")}
                   >
                     <MinusCircle className="h-4 w-4" />
                   </Button>
@@ -867,7 +869,7 @@ export default function TourForm({
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => addArrayItem("included")}
+                onClick={() => addArrayItem("inclusions")}
                 className="w-full mt-2"
               >
                 <PlusCircle className="h-4 w-4 mr-2" />
@@ -916,7 +918,7 @@ export default function TourForm({
         <CardHeader className="bg-gray-50">
           <CardTitle className="flex items-center">
             <HelpCircle className="w-5 h-5 mr-2" />
-            Why Choose This Tour
+            Why Choose This Destination
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1710,7 +1712,7 @@ export default function TourForm({
           type="submit"
           className="w-full h-full bg-primary hover:bg-primary-dark text-white py-2 text-lg"
         >
-          {tourId ? "Update Tour" : "Create Tour"}
+          {tourId ? "Update Destination" : "Create Destination"}
         </Button>
       </div>
     </form>

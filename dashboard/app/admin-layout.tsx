@@ -14,7 +14,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Camera,
-  CarFront 
+  CarFront,
+  MapPinHouse,
+  BookOpenCheck,
+  NotebookPen 
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -23,11 +26,12 @@ import { isAuthenticated, logout } from "@/lib/auth-utils"
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: PackageSearch, label: "Tour Packages", href: "/admin/tours" },
-  { icon: PackageSearch, label: "Bookings", href: "/admin/booking" },
+  { icon: NotebookPen , label: "Bookings", href: "/admin/booking" },
   { icon: Camera, label: "Gallery", href: "/admin/gallery" },
-  { icon: CarFront , label: "Rent Car", href: "/admin/rent" },
+  { icon: CarFront , label: "Car Rental", href: "/admin/rent" },
+  { icon: MapPinHouse , label: "Destination", href: "/admin/destinations" },
   { icon: FileText, label: "Blogs", href: "/admin/blogs" },
-  { icon: FileText, label: "Testimonials", href: "/admin/testimonials" },
+  { icon: BookOpenCheck , label: "Testimonials", href: "/admin/testimonials" },
   { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
 ]
 

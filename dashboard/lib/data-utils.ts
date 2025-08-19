@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { BASE_URL } from "@/Var";
-import { Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials, TestimonialsFormState } from "./types";
+import { Destination, Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials, TestimonialsFormState } from "./types";
 
 const inquiriesData: Inquiry[] = [
   {
@@ -498,5 +498,96 @@ export async function getTestimonialsById(id: string): Promise<TestimonialsFormS
   } catch (error) {
     console.error(`❌ Failed to fetch testimonials with ID ${id}:`, error);
     return null;
+  }
+}
+export async function getBookingCounts() {
+  try {
+    const res = await axios.get(`${BASE_URL}/api/bookings/booking-counts`);
+    return res.data.data || null;
+  } catch (error) {
+    console.error(`Failed to fetch booking counts`, error);
+    return null;
+  }
+}
+export async function getConfirmedBookings() {
+  try {
+    const res = await axios.get(`${BASE_URL}/api/bookings/confirmed-bookings`);
+    return res.data.data || null;
+  } catch (error) {
+    console.error(`Failed to fetch confirmed bookings`, error);
+    return null;
+  }
+}
+
+// ---------- Destinations ----------
+export async function getDestinations(): Promise<Destination[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/destinations/`);
+    // Map _id to id for each Destination
+    return response.data.data.map((Destination: any) => ({
+      ...Destination,
+      id: Destination._id,
+    }));
+  } catch (error) {
+    console.error("Failed to fetch Destinations:", error);
+    return [];
+  }
+}
+
+export async function getDestinationById(id: string): Promise<Destination | undefined> {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/destinations/${id}`);
+    // Map _id to id for the single Destination
+    const destination = response.data.data;
+    return destination ? { ...destination, id: destination._id } : undefined;
+  } catch (error) {
+    console.error(`Failed to fetch Destination with ID ${id}:`, error);
+    return undefined;
+  }
+}
+
+export async function updateDestinationById(
+  id: string,
+  DestinationData: Partial<Destination>
+): Promise<Destination | undefined> {
+  try {
+    const response = await axios.put(`${BASE_URL}/api/destinations/${id}`, DestinationData);
+    console.log("Updated Destination:", response.data.data);
+    return response.data.data; // Adjust based on actual API response structure
+  } catch (error) {
+    console.error(`Failed to fetch Destination with ID ${id}:`, error);
+    return undefined;
+  }
+}
+export async function createDestination(
+  DestinationData: Omit<Destination, "id">
+): Promise<Destination | undefined> {
+  try {
+    const response = await axios.post(`${BASE_URL}/api/destinations`, DestinationData);
+    console.log("Created Destination:", response.data.data);
+    return response.data.data; // Adjust based on actual API response structure
+  } catch (error) {
+    console.error("Failed to create Destination:", error);
+    return undefined;
+  }
+}
+
+export async function deleteDestination(id: string): Promise<boolean> {
+  try {
+    const response = await axios.delete(`${BASE_URL}/api/destinations/${id}`);
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log("Destination deleted successfully:", id);
+      return true;
+    } else {
+      console.error("Failed to delete Destination:", response.statusText);
+      return false;
+    }
+  } catch (error: any) {
+    console.error(
+      "Error deleting Destination:",
+      error.response?.data || error.message
+    );
+    return false;
   }
 }

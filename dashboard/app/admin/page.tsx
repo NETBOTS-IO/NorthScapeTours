@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowUpRight, Users, Calendar, DollarSign, Package, MessageSquare } from "lucide-react"
@@ -19,6 +19,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
+import { getBookingCounts, getConfirmedBookings } from "@/lib/data-utils"
 
 // Sample data for charts
 const revenueData = [
@@ -76,11 +77,56 @@ const recentInquiries = [
   { id: 5, name: "James Miller", subject: "Pricing Inquiry", date: "2023-11-11", status: "In Progress" },
 ]
 
+interface BookingCounts
+{
+  _id: string;
+  totalCounts: number
+}
+interface ConfirmedBookingCounts
+{
+  _id: string;
+  customerName: string;
+  status: string;
+  updatedAt: Date;
+  pricePerDay: number
+}
+
+
 export default function AdminDashboard() {
   const [totalRevenue, setTotalRevenue] = useState("$345,231.89")
   const [totalBookings, setTotalBookings] = useState("2,350")
   const [activeTours, setActiveTours] = useState("24")
   const [customerSatisfaction, setCustomerSatisfaction] = useState("98%")
+
+  const [counts, setCounts] = useState<BookingCounts[] | null>(null);
+  const [confirmedBookings, setConfirmedBookings] = useState<ConfirmedBookingCounts[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  getBookingCounts()
+    .then((result) => {
+      setCounts(result);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching booking counts:", err);
+      setLoading(false);
+    });
+}, []);
+
+  useEffect(() => {
+  getConfirmedBookings()
+    .then((result) => {
+      setConfirmedBookings(result);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching booking counts:", err);
+      setLoading(false);
+    });
+}, []);
+
+const confirmed = counts && counts.find((status:any) => status._id === "Confirmed")
 
   return (
     <div className="space-y-6">
@@ -110,10 +156,10 @@ export default function AdminDashboard() {
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalBookings}</div>
+            <div className="text-2xl font-bold">{loading ? "loading" : confirmed?.totalCounts ?? 0}</div>
             <p className="text-xs text-muted-foreground">
               <span className="text-green-500 flex items-center">
-                +18.1% <ArrowUpRight className="h-4 w-4 ml-1" />
+                {(confirmed?.totalCounts ?? 0)/100} <ArrowUpRight className="h-4 w-4 ml-1" />
               </span>{" "}
               from last month
             </p>
@@ -244,18 +290,25 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentBookings.map((booking) => (
-                <div key={booking.id} className="flex items-center justify-between border-b pb-2">
+              {
+                confirmedBookings && (
+
+                
+              confirmedBookings.map((booking) => (
+                <div key={booking._id} className="flex items-center justify-between border-b pb-2">
                   <div>
-                    <p className="font-medium">{booking.customer}</p>
-                    <p className="text-sm text-muted-foreground">{booking.tour}</p>
+                    <p className="font-medium capitalize">{booking.customerName}</p>
+                    <p className="text-sm text-muted-foreground text-green-400">{booking.status}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">{booking.amount}</p>
-                    <p className="text-sm text-muted-foreground">{booking.date}</p>
+                    <p className="font-medium">$ {booking.pricePerDay}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {booking.updatedAt ? new Date(booking.updatedAt).toLocaleDateString() : "—"}
+                    </p>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
             </div>
           </CardContent>
         </Card>
