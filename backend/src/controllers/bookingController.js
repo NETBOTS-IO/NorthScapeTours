@@ -9,12 +9,14 @@ export default async function BookingHandler(req, res) {
   if (req.method === "POST") {
     try {
       const bookingData = req.body;
-      const {carId} = bookingData;
+      const { carId } = bookingData;
 
-      const IsCarBooked = await Booking.findOne({ carId});
+      const IsCarBooked = await Booking.findOne({ carId });
 
-      if(IsCarBooked){
-        return res.status(403).json({success: false, message: "Car already booked", IsCarBooked})
+      if (IsCarBooked) {
+        return res
+          .status(403)
+          .json({ success: false, message: "Car already booked", IsCarBooked });
       }
       // 1. Save booking to DB
       const bookings = await Booking.create(bookingData);
@@ -256,5 +258,84 @@ export const updateBooking = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, error: "Failed to update booking" });
+  }
+};
+
+// get confirmed and pending c total counts
+export const countBookings = async (req, res) => {
+  try {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const endOfMonth = new Date(startOfMonth);
+    endOfMonth.setMonth(endOfMonth.getMonth() + 1);
+    const result = await Booking.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+        },
+      },
+      {
+        $group: {
+          _id: "$status", // group by status
+          totalCounts: { $sum: 1 },
+        },
+      },
+    ]);
+    res.status(200).json({
+      message: "Bookings counts successfully",
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error counting bookings:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+// get confirmed bookings for current month
+export const getConfirmedBookingsThisMonth = async (req, res) => {
+  try {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+    const result = await Booking.aggregate([
+      {
+        $match: {
+          status: "Confirmed",
+          createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          bookingDate: "$createddAt",
+          pricePerDay: 1,
+          customerName: 1,
+          status: 1,
+          updatedAt:1,
+        },
+      },
+      { $sort: { bookingDate: -1 } },
+    ]);
+
+    res.status(200).json({
+      message: "Confirmed bookings fetched",
+      success: true,
+      totalConfirmed: result.length,
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error fetching confirmed bookings:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 };

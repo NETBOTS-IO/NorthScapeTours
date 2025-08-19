@@ -14,6 +14,8 @@ import RentRoutes from './routes/rentRoutes.js';
 import BlogsRoutes from './routes/blogRoutes.js';
 import BookingRoutes from './routes/bookingRoutes.js';
 import TestimonialsRoutes from './routes/testimonialsRoutes.js';
+import ContactRoutes from './routes/contactRoutes.js';
+import DestinationRoutes from './routes/destinationRoutes.js';
 
 dotenv.config();
 
@@ -113,6 +115,8 @@ app.use('/api/rent', RentRoutes);
 app.use('/api/blogs', BlogsRoutes);
 app.use('/api/bookings', BookingRoutes);
 app.use('/api/testimonials', TestimonialsRoutes);
+app.use('/api/contact', ContactRoutes);
+app.use('/api/destinations', DestinationRoutes);
 
 // app.use('/api/blogs', blogRoutes);
 // app.use('/api/inquiries', inquiryRoutes);

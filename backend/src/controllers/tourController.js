@@ -1,5 +1,4 @@
 import Tour from '../models/tourModel.js';
-import upload from '../utils/multerConfig.js'; // Remove { } since it's a default export
 
 export const getAllTours = async (req, res) => {
   try {
@@ -269,3 +268,39 @@ export const getTourCategories = async (req, res) => {
     res.status(500).json({ success: false, message: 'Error fetching categories', error: error.message });
   }
 }; 
+
+export const updateBookingTour = async (req, res) => {
+  try {
+    console.log("Update Tour API Endpoint Hit", req.body);
+    
+    let tourData;
+    if (req.body.tourData) {
+      try {
+        tourData = JSON.parse(req.body.tourData);
+      } catch (parseError) {
+        console.log("Error in parsing JSON", parseError);
+        return res.status(400).json({ success: false, message: "Invalid JSON format", error: parseError.message });
+      }
+    } else {
+      tourData = req.body;
+    }
+
+
+    tourData.availability = tourData.availability;
+
+    // Update the tour in MongoDB
+    const tour = await Tour.findByIdAndUpdate(req.params.id, tourData, { new: true });
+    if (!tour) {
+      console.log("Tour not found");
+      return res.status(404).json({ success: false, message: "Tour not found" });
+    }
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.setHeader("ETag", Date.now().toString()); // Ensure new data each time
+    res.json({ success: true, message: "Tour updated successfully", data: tour });
+  } catch (error) {
+    console.log("Error in updating tour", error.message);
+    res.status(500).json({ success: false, message: "Error updating tour", error: error.message });
+  }
+};

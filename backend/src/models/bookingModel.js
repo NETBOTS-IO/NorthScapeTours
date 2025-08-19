@@ -17,6 +17,8 @@ const bookingSchema = new mongoose.Schema({
   specialRequirements: String,
   status: { type: String, default: "Pending" }, // Pending / Confirmed
   createdAt: { type: Date, default: Date.now }
-});
+}, {
+    timestamps: true,
+  });
 
  export default  mongoose.model("Booking", bookingSchema);

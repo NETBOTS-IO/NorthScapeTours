@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllTours, searchTours, getTourById, createTour, updateTour, deleteTour, getRelatedTours, getTourCategories } from '../controllers/tourController.js';
+import { getAllTours, searchTours, getTourById, createTour, updateTour, deleteTour, getRelatedTours, getTourCategories, updateBookingTour } from '../controllers/tourController.js';
 import { tourValidation } from '../middlewares/validation.js';
 import upload from '../utils/multerConfig.js'; // Remove { } since it's a default export
 
@@ -11,6 +11,7 @@ router.get('/search', searchTours);
 router.get('/categories', getTourCategories);
 router.get('/:id', getTourById);
 router.get('/:id/related', getRelatedTours);
+router.put('/update-tour/:id', updateBookingTour);
 
 // Protected routes (require authentication)
 //router.post('/add', createTour);
