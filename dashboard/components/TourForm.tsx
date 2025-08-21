@@ -64,10 +64,16 @@ const ImagePreview = ({
   src: string;
   onRemove: () => void;
 }) => {
+  console.log('src', src)
   return (
     <div className="relative group">
       <img
-        src={src || "/placeholder.svg?height=200&width=300"}
+        src={
+            typeof src === "string" && !src.startsWith("blob:")
+            ? `${BASE_URL}${src}`
+             : src
+            }
+        // src={src ? `${BASE_URL}${src}`: "/placeholder.svg?height=200&width=300"}
         alt="Tour image"
         className="w-full h-32 object-cover rounded-md border"
       />
@@ -156,6 +162,9 @@ export default function TourForm({
   }>({});
   const router = useRouter();
 
+console.log('initialData', initialData)
+console.log('itineraryImagePreviews', itineraryImagePreviews)
+
   useEffect(() => {
     const fetchTour = async () => {
       if (tourId && !initialData) {
@@ -196,6 +205,7 @@ export default function TourForm({
       setTour(initialData);
     }
   }, [tourId, initialData]);
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -850,7 +860,7 @@ export default function TourForm({
                 <div key={index} className="flex items-center mb-2">
                   <Input
                     value={item}
-                    onChange={(e) => handleArrayChange(e, index, "included")}
+                    onChange={(e) => handleArrayChange(e, index, "inclusions")}
                     className="flex-grow"
                     placeholder="What's included"
                   />
@@ -858,7 +868,7 @@ export default function TourForm({
                     type="button"
                     variant="ghost"
                     size="icon"
-                    onClick={() => removeArrayItem(index, "included")}
+                    onClick={() => removeArrayItem(index, "inclusions")}
                   >
                     <MinusCircle className="h-4 w-4" />
                   </Button>
@@ -867,7 +877,7 @@ export default function TourForm({
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => addArrayItem("included")}
+                onClick={() => addArrayItem("inclusions")}
                 className="w-full mt-2"
               >
                 <PlusCircle className="h-4 w-4 mr-2" />
@@ -1271,7 +1281,11 @@ export default function TourForm({
                     (preview, imgIndex) => (
                       <div key={imgIndex} className="relative group">
                         <img
-                          src={preview || "/placeholder.svg"}
+                           src={
+                                typeof preview === "string" && !preview.startsWith("blob:")
+                                  ? `${BASE_URL}${preview}`
+                                   : preview
+                                }
                           alt={`Day ${day.day} image ${imgIndex + 1}`}
                           className="w-full h-24 object-cover rounded-md border"
                         />

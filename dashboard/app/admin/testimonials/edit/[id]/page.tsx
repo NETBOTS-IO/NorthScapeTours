@@ -34,7 +34,7 @@ useEffect(() => {
       <Button variant="outline" onClick={() => router.back()} className="mb-4">
         <ChevronLeft className="mr-2 h-4 w-4" /> Back
       </Button>
-      <h1 className="text-3xl font-bold mb-6">Edit Car Details</h1>
+      <h1 className="text-3xl font-bold mb-6">Edit Testimonial</h1>
       <TestimonialsForm initialData={car} testimonialId={id as string} />
     </div>
   );

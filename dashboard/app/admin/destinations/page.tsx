@@ -65,6 +65,7 @@ export default function DestinationListPage() {
     setDeleteId(null);
   };
     
+console.log('destinations', destinations);
 
   const filteredTours = destinations
     .filter((tour) => tour.name.toLowerCase().includes(searchTerm.toLowerCase()))

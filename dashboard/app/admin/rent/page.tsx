@@ -59,6 +59,8 @@ export default function RentManagement() {
     }
     setDeleteId(null);
   };
+
+
   return (
     <div className="container">
       <div className="flex justify-between items-center mb-6">
@@ -103,7 +105,7 @@ export default function RentManagement() {
                 <TableCell>
                   {car.carImage ? (
                     <img
-                      src={`${BASE_URL}${car.carImage}`}
+                      src={`${BASE_URL}${car.carImage[0]}`}
                       alt={car.carName}
                       className="w-16 h-10 object-cover rounded-md border"
                     />

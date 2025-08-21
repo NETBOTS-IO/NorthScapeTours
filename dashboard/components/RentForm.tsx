@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "react-hot-toast";
 import { Car, User, DollarSign, ImageIcon } from "lucide-react";
 import { createCarDetails, updateCar } from "@/lib/data-utils";
+import { BASE_URL } from "@/Var";
 
 interface RentFormProps {
   initialData?: any;
@@ -28,7 +29,10 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+   const [imagePreview, setImagePreview] = useState<string | undefined>(undefined);
   const router = useRouter();
+   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
 
    useEffect(() => {
       if (initialData) {
@@ -40,6 +44,20 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
         }));
       }
     }, [initialData]);
+
+    useEffect(() => {
+        if (initialData?.carImage) {
+          setImagePreview(Array.isArray(initialData.carImage) ? initialData.carImage[0] : initialData.carImage || "");
+        }
+      }, [initialData]);
+
+        const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            setForm((prev) => ({ ...prev, carImage: file }));
+            setImagePreview(URL.createObjectURL(file));
+          }
+        };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -69,7 +87,6 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
       if (form.carImage) {
         formData.append("carImage", form.carImage);
       }
-console.log('form data sending', Object.entries(formData));
 
       if (initialData && initialData._id) {
               await updateCar(initialData._id, formData);
@@ -188,18 +205,25 @@ console.log('form data sending', Object.entries(formData));
 
           {/* Car Image */}
           <div>
-            <Label htmlFor="carImage">
-              <ImageIcon className="inline w-4 h-4 mr-2" /> Car Image
-            </Label>
-            <Input
-              type="file"
-              name="carImage"
-              accept="image/*"
-              onChange={handleChange}
-              required
-            />
-          </div>
-
+                      <Label>Image</Label>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleImageChange}
+                      />
+                      {imagePreview && (
+                        <img
+            src={
+              imagePreview?.startsWith("blob:")
+                ? imagePreview
+                : `${BASE_URL}${imagePreview}`
+            }
+            alt="Preview"
+            className="mt-2 h-40 object-cover border"
+          />
+                      )}
+                    </div>
           {/* Submit */}
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit Details"}

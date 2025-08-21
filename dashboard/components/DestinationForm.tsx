@@ -147,12 +147,12 @@ export default function DestinationForm({
     [dayIndex: number]: File[];
   }>({});
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [imagesFiles, setImagesFiles] = useState<string[]>([]);
   const [itineraryImagePreviews, setItineraryImagePreviews] = useState<{
     [dayIndex: number]: string[];
   }>({});
   const router = useRouter();
   
-console.log('initialData', initialData)
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -162,6 +162,7 @@ console.log('initialData', initialData)
           setTour(fetchedTour);
           if (fetchedTour.images && fetchedTour.images.length > 0) {
             setImagePreviews(fetchedTour.images);
+            setImagesFiles(fetchedTour.images)
           }
           if (fetchedTour.itineraries) {
             const itineraryPreviews: { [key: number]: string[] } = {};
@@ -312,6 +313,7 @@ console.log('initialData', initialData)
       ...prev,
       [dayIndex]: [...(prev[dayIndex] || []), ...files],
     }));
+    
     const fileUrls = files.map((file) => URL.createObjectURL(file));
     setItineraryImagePreviews((prev) => ({
       ...prev,
@@ -324,7 +326,6 @@ console.log('initialData', initialData)
       ),
     }));
   };
-
   const removeItineraryImage = (dayIndex: number, imageIndex: number) => {
     const urlToRemove = itineraryImagePreviews[dayIndex]?.[imageIndex];
     if (urlToRemove) {
@@ -334,6 +335,7 @@ console.log('initialData', initialData)
       ...prev,
       [dayIndex]: (prev[dayIndex] || []).filter((_, i) => i !== imageIndex),
     }));
+    
     setItineraryImagePreviews((prev) => ({
       ...prev,
       [dayIndex]: (prev[dayIndex] || []).filter((_, i) => i !== imageIndex),
@@ -351,11 +353,12 @@ console.log('initialData', initialData)
     }));
   };
 
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
-console.log('tour', tour)
     if (!tour) {
       // console.error("Tour data is undefined!");
       toast.error("Tour data is missing!");
@@ -379,6 +382,7 @@ console.log('tour', tour)
     // ✅ Extract tour data without images
     const { images, itineraries, id, ...tourData } = tour || {};
 
+    
     // ✅ Check if the tour is being updated
     const isUpdating =
       (tourId !== null && typeof tourId === "string" && tourId.trim() !== "") ||
@@ -390,11 +394,10 @@ console.log('tour', tour)
     const processedItineraries = itineraries?.map(
       (itinerary: any, index: number) => ({
         ...itinerary,
-        images: undefined,
+        images: itinerary.images,
         imageCount: (itineraryImageFiles[index] || []).length,
       })
     );
-
     // ✅ Append text data as JSON
     formData.append(
       "DestinationData",
@@ -402,6 +405,7 @@ console.log('tour', tour)
         ...tourData,
         ...(isUpdating ? { id: tour.id } : {}),
         itineraries: processedItineraries || [],
+        existImage: images
       })
     );
 
@@ -769,10 +773,10 @@ console.log('tour', tour)
               <p className="text-sm text-muted-foreground mb-2">
                 Upload high-quality images that showcase your destination
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {imagePreviews.map((preview, index) => (
                   <ImagePreview
-                    key={index}
+                    key={index} 
                      src={
                         typeof preview === "string" && !preview.startsWith("blob:")
                         ? `${BASE_URL}${preview}`
@@ -1273,7 +1277,9 @@ console.log('tour', tour)
                     (preview, imgIndex) => (
                       <div key={imgIndex} className="relative group">
                         <img
-                          src={preview || "/placeholder.svg"}
+                          src={  typeof preview === "string" && !preview.startsWith("blob:")
+                        ? `${BASE_URL}${preview}`
+                        : preview}
                           alt={`Day ${day.day} image ${imgIndex + 1}`}
                           className="w-full h-24 object-cover rounded-md border"
                         />
