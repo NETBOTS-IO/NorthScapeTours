@@ -80,7 +80,7 @@ export const updateCar = async (req, res) => {
     };
 
     if (req.file) {
-      updatedData.carImage = `/uploads/${req.file.filename}`;
+      updatedData.carImage = `/uploads/rent/${req.file.filename}`;
     }
 
 

@@ -81,7 +81,7 @@ export const createTour = async (req, res) => {
         const imageCount = itinerary.imageCount || 0;
         const itineraryImages = req.files.itineraryImages
           .slice(currentImageIndex, currentImageIndex + imageCount)
-          .map(file => `/uploads/itineraries/${file.filename}`);
+          .map(file => `/uploads/tours/${file.filename}`);
         currentImageIndex += imageCount;
         return { ...itinerary, images: itineraryImages };
       });
