@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { getTestimonials, TestimonialsFormState } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 
 export default function EnhancedTestimonials() {
@@ -24,7 +25,7 @@ export default function EnhancedTestimonials() {
   const intervalRef = useRef<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [testimonialsData, setTestimonialsData] = useState<TestimonialsFormState[]>([]);
-
+const router = useRouter()
 
   useEffect(() => {
   (async () => {
@@ -420,6 +421,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
           <Button
             size={isMobile ? "default" : "lg"}
             className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            onClick={()=>router.push('/trips')}
           >
             Start Your Adventure Today
           </Button>

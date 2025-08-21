@@ -270,7 +270,7 @@ export async function getBlogs(query: {
   if (query.search) params.append("search", query.search);
 
   const res = await axios.get<ApiResponse<BlogsResponse>>(`${BASE_URL}/blogs?${params.toString()}`);
-  return res.data.data; // ✅ returns whole object
+  return res.data.data; 
 }
 
 
@@ -384,11 +384,11 @@ export async function createContact(contactData: ContactDataTypes) {
 }
 
 // ---------- Destinations ----------
-export async function getDestinations(): Promise<Destination[]> {
+export async function getDestinations(): Promise<Destination | []> {
   try {
-    const response = await axios.get(`${BASE_URL}/destinations/`);
+    const response = await axios.get<Destination>(`${BASE_URL}/destinations/`);
     // console.log('response', response)
-    return response.data.data
+    return response.data.data 
   } catch (error) {
     console.error("Failed to fetch Destinations:", error);
     return [];
@@ -399,7 +399,7 @@ export async function getDestinationById(id: string): Promise<Destination | null
   try {
     const res = await axios.get<{ data: Destination }>(`${BASE_URL}/destinations/${id}`)
     console.log('res', res)
-    return res.data.data 
+    return res.data.data ?? null
   } catch (error) {
     console.error(`Failed to fetch destination with ID ${id}:`, error)
     return null

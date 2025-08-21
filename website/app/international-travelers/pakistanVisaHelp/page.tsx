@@ -59,19 +59,19 @@ const page = () => {
         securely, and receive your visa without visiting an embassy.
       </p>
       <div className="flex space-x-3 mt-8">
-                <motion.div
-                whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                      >
-                                        <Link
-                                          href={`https://visa.nadra.gov.pk/e-visa/`}
-                                          target="_blank"
-                                          className="bg-orange-600 text-white py-3 px-6 font-semibold transition-all duration-300"
-                                        >
-                                          Apply Now
-                                        </Link>
-                                      </motion.div>
-                                    </div>
+       <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+         >
+         <Link
+        href={`https://visa.nadra.gov.pk/e-visa/`}
+         target="_blank"
+         className="bg-orange-600 text-white py-3 px-6 font-semibold transition-all duration-300"
+         >
+        Apply Now
+        </Link>
+      </motion.div>
+      </div>
     </div>
 
     {/* Right: Video */}
