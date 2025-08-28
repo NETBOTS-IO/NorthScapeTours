@@ -6,7 +6,7 @@ import Link from "next/link"
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { MapPin, Clock, Users, Star, Heart, Share2 } from "lucide-react"
-import { Destination, destinationsData } from "@/data/destinations-data"
+import { Destination } from "@/data/destinations-data"
 import { getDestinations } from "@/lib/api"
 
 const DestinationsGrid = () => {
@@ -15,10 +15,12 @@ const DestinationsGrid = () => {
   const [favorites, setFavorites] = useState<string[]>([])
   const [destinations, setDestinations] = useState<Destination[]>([])
   const [loading, setLoading]= useState(true)
-  const [visibleCount, setVisibleCount] = useState(6) // show 6 destinations initially
+  const countPage = 6;
+  const [visibleCount, setVisibleCount] = useState(countPage) // show 6 destinations initially
 
-const visibleDestinations = destinations.slice(0, visibleCount)
+// const visibleDestinations = destinations.slice(0, visibleCount)
 
+// console.log('visibleDestinations', visibleDestinations); 
 
 useEffect(()=>{
   const fetchDestinations = async()=>{
@@ -133,7 +135,7 @@ if (!id) return;
 const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
 const handleMore = () => {
-  setVisibleCount((prev) => prev + 6) // load 6 more each time
+  setVisibleCount((prev) => prev + countPage) // load 6 more each time
 }
 
   return (
@@ -172,9 +174,9 @@ const handleMore = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
          Loading...
          </div>
-        ) : visibleDestinations.length === 0 ?
+        ) : destinations.length === 0 ?
        (<div>"No Destination Found"</div>) : 
-         (visibleDestinations.map((destination, index) => (
+         (destinations.slice(0, visibleCount).map((destination, index) => (
             <motion.div
               key={destination._id}
               variants={itemVariants}

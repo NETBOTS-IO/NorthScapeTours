@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, Variants } from "framer-motion"
 import { useRef } from "react"
 import { Shield, Award, Users, Globe, Clock, Heart, Star, CheckCircle, MapPin, Headphones } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -107,7 +107,7 @@ export default function WhyChooseUs() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
@@ -120,7 +120,7 @@ export default function WhyChooseUs() {
     },
   }
 
-  const statsVariants = {
+  const statsVariants: Variants = {
     hidden: { scale: 0, opacity: 0 },
     visible: {
       scale: 1,

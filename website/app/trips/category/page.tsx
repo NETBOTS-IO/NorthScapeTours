@@ -28,6 +28,12 @@ const TripsListing = () => {
   const [category, setCategory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const BLOGS_PER_PAGE = 9;
+    const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
+  
+    const handleLoadMore = () => {
+      setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
+    };
 
 
   const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
@@ -255,7 +261,7 @@ useEffect(() => {
               : "space-y-6"
           }
         >
-          {sortedTrips.map((trip, index) => (
+          {sortedTrips.slice(0, visibleCount).map((trip, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
@@ -585,6 +591,9 @@ useEffect(() => {
         </motion.div>
 
         {/* Load More */}
+        {
+          visibleCount < sortedTrips.length &&(
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -595,10 +604,13 @@ useEffect(() => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn-outline"
+            onClick={handleLoadMore}
           >
             Load More Adventures
           </motion.button>
         </motion.div>
+          )
+        }
       </div>
     </section>
   );

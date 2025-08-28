@@ -2,8 +2,11 @@
 
 import type React from "react"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 const HeroSection = () => {
+const router = useRouter();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -39,8 +42,9 @@ const HeroSection = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <button
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                onClick={() => router.push("/contact")}
               >
-                Book Now
+              Request Custom Book
               </button>
             </motion.div>
             {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

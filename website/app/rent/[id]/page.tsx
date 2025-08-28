@@ -16,11 +16,11 @@ const fadeInUp = {
 
 const CarDetails = () => {
   const [car, setCar] = useState<RentCar | null>(null); 
-  const [isSending, setIsSending] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
   const id = params?.id as string | undefined; 
+  const router = useRouter();
 
    // Form state
   const [formData, setFormData] = useState({
@@ -38,13 +38,15 @@ const CarDetails = () => {
 
   const fetchCarDetails = async () => {
     if (!id) return;
-    setIsSending(true)
+    setIsLoading(true)
     try {
       const res = await getCarById(id);
      setCar(res as RentCar); 
-     setIsSending(false)
+     setIsLoading(false)
     } catch (error) {
       console.error('Error fetching car details:', error);
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -63,7 +65,7 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
     }))
   }
 
-console.log('car', car)
+// console.log('car', car)
 
   const handleBookNow = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -73,84 +75,95 @@ console.log('car', car)
     alert("Please fill in all required fields");
     return;
   }
+setIsLoading(true);
+   try {
+    const bookingPayload = {
+      ...formData,
+      carId: car?._id,
+      carName: car?.carName,
+      carModel: car?.carModel,
+      pricePerDay: car?.pricePerDay,
+      seats: car?.seats,
+      transmission: car?.transmission,
+      fuelType: car?.fuelType,
+      driverName: car?.driverName
+    };
 
+    const response = await fetch(`${BASE_API_URL}/bookings/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingPayload),
+    });
+const data = await response.json();
 
-  const message = `*Car Details*
-Car Name: ${car?.carName}
-Car Model: ${car?.carModel}
-Price: ${car?.pricePerDay}
-Seater: ${car?.seats}
-Driver Name: ${car?.driverName}
-Transmission(auto/petrol): ${car?.transmission}
-Fuel Tyoe: ${car?.fuelType}
-Phone: ${car?.transmission}
+// console.log('response', response)
+// console.log('data', data)
+    if (!data.success) {
+      alert(data.message)
+      setIsLoading(false);
+      return // return here while car exist in booking
+    }
 
+    if (data.success) {
+      alert(data.message)
+      setIsLoading(false);
+      setFormData({
+         customerName: "",
+    customerEmail:"",
+    phoneNumber: "",
+    pickupLocation: "",
+    dropoffLocation: "",
+    pickupDate: "",
+    dropoffDate: "",
+    pickupTime: "",
+    dropoffTime: "",
+    specialRequirements: "",
+      })
+    }
 
-*Customer Details*
-Customer Name: ${formData.customerName},
-Customer Email:${formData.customerEmail},
-Phone Number: ${formData.phoneNumber},
-Pickup Location: ${formData.pickupLocation},
-Dropoff Location: ${formData.dropoffLocation},
-pickup Date: ${formData.pickupDate},
-dropoff Date: ${formData.dropoffDate},
-pickup Time: ${formData.pickupTime},
-dropoff Time: ${formData.dropoffTime},
-special Requirements: ${formData.specialRequirements},`
+    
+    // console.log("Booking created:", data);
+  } catch (error) {
+    console.error("Error creating booking:", error);
+  }finally{
+    setIsLoading(false);
+  }
 
-  // WhatsApp API link (replace with your number)
-  const phoneNumber = "923480578106"; // in international format
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+ const message = `*Car Booking Details* \n
+Car Name: ${car?.carName} \n
+Car Model: ${car?.carModel} \n
+Price: ${car?.pricePerDay} \n
+Seater: ${car?.seats} \n
+Driver Name: ${car?.driverName} \n
+Transmission (auto/petrol): ${car?.transmission} \n
+Fuel Type: ${car?.fuelType} \n\n
 
-  window.open(whatsappUrl, "_blank");
+*Customer Details* \n
+Customer Name: ${formData?.customerName} \n
+Customer Email: ${formData?.customerEmail} \n
+Phone Number: ${formData?.phoneNumber} \n
+Pickup Location: ${formData?.pickupLocation} \n
+Dropoff Location: ${formData?.dropoffLocation} \n
+Pickup Date: ${formData?.pickupDate} \n
+Dropoff Date: ${formData?.dropoffDate} \n
+Pickup Time: ${formData?.pickupTime} \n
+Dropoff Time: ${formData?.dropoffTime} \n
+Special Requirements: ${formData?.specialRequirements} \n
+`;
 
+// const phoneNumber = `${intNumberFormat}`;  // already formatted as 92xxxx
+const phoneNumber = `923480578106`;  // already formatted as 92xxxx
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  // setIsLoading(true);
+window.open(whatsappUrl, "_blank");
 
-  // const bookingData = {
-  //   carId: car?._id,
-  //   carName: car?.carName,
-  //   carModel: car?.carModel,
-  //   pricePerDay: car?.pricePerDay,
-  //   ...formData
-  // };
-  // try {
-  //   const res = await fetch(`${BASE_API_URL}/bookings/`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(bookingData)
-  //   });
-
-  //   const result = await res.json();
-  //   console.log('result', result)
-  //   if (result.success) {
-  //     alert("Booking request sent! The owner has been notified.");
-  //     setFormData({
-  //       customerName: "",
-  //       customerEmail:"",
-  //       phoneNumber: "",
-  //       pickupLocation: "",
-  //       dropoffLocation: "",
-  //       pickupDate: "",
-  //       dropoffDate: "",
-  //       pickupTime: "",
-  //       dropoffTime: "",
-  //       specialRequirements: "",
-  //     });
-  //     router.push('/rent')
-  //   } else {
-  //     alert(`${result.message}`);
-  //   }
-  // } catch (error) {
-  //   alert(`Error sending booking request.`);
-  // } finally {
-  //   setIsLoading(false);
-  // }
 };
 
 
 
-  if (isSending) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -313,10 +326,10 @@ special Requirements: ${formData.specialRequirements},`
                   required
                 >
                   <option value="">Select pickup location</option>
-                  <option value="New York">New York</option>
-                  <option value="Los Angeles">Los Angeles</option>
-                  <option value="Chicago">Chicago</option>
-                  <option value="Miami">Miami</option>
+                  <option value="skardu_airport">Skardu International Airport</option>
+                  <option value="skardu_bus-station">Skardu Bus Station</option>
+                  <option value="main_bazar">Main Bazar Skardu</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
               <div>
@@ -331,10 +344,10 @@ special Requirements: ${formData.specialRequirements},`
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">Select drop-off location</option>
-                  <option value="New York">New York</option>
-                  <option value="Los Angeles">Los Angeles</option>
-                  <option value="Chicago">Chicago</option>
-                  <option value="Miami">Miami</option>
+                  <option value="skardu_airport">Skardu International Airport</option>
+                  <option value="skardu_bus-station">Skardu Bus Station</option>
+                  <option value="main_bazar">Main Bazar Skardu</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
             </div>

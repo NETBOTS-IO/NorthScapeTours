@@ -6,7 +6,7 @@ import ClientLayout from "./ClientLayout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Northscape Tours and Travels",
+  title: "Northscape Tours and Travels Pakistan",
   description:
     "Discover extraordinary destinations and trips and create unforgettable memories with our premium travel experiences.",
 }

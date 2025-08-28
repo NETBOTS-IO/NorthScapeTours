@@ -5,8 +5,6 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { User, ArrowRight } from "lucide-react";
-import type { BlogPost } from "@/data/blog-posts";
-import { generateSlug } from "@/lib/slug";
 import { Blog } from "@/data/blogs-types";
 
 interface BlogGridProps {
@@ -16,9 +14,12 @@ interface BlogGridProps {
 const BlogGrid = ({ posts = [] }: BlogGridProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   const BLOGS_PER_PAGE = 9;
   const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
 
+  console.log('posts', posts);
+  
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
   };
@@ -125,14 +126,21 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
           ))}
         </motion.div>
         {visibleCount < posts.length && (
-          <div className="text-center mt-8">
-            <button
-              onClick={handleLoadMore}
-              className="inline-flex items-center space-x-2 text-orange-600 hover:text-green-600 font-semibold transition-colors duration-300 border border-orange-200 rounded-full px-6 py-3 text-base bg-white shadow-sm hover:shadow-md"
-            >
-              <span>Load More</span>
-            </button>
-          </div>
+          <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="text-center mt-12"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="btn-outline"
+            onClick={handleLoadMore}
+          >
+            Load More Blogs
+          </motion.button>
+        </motion.div>
         )}
       </div>
     </section>

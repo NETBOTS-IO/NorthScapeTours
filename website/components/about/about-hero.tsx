@@ -1,10 +1,13 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { Play } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const AboutHero = () => {
-  const backgroundVariants = {
+const router = useRouter()
+
+  const backgroundVariants: Variants = {
     initial: { scale: 1.1, opacity: 0 },
     animate: {
       scale: 1,
@@ -16,7 +19,7 @@ const AboutHero = () => {
     },
   }
 
-  const textVariants = {
+  const textVariants: Variants = {
     initial: { y: 50, opacity: 0 },
     animate: {
       y: 0,
@@ -31,7 +34,7 @@ const AboutHero = () => {
     },
   }
 
-  const childVariants = {
+  const childVariants: Variants = {
     initial: { y: 30, opacity: 0 },
     animate: {
       y: 0,
@@ -48,8 +51,8 @@ const AboutHero = () => {
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
       <motion.div variants={backgroundVariants} initial="initial" animate="animate" className="absolute inset-0">
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(/placeholder.svg?height=800&width=1920)" }}
+          className="absolute inset-0 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: "url(/images/sunset.jpg?height=800&width=1920)" }}
         />
         <div className="absolute inset-0 bg-black/50" />
       </motion.div>
@@ -64,17 +67,17 @@ const AboutHero = () => {
             most incredible destinations
           </motion.p>
           <motion.div variants={childVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" onClick={()=>router.push("/contact")}>
               Learn More About Us
             </motion.button>
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center space-x-2 px-6 py-3 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm"
             >
               <Play className="w-5 h-5" />
               <span>Watch Our Story</span>
-            </motion.button>
+            </motion.button> */}
           </motion.div>
         </motion.div>
       </div>

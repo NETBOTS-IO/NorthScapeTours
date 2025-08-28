@@ -41,7 +41,7 @@ export const PhotoCard = ({
         <div className="absolute top-4 left-4 bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
           {photo.category}
         </div>
-        <button
+        {/* <button
           onClick={(e) => {
             e.stopPropagation();
             onFavoriteClick();
@@ -53,7 +53,7 @@ export const PhotoCard = ({
           }`}
         >
           <Heart className={`w-4 h-4 ${isFavorite ? "fill-current" : ""}`} />
-        </button>
+        </button> */}
       </div>
 
       {/* Info */}

@@ -6,11 +6,7 @@ import Link from "next/link";
 import {
   Mountain,
   Telescope,
-  Users,
   Crown,
-  Waves,
-  Camera,
-  TreePine,
   Compass,
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -30,10 +26,8 @@ const TripCategories = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { root: container, initial: true, once: true, margin: "-100px" });
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const selectedCategory = searchParams.get("category");
 
-console.log('categoriesData', categoriesData)
+// console.log('categoriesData', categoriesData)
 
   useEffect(() => {
     async function getCategories() {
@@ -115,16 +109,19 @@ console.log('categoriesData', categoriesData)
               <motion.div key={index} variants={itemVariants} className=  "group">
                 <Link href={`/trips/category?category=${encodeURIComponent(category.categoryId)}&tripType=${category._id}`}>
                   <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                      y: -10,
-                      rotateY: 5,
-                      transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      },
-                    }}
+                    // whileHover={{
+                    //   scale: 1.05,
+                    //   y: -10,
+                    //   rotateY: 5,
+                    //   transition: {
+                    //     type: "spring",
+                    //     stiffness: 300,
+                    //     damping: 20,
+                    //   },
+                  // }}
+                  whileHover={{scale: 1.09, rotate: "1.18deg"}}
+                  whileTap={{scale: 0.2}}
+                  transition={{duration: 0.4}}
                     className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                   >
                     {/* Background Gradient */}
@@ -142,12 +139,12 @@ console.log('categoriesData', categoriesData)
                         <IconComponent className="w-8 h-8" />
                       </motion.div>
                       {/* Title */}
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-xl capitalize font-bold mb-3 group-hover:text-white transition-colors duration-300">
                         {category._id}
                       </h3>
                       {/* Count */}
                       <div className="flex items-center justify-between">
-                        <span className="text-white/80 text-sm">
+                        <span className="text-white/80 text-sm capitalize">
                           {category.count} adventures
                         </span>
                         <motion.div

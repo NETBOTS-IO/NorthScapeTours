@@ -353,7 +353,7 @@ Total Price: ${calculateTotal().toString()}
                 <div className="font-medium text-slate-800">
                   Call our experts
                 </div>
-                <div className="text-slate-600">+1 (555) 123-4567</div>
+                <div className="text-slate-600"> +92 320 5077123</div>
               </div>
             </div>
             <div className="flex items-center space-x-3">

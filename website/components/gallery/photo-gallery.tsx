@@ -9,9 +9,10 @@ import { PhotoCard } from "./PhotoCard";
 import { ImageSlider } from "@/components/ui/ImageSlider";
 import { fetchGalleryPhotos } from "@/lib/api";
 import { useRouter } from 'next/navigation';
+import { useInView, motion } from "framer-motion";
 
 const getPhotoId = (photo: any): string => {
-  return photo._id || photo.id?.toString() || "";
+  return photo._id || photo.id
 };
 
 const fixImagePath = (path: string): string => {
@@ -56,7 +57,14 @@ const PhotoGallery = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const galleryToShown = 6
+  const [hasMore, setHasMore] = useState(galleryToShown);
+
+const handleLoadMore = () => {
+    setHasMore((prev) => prev + galleryToShown);
+  };
 
   const loadPhotos = async (pageNum: number) => {
     setLoading(true);
@@ -79,13 +87,13 @@ const PhotoGallery = () => {
         return [...prev, ...uniqueNew];
       });
 
-      if (rawPhotos.length < 20) {
-        setHasMore(false);
-      }
+      // if (rawPhotos.length < 20) {
+      //   setHasMore(0);
+      // }
     } catch (e) {
       console.error("Failed to fetch gallery photos:", e);
-      setPhotos(galleryData);
-      setHasMore(false);
+      setPhotos([]);
+      setHasMore(0);
     } finally {
       setLoading(false);
     }
@@ -98,7 +106,7 @@ const PhotoGallery = () => {
   const filteredPhotos =
     selectedCategory === "All"
       ? photos
-      : photos.filter((photo) => photo.category === selectedCategory);
+      : photos.filter((photo) => photo.category.toLowerCase() === selectedCategory.toLocaleLowerCase());
 
   const selectedPhoto = selectedId
     ? photos.find((p) => getPhotoId(p) === selectedId)
@@ -106,8 +114,7 @@ const PhotoGallery = () => {
 
   useEffect(() => {
     setPage(1);
-    setPhotos([]);
-    setHasMore(true);
+    // setPhotos([);
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -120,25 +127,37 @@ const PhotoGallery = () => {
     );
   };
 
-  const categories = [
-    "All",
-    "Mountains",
-    "Wildlife",
-    "Culture",
-    "Landscapes",
-    "Adventure",
-    "People",
-  ];
+//same as dashboard gallery form categories
+  // const categories = [
+  //   "All",
+  //   "Trekking",
+  //     "Adventure",
+  //     "Landscapes",
+  //     "Sightseeing",
+  //     "Wildlife",
+  //     "Historical",
+  //     "Mountaineering",
+  //     "Custom Family Tour",
+  //     "Religious and Culture Tours",
+  //     "Exclusive Private Tours",
+  //     "Group Tours",
+  //     "Hiking",
+  //     "Honeymoon Tours",
+  //     "Luxury",
+  //     "By Air Tours",
+  //     "By Road Tours",
+  //     "Weekend Retreat"
+  // ];
 
-  const handleToggleLoad = () => {
-    if (hasMore) {
-      setPage((prev) => prev + 1);
-    } else {
-      setPage(1);
-      setPhotos([]);
-      setHasMore(true);
-    }
-  };
+  //categories extractor
+  const categoryMap: Record<string, number> = {};
+  photos.forEach((post) => {
+    categoryMap[post.category] = (categoryMap[post.category] || 0) + 1;
+  });
+  const categories = [
+    { name: "All", count: photos.length },
+    ...Object.entries(categoryMap).map(([name, count]) => ({ name, count })),
+  ];
 
   const handleViewDetails = (photoId: string) => {
     router.push(`/gallery/${photoId}`);
@@ -156,21 +175,7 @@ const PhotoGallery = () => {
     );
   }
 
-  if (!photos || photos.length === 0) {
-    return (
-      <section className="section-padding bg-slate-50">
-        <div className="max-w-7xl mx-auto text-center py-24">
-          <h2 className="text-2xl font-bold text-slate-700 mb-4">
-            No photos found in the gallery.
-          </h2>
-          <p className="text-slate-500">
-            Please check back later or contact support if you believe this is an
-            error.
-          </p>
-        </div>
-      </section>
-    );
-  }
+  // console.log('filteredPhotos', filteredPhotos)
 
   return (
     <section ref={ref} className="section-padding bg-slate-50">
@@ -178,25 +183,34 @@ const PhotoGallery = () => {
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
+              key={category.name}
+              onClick={() => setSelectedCategory(category.name)}
               className={`px-6 py-3 rounded-full font-semibold transform transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-95 ${
-                selectedCategory === category
+                selectedCategory === category.name
                   ? "bg-orange-600 text-white shadow-lg"
                   : "bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-800 shadow-sm"
               }`}
             >
-              {category}
+              {category.name}
             </button>
           ))}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredPhotos.map((photo) => {
+          {!filteredPhotos || filteredPhotos.length ===0 ?  
+          <div className="w-full text-center py-24">
+          <h2 className="text-2xl font-bold text-slate-700 mb-4">
+            No photos found in the gallery.
+          </h2>
+          <p className="text-slate-500">
+            Please check back later or contact support if you believe this is an
+            error.
+          </p>
+        </div> : filteredPhotos?.slice(0, hasMore).map((photo) => {
             const id = getPhotoId(photo);
             return (
               <PhotoCard
-                key={id}
+                key={id || photo._id || photo.id}
                 photo={photo}
                 isFavorite={favorites.includes(id)}
                 onCardClick={() => !isMobile && handleViewDetails(id)}
@@ -206,17 +220,23 @@ const PhotoGallery = () => {
           })}
         </div>
 
-        {filteredPhotos.length > 0 && (
-          <div className="text-center mt-12">
-            <button
-              className="btn-outline transform transition-transform duration-300 hover:scale-105 active:scale-95"
-              onClick={handleToggleLoad}
-            >
-              {hasMore ? "Load More Photos" : "Show Less"}
-            </button>
-          </div>
-        )}
-
+       {hasMore < filteredPhotos.length && (
+                 <motion.div
+                 initial={{ opacity: 0, y: 30 }}
+                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                 transition={{ duration: 0.6, delay: 1.2 }}
+                 className="text-center mt-12"
+               >
+                 <motion.button
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                   className="btn-outline"
+                   onClick={handleLoadMore}
+                 >
+                   Load More Blogs
+                 </motion.button>
+               </motion.div>
+               )}
         {!isMobile && selectedPhoto && (
           <div
             className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"

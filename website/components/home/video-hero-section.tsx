@@ -186,7 +186,7 @@ export default function VideoHeroSection() {
               </motion.div>
 
               {/* CTAs */}
-              <motion.div
+              {/* <motion.div
                 variants={childVariants}
                 className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
               >
@@ -203,7 +203,7 @@ export default function VideoHeroSection() {
                 >
                   {currentVideo.secondaryCTA}
                 </Button>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </AnimatePresence>
         </div>

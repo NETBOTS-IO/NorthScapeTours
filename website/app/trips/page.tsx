@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
-import TripsHero from "@/components/trips/trips-hero"
 import TripCategories from "@/components/trips/trip-categories"
 import TripsListing from "@/components/trips/trips-listing"
-import TripFilters from "@/components/trips/trip-filters"
 
 export const metadata: Metadata = {
   title: "Northscape Tours & Travels | Adventure Trips, Tours & Holiday Packages",

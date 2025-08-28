@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence, useInView } from "framer-motion"
+import { motion, AnimatePresence, useInView, Variants } from "framer-motion"
 import { useRef } from "react"
 import { ChevronDown, HelpCircle } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface FAQItem {
   question: string
@@ -16,6 +17,7 @@ const FAQ = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [activeCategory, setActiveCategory] = useState("All")
+  const router = useRouter();
 
   const faqs: FAQItem[] = [
     {
@@ -86,6 +88,7 @@ const FAQ = () => {
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index)
+
   }
 
   const containerVariants = {
@@ -99,7 +102,7 @@ const FAQ = () => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -234,12 +237,14 @@ const FAQ = () => {
           <h3 className="text-2xl font-bold text-slate-800 mb-4">Still Have Questions?</h3>
           <p className="text-slate-600 mb-6">Our travel experts are here to help you plan the perfect adventure</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" 
+            onClick={()=> router.push("/contact")}
+            >
               Contact Our Experts
             </motion.button>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-outline">
+            {/* <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-outline">
               Schedule a Call
-            </motion.button>
+            </motion.button> */}
           </div>
         </motion.div>
       </div>

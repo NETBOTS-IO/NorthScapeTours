@@ -27,7 +27,8 @@ const DestinationPage = () => {
     const fetchDestination = async () => {
       try {
         const response = await getDestinationById(id)
-        setDestination(response ?? null)
+        console.log('response', response)
+        setDestination(response)
       } catch (err) {
         console.error("Failed to fetch destination:", err)
         setDestination(null)

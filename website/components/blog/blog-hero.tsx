@@ -46,10 +46,10 @@ const BlogHero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
-      <motion.div variants={backgroundVariants} initial="initial" animate="animate" className="absolute inset-0">
+        <motion.div variants={backgroundVariants} initial="initial" animate="animate" className="absolute inset-0">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url(/placeholder.svg?height=400&width=1920)" }}
+          className="absolute inset-0 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: "url(/Images/sss.jpg)"}}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-green-600/20" />
       </motion.div>
