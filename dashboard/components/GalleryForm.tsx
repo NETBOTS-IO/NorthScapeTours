@@ -18,13 +18,24 @@ interface GalleryFormProps {
 }
 
 const categories = [
-  "Mountains",
-  "Wildlife",
-  "Culture",
-  "Landscapes",
-  "Adventure",
-  "People",
-];
+    "Trekking",
+    "Adventure",
+    "Landscapes",
+    "Sightseeing",
+    "Wildlife",
+    "Historical",
+    "Mountaineering",
+    "Custom Family Tour",
+    "Religious and Culture Tours",
+    "Exclusive Private Tours",
+    "Group Tours",
+    "Hiking",
+    "Honeymoon Tours",
+    "Luxury",
+    "By Air Tours",
+    "By Road Tours",
+    "Weekend Retreat"
+  ];
 
 export default function GalleryForm({ initialData, onSuccess }: GalleryFormProps) {
   const [form, setForm] = useState({

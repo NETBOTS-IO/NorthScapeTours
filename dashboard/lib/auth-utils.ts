@@ -1,14 +1,30 @@
 "use client"
 
-// Simple authentication utilities
-export function isAuthenticated(): boolean {
-  if (typeof window === "undefined") return false
-  return localStorage.getItem("mtp_auth") !== null
+import axios from "axios"
+import toast from "react-hot-toast"
+
+
+export async function isAuthenticated() {
+  try {
+    const response = await axios.get("http://localhost:5000/api/auth/me", {
+      withCredentials: true, // important when using httpOnly cookies
+    })
+    return response.data // return user data if authenticated
+  } catch (error) {
+    console.error("Error while authenticating:", error)
+    return null // not authenticated
+  }
 }
 
-export function logout(): void {
-  if (typeof window === "undefined") return
-  localStorage.removeItem("mtp_auth")
+
+//api integrated 
+export async function logout() {
+  try {
+   const response = await axios.post("http://localhost:5000/api/auth/logout")
+   toast.success(response?.data?.message)
+  } catch (error) {
+    console.log('error during logout', error)
+  }
 }
 
 export function login(email: string, password: string): boolean {

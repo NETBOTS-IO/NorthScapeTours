@@ -67,29 +67,75 @@ export default function BlogManagement() {
       }
     }
   };
+
+  // console.log('filteredBookings', filteredBookings)
+
 // Confirm booking
 const handleConfirm = async (id: string, status: string) => {
-    if (window.confirm("Are you sure you want to Confrim this Booking?")) {
+    if (window.confirm(`Are you sure you want to ${status === "Confirmed" ? "Cancelled" : "Confirm"} this Booking?`)) {
+      // api called for updating status 
       try {
-        console.log('status', status)
+        // console.log('status', status)
         const updateStatus = status === "Pending" ? "Confirmed" : "Pending";
-        const success = await updatingBookingById(id, updateStatus);
-        console.log('updateStatus', updateStatus)
-        if (success) {
+        const response = await updatingBookingById(id, updateStatus);
+        // console.log('updateStatus', updateStatus)
+        console.log('res', response)
+
+        if (response.success) {
         const response =   await getBookings({page, search: searchTerm})
         setBookings(response.bookings || [])
          setTotalPages(response.pages || 1);
-         
-          toast.success("Booking  successfully");
+          toast.success(`Booking Updated Successfully`);
         } else {
-          toast.error("Failed to Booking");
-        }
+          toast.error(`${response.message}`);
+          return 
+        } 
       } catch (error) {
+        console.log('error', error)
         toast.error("An error occurred while Booking");
+        return
       }
+//whatsapp contact 
+   const filterCurrentBooking = filteredBookings.find((booking) => booking._id === id)
+// console.log('filterCurrentBooking', filterCurrentBooking)
+
+
+const intNumberFormat = filterCurrentBooking?.phoneNumber.replace(/^0/, "92")
+const phoneNumber = `${intNumberFormat}`;  // already formatted as 92xxxx
+// const phoneNumber = `923555758727`;  // already formatted as 92xxxx
+// const phoneNumber = `923480578106`;  // already formatted as 92xxxx
+
+       const message = `${status === "Confirmed"? "*Your Car Booking has Cancelled*" : "*Your Car Has Booked*"} \n
+       *Please Note:* _Reply to this message quickly as soon as possible, So we complete further inquiries_ \n
+Car Name: ${filterCurrentBooking?.carName} \n
+Car Model: ${filterCurrentBooking?.carModel} \n
+Price: ${filterCurrentBooking?.pricePerDay} \n
+Seater: ${filterCurrentBooking?.seats} \n
+Driver Name: ${filterCurrentBooking?.driverName} \n
+Transmission (auto/petrol): ${filterCurrentBooking?.transmission} \n
+Fuel Type: ${filterCurrentBooking?.fuelType} \n
+Phone: ${filterCurrentBooking?.phoneNumber} \n\n
+
+*Customer Details* \n
+Customer Name: ${filterCurrentBooking?.customerName} \n
+Customer Email: ${filterCurrentBooking?.customerEmail} \n
+Phone Number: ${filterCurrentBooking?.phoneNumber} \n
+Pickup Location: ${filterCurrentBooking?.pickupLocation} \n
+Dropoff Location: ${filterCurrentBooking?.dropoffLocation} \n
+Pickup Date: ${filterCurrentBooking?.pickupDate} \n
+Dropoff Date: ${filterCurrentBooking?.dropoffDate} \n
+Pickup Time: ${filterCurrentBooking?.pickupTime} \n
+Dropoff Time: ${filterCurrentBooking?.dropoffTime} \n
+Special Requirements: ${filterCurrentBooking?.specialRequirements} \n
+`;
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+window.open(whatsappUrl, "_blank");
+
+
     }
   };
-
+// console.log('filteredBookings', filteredBookings)
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -164,7 +210,7 @@ const handleConfirm = async (id: string, status: string) => {
                       className="bg-green-600 hover:bg-green-700"
                       onClick={() => handleConfirm(`${book._id}`, book.status )}
                     >
-                      Confirm
+                     WhatsApp
                     </Button>
                    ):(
                     <Button

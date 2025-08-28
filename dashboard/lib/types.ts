@@ -182,6 +182,10 @@ export interface Booking {
   pickupTime: string; // HH:mm
   pricePerDay: number;
   specialRequirements: string;
+  seats?:string,
+  transmission?: string,
+  driverName?: string,
+  fuelType?: string,
   status: "Pending" | "Confirmed" | "Cancelled"; 
 }
 

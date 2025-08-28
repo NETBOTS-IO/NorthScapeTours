@@ -17,11 +17,12 @@ import {
   CarFront,
   MapPinHouse,
   BookOpenCheck,
-  NotebookPen 
+  NotebookPen,
+  Users 
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { isAuthenticated, logout } from "@/lib/auth-utils"
+import { useAuth } from "../context/authContext";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
@@ -32,34 +33,20 @@ const menuItems = [
   { icon: MapPinHouse , label: "Destination", href: "/admin/destinations" },
   { icon: FileText, label: "Blogs", href: "/admin/blogs" },
   { icon: BookOpenCheck , label: "Testimonials", href: "/admin/testimonials" },
+  { icon: Users  , label: "Users", href: "/admin/user" },
   { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
 ]
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [isLoading, setIsLoading] = useState(true)
   const pathname = usePathname()
-  const router = useRouter()
-
-  useEffect(() => {
-    const checkLoginStatus = () => {
-      const loggedIn = isAuthenticated()
-      if (!loggedIn && pathname !== "/login") {
-        router.push("/login")
-      } else {
-        setIsLoading(false)
-      }
-    }
-    checkLoginStatus()
-  }, [pathname, router])
+  const router = useRouter();
+  
+  const {  logout } = useAuth()
 
   const handleLogout = () => {
     logout()
     router.push("/login")
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>
   }
 
   if (pathname === "/login") {

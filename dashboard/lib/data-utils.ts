@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BASE_URL } from "@/Var";
 import { Destination, Tour, Blog, GalleryPhoto, Inquiry, RentCar, BlogAPIResponse, Booking, Testimonials, TestimonialsFormState } from "./types";
 
@@ -430,10 +430,12 @@ export async function deleteBookingById(id: string) {
 export async function updatingBookingById(id: string, status: string) {
   try {
     const res = await axios.put(`${BASE_URL}/api/bookings/${id}`, {status});
+    console.log('response', res)
     return res.data || null;
   } catch (error) {
-    console.error(`❌ Failed to fetch car with ID ${id}:`, error);
-    return null;
+    const err = error as AxiosError;
+    console.error(`❌ Failed to fetch car with ID ${id}:`, err);
+    return err.response || null;
   }
 }
 

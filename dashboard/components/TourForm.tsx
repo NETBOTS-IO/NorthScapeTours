@@ -41,6 +41,7 @@ import type { Tour } from "@/lib/data-utils";
 const tourCategories = [
   "Trekking",
   "Adventure",
+  "Landscape",
   "Sightseeing",
   "Wildlife",
   "Historical",
