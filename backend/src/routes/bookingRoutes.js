@@ -11,7 +11,7 @@ import BookingHandler, {
 
 const router = express.Router();
 
-router.post("/", BookingHandler);
+router.post("/", BookingHandler); 
 router.get("/booking-counts", countBookings);
 router.get("/confirmed-bookings", getConfirmedBookingsThisMonth);
 router.get("/", getBookings);

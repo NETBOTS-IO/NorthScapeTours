@@ -1,5 +1,5 @@
 import Booking from "../models/bookingModel.js";
-import { calculateReadTime } from "../utils/readTimeCalculator.js";
+import Car from "../models/rentModel.js";
 
 class BookingsServices {
 

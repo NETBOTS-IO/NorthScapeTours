@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from 'url';
 
 import tourRoutes from './routes/tourRoutes.js';
@@ -16,6 +17,7 @@ import BookingRoutes from './routes/bookingRoutes.js';
 import TestimonialsRoutes from './routes/testimonialsRoutes.js';
 import ContactRoutes from './routes/contactRoutes.js';
 import DestinationRoutes from './routes/destinationRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -98,6 +100,7 @@ app.use((req, res, next) => {
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Serve static files
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -108,6 +111,8 @@ app.use('/uploads', express.static(path.resolve(__dirname, 'uploads')));
 app.get('/', (req, res)=>{
     res.send('Mountain Travel Pakistan Server is running');
 });
+
+app.use("/api/auth", authRoutes);
 app.use('/api/tours', tourRoutes);
 app.use('/api/entry', entryRoutes);
 app.use('/api/gallery', galleryRoutes);

@@ -262,7 +262,7 @@ export const getTourCategories = async (req, res) => {
       { $group: { _id: "$category", count: { $sum: 1 }, categoryId: { $first: "$_id" }  } },
       { $sort: { count: -1 } }
     ]);
-    console.log('categories', categories)
+    // console.log('categories', categories)
     res.json({ success: true, data: categories });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error fetching categories', error: error.message });

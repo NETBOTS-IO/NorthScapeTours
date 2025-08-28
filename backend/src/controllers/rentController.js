@@ -98,7 +98,6 @@ export const updateCar = async (req, res) => {
   }
 };
 
-
 // 📌 DELETE CAR
 export const deleteCar = async (req, res) => {
   try {
