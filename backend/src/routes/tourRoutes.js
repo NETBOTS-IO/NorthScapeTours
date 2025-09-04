@@ -1,6 +1,5 @@
 import express from 'express';
 import { getAllTours, searchTours, getTourById, createTour, updateTour, deleteTour, getRelatedTours, getTourCategories, updateBookingTour } from '../controllers/tourController.js';
-import { tourValidation } from '../middlewares/validation.js';
 import upload from '../utils/multerConfig.js'; // Remove { } since it's a default export
 
 const router = express.Router();

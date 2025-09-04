@@ -357,20 +357,55 @@ export async function getTestimonials(query: {
   const res = await axios.get<GetTestimonialsResponse>(`${BASE_URL}/testimonials/?${params.toString()}`);
   return res.data.data; // Return the data bookings from the response
 }
- 
-export async function updateTourBookingById(
-  id: string,
-  tourData: Partial<Tour>
+
+
+
+//================ TOUR BOOKING APIS ===============
+type FormDataProps ={
+  tourId: string;
+  firstName: string;
+    lastName:string
+    email:string;
+    phone: string; 
+selectedDate: string;
+totalPrice: string;
+travelers: number;
+availability: string
+}
+
+export async function createTourBooking(
+  tourData: Partial<FormDataProps>,
 ): Promise<Tour | undefined> {
   try {
-    const response = await axios.put(`${BASE_URL}/tours/update-tour/${id}`, tourData);
-    console.log("Updated tour:", response.data.data);
-    return response.data.data; // Adjust based on actual API response structure
+    const response = await axios.post<{ data: Tour }>(
+      `${BASE_URL}/tour-booking/`,
+      tourData
+    );
+    // console.log("booking tour res:", response.data.data);
+    return response.data.data;
   } catch (error) {
-    console.error(`Failed to fetch tour with ID ${id}:`, error);
+    // console.error(`Failed to booking tour`, error);
+    return error?.response;
+  }
+}
+
+export async function updateTourBookingById(
+  id: string,
+  tourData: Partial<FormDataProps>,
+): Promise<Tour | undefined> {
+  try {
+    const response = await axios.put<{ data: Tour }>(
+      `${BASE_URL}/tours/update-tour/${id}`,
+      tourData
+    );
+    // console.log("Updated tour:", response.data.data);
+    return response.data.data;
+  } catch (error) {
+    // console.error(`Failed to fetch tour with ID ${id}:`, error);
     return undefined;
   }
 }
+
 
 export async function createContact(contactData: ContactDataTypes) {
   try {

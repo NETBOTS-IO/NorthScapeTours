@@ -2,6 +2,7 @@ import { OutputData } from "@editorjs/editorjs";
 
 export interface Tour {
   id: string;
+  _id?:string;
   name: string;
   country: string;
   location: string;
@@ -14,7 +15,7 @@ export interface Tour {
   price: number;
   originalPrice: number;
   images: string[];
-  availability: string;
+  availability: boolean;
   nextDeparture: string;
   features: string[];
   highlights: string[];

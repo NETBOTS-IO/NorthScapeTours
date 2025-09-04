@@ -28,6 +28,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: PackageSearch, label: "Tour Packages", href: "/admin/tours" },
   { icon: NotebookPen , label: "Bookings", href: "/admin/booking" },
+  { icon: NotebookPen , label: "Tour Bookings", href: "/admin/tour-booking" },
   { icon: Camera, label: "Gallery", href: "/admin/gallery" },
   { icon: CarFront , label: "Car Rental", href: "/admin/rent" },
   { icon: MapPinHouse , label: "Destination", href: "/admin/destinations" },

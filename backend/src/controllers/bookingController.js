@@ -12,9 +12,9 @@ export default async function BookingHandler(req, res) {
       const bookingData = req.body;
       const { carId } = bookingData;
 
-      console.log('carId', carId);
+      // console.log('carId', carId);
       const IsCarBooked = await Booking.findOne({ carId:carId });
-console.log('IsCarBooked', IsCarBooked);
+// console.log('IsCarBooked', IsCarBooked);
 
       if (IsCarBooked) {
         if (IsCarBooked.status === "Confirmed") {
@@ -42,9 +42,9 @@ console.log('IsCarBooked', IsCarBooked);
       }
       //  Save booking to DB
       const bookings = await Booking.create(bookingData);
-console.log('bookings', bookings)
+// console.log('bookings', bookings)
     await sendBookingEmails(bookings) //sending email
-c
+
       res.status(200).json({
         success: true,
         message: "Booking created and sent to owner",

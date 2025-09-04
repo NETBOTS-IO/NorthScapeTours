@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Users, Shield, Award, Clock, Star } from "lucide-react";
-import { Trip } from "@/data/trips-data";
-import { fetchTourById, updateTourBookingById } from "@/lib/api";
+import { Tour, Trip } from "@/data/trips-data";
+import { createTourBooking } from "@/lib/api";
 
 interface TripBookingWidgetProps {
   trip: Trip;
@@ -75,63 +75,81 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   };
 
 
+interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data?: T;
+}
+
+const totalPrice = calculateTotal().toLocaleString()
   // Send booking via WhatsApp
  const handleBooking = () => {
-  const updatedAvailability = !trip.availability;
+  const updatedAvailability = trip.availability;
+// console.log('updatedAvailability', updatedAvailability);
+const customerDetails = {...form, selectedDate, totalPrice , travelers, }
+console.log('customerDetails', customerDetails);
 
-  async function updatingBooking() {
+  async function tourBooking() {
     try {
-      const response = await updateTourBookingById(trip._id, {
+      const response: ApiResponse<Tour> | undefined =  await createTourBooking( {
+        ...customerDetails,
+        tourId: trip._id,
         availability: updatedAvailability.toString(),
       });
-      if (response) {
+      if (response?.success) {
         alert("Your Tour Booked successfully");
         window.location.reload();
-        setForm({});
+        setForm({  
+          firstName:"",
+    lastName:"",
+    email:"",
+    phone:""});
+      }else{
+        alert(response?.data?.message || "Somethin went wrong")
       }
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error); 
     }
   }
 
-  updatingBooking();
+  tourBooking();
 
-  const message = `*Booking Request:*
-First Name: ${form.firstName}
-Last Name: ${form.lastName}
-Email: ${form.email}
-Phone: ${form.phone}
+//   const message = `*Booking Request:*
+// First Name: ${form.firstName}
+// Last Name: ${form.lastName}
+// Email: ${form.email}
+// Phone: ${form.phone}
 
-*Customer Details*
-Number of Travelers: ${travelers}
-Selected Date: ${selectedDate}
-Total Price:  ${calculateTotal().toString()}
+// *Customer Details*
+// Number of Travelers: ${travelers}
+// Selected Date: ${selectedDate}
+// Total Price:  ${calculateTotal().toString()}
 
-*Tour Details*
-Tour Name: ${trip.name}
-Tour Name: ${trip.name}
-Days: ${trip.days}
-Original Price: ${trip.originalPrice}
-Market Price: ${trip.price}
-Tour Category: ${trip.category}
-Country: ${trip.country}
-Location: ${trip.location}
-Next Departure: ${trip.nextDeparture}
-Traveler Destination: ${trip.destination}
-Difficulties: ${trip.difficulty}
-Short Description: ${trip.shortDescription}
-Long Description: ${trip.longDescription}
-Physical Requirements: ${trip.physicalRequirements}
-Tour Overview: ${trip.overview}
-Travelling Best Time: ${trip.bestTime}
-Total Price: ${calculateTotal().toString()}
-`;
+// *Tour Details*
+// Tour Name: ${trip.name}
+// Tour Name: ${trip.name}
+// Days: ${trip.days}
+// Original Price: ${trip.originalPrice}
+// Market Price: ${trip.price}
+// Tour Category: ${trip.category}
+// Country: ${trip.country}
+// Location: ${trip.location}
+// Next Departure: ${trip.nextDeparture}
+// Traveler Destination: ${trip.destination}
+// Difficulties: ${trip.difficulty}
+// Short Description: ${trip.shortDescription}
+// Long Description: ${trip.longDescription}
+// Physical Requirements: ${trip.physicalRequirements}
+// Tour Overview: ${trip.overview}
+// Travelling Best Time: ${trip.bestTime}
+// Total Price: ${calculateTotal().toString()}
+// `;
 
-  // WhatsApp API link (replace with your number)
-  const phoneNumber = "923480578106"; // in international format
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+//   // WhatsApp API link (replace with your number)
+//   const phoneNumber = "923480578106"; // in international format
+//   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  window.open(whatsappUrl, "_blank");
+//   window.open(whatsappUrl, "_blank");
 };
 
 
@@ -250,18 +268,18 @@ Total Price: ${calculateTotal().toString()}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowBookingForm(!showBookingForm)}
-              disabled={!selectedDate}
+              disabled={!trip.availability}
               className="w-full bg-orange-600 hover:bg-green-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               {showBookingForm ? "Hide Booking Form" : "Book Now"}
             </motion.button>
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-6 rounded-xl font-semibold transition-all duration-300"
             >
               Check Availability
-            </motion.button>
+            </motion.button> */}
           </div>
 
           {/* Quick Booking Form */}
@@ -312,7 +330,7 @@ Total Price: ${calculateTotal().toString()}
             whileTap={{ scale: 0.95 }}
             onClick={handleBooking}
             disabled={!trip.availability}
-            className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300"
+            className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 disabled:cursor-not-allowed "
           >
           {!trip.availability ? "Booked": "Complete Booking"}  
           </motion.button>
