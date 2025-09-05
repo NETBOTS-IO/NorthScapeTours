@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Plus, Edit, Trash, Search, Eye } from "lucide-react"
-import { getTours, deleteTour, getTourBookings, TourBooking, deleteTourBooking, updatingBookingById, updateTourBookingById } from "@/lib/data-utils"
+import { getTours, deleteTour, getTourBookings, TourBooking, deleteTourBooking, updatingBookingById, updateTourBookingById, getDestinationBookings, DestinationBooking, deleteDestinationBooking, updateDestinationBookingById } from "@/lib/data-utils"
 import {type Tour} from "@/lib/types";
 import { toast } from "react-hot-toast"
 import { useTourStore } from "@/store/tourStore";
@@ -24,9 +24,9 @@ import {
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 
-export default function TourBookingPage() {
+export default function DestinationBookingPage() {
     
-  const [tourList, setTourList] = useState<TourBooking[]>([])
+  const [tourList, setTourList] = useState<DestinationBooking[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [sortBy, setSortBy] = useState("name")
   const [filterDifficulty, setFilterDifficulty] = useState("all")
@@ -37,18 +37,18 @@ export default function TourBookingPage() {
 
   useEffect(() => {
     const fetchTours = async () => {
-      const tours = await getTourBookings()
-      setTourList(tours)
+      const destionations = await getDestinationBookings()
+      setTourList(destionations)
     }
     fetchTours()
   }, []);
 
-  // console.log('tourList', tourList);
+  console.log('tourList', tourList);
 
   const handleDelete = async () => {
     if (!deleteId) return;
     setIsDeleting(true);
-    const success = await deleteTourBooking(deleteId);
+    const success = await deleteDestinationBooking(deleteId);
     setIsDeleting(false);
     if (success) {
       setTourList((prevTours) => prevTours.filter((tour) => tour._id !== deleteId));
@@ -64,25 +64,24 @@ export default function TourBookingPage() {
         // api called for updating status 
         setLoading(true);
         try {
-          // console.log('_id', _id);
-          // console.log('status', status);
+          console.log('_id', _id);
+          console.log('status', status);
 
-          const response = await updateTourBookingById(id, {status, _id});
-          // console.log('updateStatus', updateStatus)
-          // console.log('res tour booking', response)
+          const response = await updateDestinationBookingById(id, {status, _id});
+          console.log('res Destination booking', response)
   
           if (response.success) {
-          const response =   await getTourBookings();
-          // console.log('response get tours :>> ', response);
+          const response =   await getDestinationBookings();
+          console.log('response get destination :>> ', response);
           setTourList(response || [])
-            toast.success(`Tour Booking Successfully Confirm`);
+            toast.success(`Destination Booking Successfully Confirm`);
           } else {
-            toast.error(`Error update Tour Booking ${response.message}`);
+            toast.error(`Error update Destination Booking ${response.message}`);
             return 
           } 
         } catch (error) {
           console.log('error', error)
-          toast.error("An error occurred while Booking");
+          toast.error("An error occurred while Destination Booking");
           return
         }finally{
           setLoading(false);
@@ -93,15 +92,15 @@ export default function TourBookingPage() {
     
 
   const filteredTours = tourList
-    .filter((tour) => tour.tour.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter((tour) => filterDifficulty === "all" || tour.tour.difficulty === filterDifficulty)
+    .filter((tour) => tour.destination?.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((tour) => filterDifficulty === "all" || tour.destination?.difficulty === filterDifficulty)
     .sort((a, b) => {
       if (sortBy === "price") {
-        return a.tour.price - b.tour.price
+        return a.destination.price - b.destination.price
       } else if (sortBy === "days") {
-        return a.tour.days - b.tour.days
+        return a.destination.days - b.destination.days
       } else {
-        return a.tour.name.localeCompare(b.tour.name)
+        return a.destination.name.localeCompare(b.destination.name)
       }
     })
 
@@ -167,22 +166,22 @@ export default function TourBookingPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredTours.map((tour) => (
-              <TableRow key={tour._id} className="hover:bg-primary-light">
-                <TableCell>{tour?.tour?.name}</TableCell>
-                <TableCell>{tour?.tour?.days} days</TableCell>
-                <TableCell>${tour?.tour?.price}</TableCell>
-                <TableCell>{tour?.tour?.category}</TableCell>
-                <TableCell>{tour?.tour?.difficulty}</TableCell>
-                <TableCell><span    className={`${tour?.tour?.availability === true ? " bg-red-500" : 
-                  tour?.tour?.availability === false ? "bg-green-500" : "bg-amber-600" } px-2 py-1 rounded-md text-sm `}>{tour?.tour?.availability === true ? "Pending" : "Confirmed" }</span>
+            {filteredTours.map((destination) => (
+              <TableRow key={destination._id} className="hover:bg-primary-light">
+                <TableCell>{destination?.destination?.name}</TableCell>
+                <TableCell>{destination?.destination?.days} days</TableCell>
+                <TableCell>${destination?.destination?.price}</TableCell>
+                <TableCell>{destination?.destination?.category}</TableCell>
+                <TableCell>{destination?.destination?.difficulty}</TableCell>
+                <TableCell><span    className={`${destination?.destination?.availability === true ? " bg-red-500" : 
+                  destination?.destination?.availability === false ? "bg-green-500" : "bg-amber-600" } px-2 py-1 rounded-md text-sm `}>{destination?.destination?.availability === true ? "Pending" : "Confirmed" }</span>
                   </TableCell>
                    <TableCell className="text-center text-muted-foreground py-6">
-                                    {tour?.availability === true ? (
+                                    {destination?.availability === true ? (
                                       <Button
                                         size="sm"
                                         className="bg-green-600 hover:bg-green-700"
-                                        onClick={() => handleConfirm(`${tour._id}`, tour?.tour?.availability, tour?.tour?._id  )}
+                                        onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id  )}
                                       >
                                        {loading ? "..." : "Confirm"}
                                       </Button>
@@ -190,7 +189,7 @@ export default function TourBookingPage() {
                                       <Button
                                         size="sm"
                                         className="bg-red-500"
-                                          onClick={() => handleConfirm(`${tour._id}`, tour?.tour?.availability, tour?.tour?._id )}
+                                          onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id )}
                                       >
                                         {loading ? "..." : "Cancelled"}
                                       </Button>
@@ -198,7 +197,7 @@ export default function TourBookingPage() {
                   
                                   </TableCell>
                   <div className="flex space-x-2">
-                    <Link href={`/admin/tour-booking/${tour._id}`}>
+                    <Link href={`/admin/destination-booking/${destination._id}`}>
                       <Button variant="outline" size="sm">
                         <Eye className="h-4 w-4 mr-1" /> View
                       </Button>
@@ -208,7 +207,7 @@ export default function TourBookingPage() {
                         <Button
                           variant="destructive"
                           size="sm"
-                          onClick={() => setDeleteId(tour._id)}
+                          onClick={() => setDeleteId(destination._id)}
                         >
                           <Trash className="h-4 w-4 mr-1" /> Delete
                         </Button>

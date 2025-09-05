@@ -18,7 +18,9 @@ import {
   MapPinHouse,
   BookOpenCheck,
   NotebookPen,
-  Users 
+  Users ,
+   CalendarCheck, 
+  MapPinCheck, 
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -28,7 +30,8 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: PackageSearch, label: "Tour Packages", href: "/admin/tours" },
   { icon: NotebookPen , label: "Bookings", href: "/admin/booking" },
-  { icon: NotebookPen , label: "Tour Bookings", href: "/admin/tour-booking" },
+ { icon: CalendarCheck, label: "Tour Bookings", href: "/admin/tour-booking" }, 
+  { icon: MapPinCheck, label: "Destination Bookings", href: "/admin/destination-booking" },
   { icon: Camera, label: "Gallery", href: "/admin/gallery" },
   { icon: CarFront , label: "Car Rental", href: "/admin/rent" },
   { icon: MapPinHouse , label: "Destination", href: "/admin/destinations" },

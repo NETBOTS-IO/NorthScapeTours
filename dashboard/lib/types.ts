@@ -219,6 +219,7 @@ export interface Testimonials {
 }
 
 export interface Destination {
+  _id?:string;
   id: string;
   name: string;
   country: string;
@@ -232,7 +233,7 @@ export interface Destination {
   price: number;
   originalPrice: number;
   images: string[];
-  availability: string;
+  availability: boolean;
   nextDeparture: string;
   features: string[];
   highlights: string[];

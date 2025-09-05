@@ -602,7 +602,7 @@ export interface TourBooking {
   lastName: string;
   email: string;
   phone: string;
-  availability: string;    
+  availability: boolean;    
   travelers: number;
   selectedDate: string;   
   totalPrice: string;      
@@ -610,7 +610,7 @@ export interface TourBooking {
   updatedAt?: string;
 }
 
-export async function getTourBookings(): Promise<TourBooking[]> {
+export async function getTourBookings(): Promise<DestinationBooking[]> {
   try {
     const response = await axios.get(`${BASE_URL}/api/tour-booking/`);
     // Map _id to id for each tour
@@ -621,7 +621,7 @@ export async function getTourBookings(): Promise<TourBooking[]> {
   }
 }
 
-export async function getTourBookingById(id: string): Promise<TourBooking | null> {
+export async function getTourBookingById(id: string): Promise<DestinationBooking | null> {
   try {
     const response = await axios.get(`${BASE_URL}/api/tour-booking/${id}`);
     // Map _id to id for the single tour
@@ -656,14 +656,89 @@ export async function deleteTourBooking(id: string): Promise<boolean> {
 export async function updateTourBookingById(
   id: string,
   tourData: {_id: string | undefined, status: boolean},
-): Promise<TourBooking | undefined> {
+): Promise<DestinationBooking | undefined> {
   try {
     const response = await axios.put<{ data: TourBooking }>(
       `${BASE_URL}/api/tour-booking/${id}`,
       tourData
     );
-    // console.log("Updated tour:", response.data.data);
+    console.log("Updated tour:", response);
+    return response.data;
+  } catch (error) {
+    // console.error(`Failed to fetch tour with ID ${id}:`, error);
+    return error.response.data;
+  }
+}
+//====================TOUR BOOKING APIS =====================
+export interface DestinationBooking {
+  _id?: string;           
+  destination: Destination;            
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  availability: boolean;    
+  travelers: number;
+  departureDate: string;   
+  totalPrice: string;      
+  createdAt?: string;      
+  updatedAt?: string;
+}
+
+export async function getDestinationBookings(): Promise<DestinationBooking[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/destination-booking/`);
+    // Map _id to id for each tour
     return response.data.data;
+  } catch (error) {
+    console.error("Failed to fetch tours:", error);
+    return [];
+  }
+}
+
+export async function getDestinationBookingById(id: string): Promise<TourBooking | null> {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/destination-booking/${id}`);
+    // Map _id to id for the single tour
+    const tour = response.data.data;
+    return tour ;
+  } catch (error) {
+    console.error(`Failed to fetch tour booking with ID ${id}:`, error);
+    return null;
+  }
+}
+
+export async function deleteDestinationBooking(id: string): Promise<boolean> {
+  try {
+    const response = await axios.delete(`${BASE_URL}/api/destination-booking/${id}`);
+
+    if (response.status >= 200 && response.status < 300) {
+      // console.log("Tour deleted successfully:", id);
+      return true;
+    } else {
+      console.error("Failed to delete tour:", response.statusText);
+      return false;
+    }
+  } catch (error: any) {
+    console.error(
+      "Error deleting tour:",
+      error.response?.data || error.message
+    );
+    return false;
+  }
+}
+
+export async function updateDestinationBookingById(
+  id: string,
+  tourData: {_id: string | undefined, status: boolean},
+): Promise<TourBooking | undefined> {
+  try {
+    const response = await axios.put<{ data: TourBooking }>(
+      `${BASE_URL}/api/destination-booking/${id}`,
+      tourData
+    );
+    console.log("Updated tour:", response);
+    return response.data;
   } catch (error) {
     // console.error(`Failed to fetch tour with ID ${id}:`, error);
     return error.response.data;
