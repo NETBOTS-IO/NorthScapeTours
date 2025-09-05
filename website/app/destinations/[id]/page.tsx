@@ -20,7 +20,7 @@ const DestinationPage = () => {
   const [loading, setLoading] = useState(true)
   const { id } = useParams<{ id: string }>()
 
-  console.log('id', id);
+  // console.log('id', id);
   
   useEffect(() => {
     if (!id) return
@@ -47,7 +47,7 @@ const DestinationPage = () => {
     )
   }
 
-console.log('destination', destination);
+// console.log('destination', destination);
 
 
   return (

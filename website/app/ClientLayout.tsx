@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import PageTransition from "@/components/page-transition"
+import FloatingContact from "@/components/FloatingIcons"
 
 export default function ClientLayout({
   children,
@@ -22,6 +23,7 @@ export default function ClientLayout({
           <main className="min-h-screen">{children}</main>
         </PageTransition>
       </AnimatePresence>
+      <FloatingContact/>
       <Footer />
     </>
   )

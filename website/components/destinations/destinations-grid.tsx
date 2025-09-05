@@ -41,29 +41,31 @@ useEffect(()=>{
     // Find the destination by id
  
   }
+console.log('destinations :>> ', destinations);
 
-  const handleBooking = (id?: string)=>{
-if (!id) return;
-    const destination = destinations.find((d) => d._id === id);
-    if (!destination) return;
+//   const handleBooking = (id?: string)=>{
+// if (!id) return;
+//     const destination = destinations.find((d) => d._id === id);
+//     if (!destination) return;
   
-      // const phoneNumber = "923480578106"
-      const phoneNumber = "923555758727"
+//       // const phoneNumber = "923480578106"
+//       const phoneNumber = "923555758727"
   
-      const message = `*Destination Booking Details*
-     "Destinaton Name:" ${destination?.name}
-     "Price:" ${destination?.price}
-     "Destinaton Duration:" ${destination.days}
-     "Description:" ${destination.shortDescription}
-     "Country:" ${destination.country}
-     "Location:" ${destination.location}
-     "Destinaton Days:" ${destination.days}
-      `
-       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+//       const message = `*Destination Booking Details*
+//      "Destinaton Name:" ${destination?.name}
+//      "Price:" ${destination?.price}
+//      "Destinaton Duration:" ${destination.days}
+//      "Description:" ${destination.shortDescription}
+//      "Country:" ${destination.country}
+//      "Location:" ${destination.location}
+//      "Destinaton Days:" ${destination.days}
+//       `
+//        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   
-    window.open(whatsappUrl, "_blank");
-  } 
-  const containerVariants = {
+//     window.open(whatsappUrl, "_blank");
+//   } 
+  
+const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -320,7 +322,7 @@ const handleMore = () => {
                         View Details
                       </Link>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Link
                       href="/destinations"
                       onClick={()=>handleBooking(destination._id)}
@@ -328,7 +330,7 @@ const handleMore = () => {
                       >
                         Book Now
                       </Link>
-                    </motion.div>
+                    </motion.div> */}
                   </div>
                 </div>
               </motion.div>

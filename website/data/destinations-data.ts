@@ -21,6 +21,7 @@ export interface Destination {
   description: string
   destination:string
   longDescription: string
+availability: boolean
   shortDescription?: string
   inclusions:string[]
   exclusions:string[]

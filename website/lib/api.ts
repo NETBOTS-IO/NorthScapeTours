@@ -370,19 +370,19 @@ type FormDataProps ={
 selectedDate: string;
 totalPrice: string;
 travelers: number;
-availability: string
+availability: boolean;
 }
 
 export async function createTourBooking(
   tourData: Partial<FormDataProps>,
-): Promise<Tour | undefined> {
+): Promise<FormDataProps | undefined> {
   try {
-    const response = await axios.post<{ data: Tour }>(
+    const response = await axios.post<{ data: FormDataProps }>(
       `${BASE_URL}/tour-booking/`,
       tourData
     );
-    // console.log("booking tour res:", response.data.data);
-    return response.data.data;
+    console.log("booking tour res:", response.data);
+    return response.data;
   } catch (error) {
     // console.error(`Failed to booking tour`, error);
     return error?.response;
@@ -438,5 +438,33 @@ export async function getDestinationById(id: string): Promise<Destination | null
   } catch (error) {
     console.error(`Failed to fetch destination with ID ${id}:`, error)
     return null
+  }
+}
+
+//============ DESTINAITON BOOKING ===========
+type DestinationFormProps ={
+  destinationId: string;
+  firstName: string;
+    lastName:string
+    email:string;
+    phone: string; 
+departureDate: string;
+totalPrice: string;
+travelers: number;
+availability: boolean;
+}
+export async function createDestinationBooking(
+  destinationData: Partial<DestinationFormProps>,
+): Promise<DestinationFormProps | undefined> {
+  try {
+    const response = await axios.post<{ data: DestinationFormProps }>(
+      `${BASE_URL}/destination-booking/`,
+      destinationData
+    );
+    console.log("booking destination res:", response.data);
+    return response.data;
+  } catch (error) {
+    // console.error(`Failed to booking tour`, error);
+    return error?.response;
   }
 }
