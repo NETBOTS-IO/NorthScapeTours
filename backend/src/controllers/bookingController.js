@@ -131,7 +131,7 @@ console.log('carId', carId)
     // Check if this car already has a confirmed booking
     const alreadyConfirmed = await Booking.findOne({
       carId,
-      status: "Confirmed",
+      status: "Confirmed", 
       _id: { $ne: id }, // exclude current booking
     });
     console.log("alreadyConfirmed", alreadyConfirmed);

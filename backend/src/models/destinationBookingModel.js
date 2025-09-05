@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const bookingSchema = new mongoose.Schema({
-  tour: {
+const destinationSchema = new mongoose.Schema({
+  destination: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Tour", 
+    ref: "Destination", 
     required: true,
   },
   firstName: { type: String, required: true, trim: true },
@@ -12,9 +12,10 @@ const bookingSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   availability: { type: Boolean, default: true, required: true },
   travelers: { type: Number, required: true, min: 1 },
-  selectedDate: { type: Date, required: true },
+  departureDate: { type: Date, required: true },
   totalPrice: { type: String, required: true },
+  requirements: { type: String, required: true },
 
 }, { timestamps: true });
 
-export default mongoose.model("Tour Booking", bookingSchema);
+export default mongoose.model("Destination Booking", destinationSchema);

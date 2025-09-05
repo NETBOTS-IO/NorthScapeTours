@@ -1,11 +1,11 @@
-import TourBooking from "../models/tourBookingModel.js";
-import Tour from "../models/tourModel.js";
+import DestinationBooking from "../models/destinationBookingModel.js";
+import Destination from "../models/destinationsModel.js";
 import nodemailer from "nodemailer";
 
 //  * ===============================
 //  * Update Booking Controller
 //  * ===============================
-export const updateBookingTour = async (req, res) => {
+export const updateBookingDestination = async (req, res) => {
   try {
     // console.log("Update Tour API Endpoint Hit", req.body);
     const { status, _id } = req.body;
@@ -27,19 +27,20 @@ export const updateBookingTour = async (req, res) => {
       tourData = req.body;
     }
 
-    const checkAvailaibility = await TourBooking.findById(id);
+    const checkAvailaibility = await DestinationBooking.findById(id);
     if (!checkAvailaibility) {
       return res
         .status(404)
-        .json({ success: false, message: "Tour Booking Not Found!" });
+        .json({ success: false, message: "Destination Booking Not Found!" });
     }
 
-    const existingTour = await TourBooking.findOne({
-      tour: _id,
+    const existingDestination = await DestinationBooking.findOne({
+      destination: _id,
       availability: false,
       _id: { $ne: id },
     });
-    if (existingTour) {
+    // console.log('existingDestination :>> ', existingDestination);
+    if (existingDestination) {
       return res.status(400).json({
         success: false,
         message: "Booking already exists for this tour",
@@ -49,19 +50,19 @@ export const updateBookingTour = async (req, res) => {
     tourData.availability = status === true ? false : true;
 
     // console.log('tourData.availability :>> ', tourData.availability);
-    const tour = await TourBooking.findByIdAndUpdate(
+    const destination = await DestinationBooking.findByIdAndUpdate(
       id,
       { availability: tourData.availability },
       { new: true }
     );
-    // console.log('tour :>> ', tour);
-    if (!tour) {
+    // console.log('destination :>> ', destination);
+    if (!destination) {
       return res
         .status(404)
-        .json({ success: false, message: "Tour Booking not found" });
+        .json({ success: false, message: "Destination Booking not found" });
     }
 
-    const tourUpdate = await Tour.findByIdAndUpdate(
+    const tourUpdate = await Destination.findByIdAndUpdate(
       _id,
       { availability: tourData.availability },
       { new: true }
@@ -70,7 +71,7 @@ export const updateBookingTour = async (req, res) => {
     if (!tourUpdate) {
       return res
         .status(404)
-        .json({ success: false, message: "Tour not found" });
+        .json({ success: false, message: "Destination not found" });
     }
 
     /**
@@ -88,7 +89,7 @@ export const updateBookingTour = async (req, res) => {
       return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
         <div style="background: orange; padding: 20px; text-align: center; color: white;">
-          <h1 style="margin: 0;">${isAdmin ? "Booking Confirmation Detail!" : "Your Booking Done!"
+          <h1 style="margin: 0;">${isAdmin ? "Destination Booking Confirmation Detail!" : "Your Destination Booking Done!"
         }</h1>
           <p style="margin: 5px 0;">${isAdmin
           ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
@@ -99,23 +100,23 @@ export const updateBookingTour = async (req, res) => {
         <div style="padding: 20px; color: #333;">
           <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${isAdmin ? "Customer Details" : "Your Details"
         }</h2>
-          <p><strong>First Name:</strong> ${tour.firstName}</p>
-          <p><strong>Last Name:</strong> ${tour.lastName}</p>
-          <p><strong>Custemer Email:</strong> ${tour.email}</p>
-          <p><strong>Custemer Phone:</strong> ${tour.phone}</p>
-          <p><strong>Tour Availability:</strong> ${tour.availability ? "Available" : "Not Available"
+          <p><strong>First Name:</strong> ${destination.firstName}</p>
+          <p><strong>Last Name:</strong> ${destination.lastName}</p>
+          <p><strong>Custemer Email:</strong> ${destination.email}</p>
+          <p><strong>Custemer Phone:</strong> ${destination.phone}</p>
+          <p><strong>destination Availability:</strong> ${destination.availability ? "Available" : "Not Available"
         }</p>
-          <p><strong>No of Traveler:</strong> ${tour.travelers
+          <p><strong>No of Traveler:</strong> ${destination.travelers
         }</p>
-          <p><strong>Tour Total Price:</strong> ${tour.totalPrice
+          <p><strong>destination Total Price:</strong> ${destination.totalPrice
         }</p>
           <p><strong>Selected Date:</strong> ${new Date(
-          tour.selectedDate
+          destination.selectedDate
         ).toDateString()}</p>
 
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${isAdmin ? "Tour Details" : "Your Booked Tour Details"
+          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${isAdmin ? "destination Details" : "Your Booked destination Details"
         }</h2>
-          <p><strong>Tour Name:</strong> ${tourUpdate.name}</p>
+          <p><strong>Destination Name:</strong> ${tourUpdate.name}</p>
           <p><strong>Country:</strong> ${tourUpdate.country}</p>
           <p><strong>Location:</strong> ${tourUpdate.category}</p>
           <p><strong>Catergory:</strong> ${tourUpdate.category}</p>
@@ -157,18 +158,18 @@ export const updateBookingTour = async (req, res) => {
       }
     };
 
-    await sendBookingEmails(tour);
+    await sendBookingEmails(destination);
 
     res.status(200).json({
       success: true,
-      message: "Tour Booking updated successfully",
-      data: tour,
+      message: `Destination Booking updated successfully`,
+      data: destination,
     });
   } catch (error) {
-    console.log("Error in updating tour booking", error.message);
+    console.log("Error in updating Destination booking", error.message);
     res.status(500).json({
       success: false,
-      message: "Error updating tour booking",
+      message: "Error updating Destination booking",
       error: error.message,
     });
   }
@@ -179,16 +180,17 @@ export const updateBookingTour = async (req, res) => {
  * Create Booking Controller
  * ===============================
  */
-export const createTourbooking = async (req, res) => {
+export const createDestinationbooking = async (req, res) => {
   try {
     const {
-      tourId,
+      destinationId,
       firstName,
       lastName,
       email,
       phone,
-      selectedDate,
-      totalPrice,
+      departureDate,
+      requirements,
+      price,
       travelers,
       availability,
     } = req.body;
@@ -211,9 +213,9 @@ export const createTourbooking = async (req, res) => {
       tourData = req.body;
     }
 
-    const existingTour = await Tour.findById(tourId);
-    if (!existingTour) {
-      return res.status(404).json({ success: false, message: "Tour not found" });
+    const existingDestination = await Destination.findById(destinationId);
+    if (!existingDestination) {
+      return res.status(404).json({ success: false, message: "Destination not found" });
     }
 
     /**
@@ -234,7 +236,7 @@ export const createTourbooking = async (req, res) => {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
           <div style="background: orange; padding: 20px; text-align: center; color: white;">
             <h1 style="margin: 0;">
-              ${isAdmin ? "Booking Confirmation Detail!" : "Your Tour Booking Details!"}
+              ${isAdmin ? "Destination Booking Confirmation Detail!" : "Your Destination Booking Details!"}
             </h1>
             <p style="margin: 5px 0;">
               ${isAdmin
@@ -246,7 +248,7 @@ export const createTourbooking = async (req, res) => {
 
           <div style="padding: 20px; color: #333;">
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
-              ${isAdmin ? "Customer Details" : "Your Tour Booking Details"}
+              ${isAdmin ? "Customer Details" : "Your Destination Booking Details"}
             </h2>
             <p><strong>First Name:</strong> ${firstName}</p>
             <p><strong>Last Name:</strong> ${lastName}</p>
@@ -258,21 +260,21 @@ export const createTourbooking = async (req, res) => {
             <p><strong>Selected Date:</strong> ${new Date(selectedDate).toDateString()}</p>
 
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">
-              ${isAdmin ? "Tour Booking Details" : "You are Going to Book Tour Details"}
+              ${isAdmin ? "Destination Booking Details" : "You are Going to Book Destination Details"}
             </h2>
-            <p><strong>Tour Name:</strong> ${existingTour.name}</p>
-            <p><strong>Country:</strong> ${existingTour.country}</p>
-            <p><strong>Location:</strong> ${existingTour.location}</p>
-            <p><strong>Category:</strong> ${existingTour.category}</p>
-            <p><strong>Market Price:</strong> ${existingTour.price}</p>
-            <p><strong>Original Price:</strong> ${existingTour.originalPrice}</p>
-            <p><strong>Availability:</strong> ${existingTour.availability ? "Available" : "Booked"}</p>
-            <p><strong>Next Departure:</strong> ${existingTour.nextDeparture}</p>
+            <p><strong>Destination Name:</strong> ${existingDestination.name}</p>
+            <p><strong>Country:</strong> ${existingDestination.country}</p>
+            <p><strong>Location:</strong> ${existingDestination.location}</p>
+            <p><strong>Category:</strong> ${existingDestination.category}</p>
+            <p><strong>Market Price:</strong> ${existingDestination.price}</p>
+            <p><strong>Original Price:</strong> ${existingDestination.originalPrice}</p>
+            <p><strong>Availability:</strong> ${existingDestination.availability ? "Available" : "Booked"}</p>
+            <p><strong>Next Departure:</strong> ${existingDestination.nextDeparture}</p>
           </div>
 
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
             ${isAdmin
-          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this Destination booking.</p>`
           : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
         }
           </div>
@@ -286,7 +288,7 @@ export const createTourbooking = async (req, res) => {
         await transporter.sendMail({
           from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
           to: email,
-          subject: `Booking Confirmation - ${existingTour.name}`,
+          subject: `Destination Booking Confirmation - ${existingDestination.name}`,
           html: generateEmailTemplate(false),
         });
 
@@ -294,7 +296,7 @@ export const createTourbooking = async (req, res) => {
         await transporter.sendMail({
           from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
           to: process.env.USER_EMAIL || "sameerbalti704@gmail.com",
-          subject: `New Booking - ${existingTour.name}`,
+          subject: `New Destination Booking - ${existingDestination.name}`,
           html: generateEmailTemplate(true),
         });
       } catch (error) {
@@ -305,25 +307,26 @@ export const createTourbooking = async (req, res) => {
     /**
      * =============== BOOKING CREATION ===============
      */
-    const existingTourBooking = await TourBooking.findOne({ tour: tourId });
+    const existingDestinationBooking = await DestinationBooking.findOne({ destination: destinationId });
 
-    if (existingTourBooking) {
-      if (existingTourBooking.availability === false) {
+    if (existingDestinationBooking) {
+      if (existingDestinationBooking.availability === false) {
         return res.status(403).json({
           success: false,
-          message: "Tour has already booked",
-          existingTourBooking,
+          message: "Destination has already booked",
+          existingDestinationBooking,
         });
       }
-      if (existingTourBooking.availability === true) {
-        const createSameBookings = await TourBooking.create({
-          tour: tourId,
+      if (existingDestinationBooking.availability === true) {
+        const createSameBookings = await DestinationBooking.create({
+          destination: destinationId,
           firstName,
           lastName,
           email,
           phone,
-          selectedDate,
-          totalPrice,
+          departureDate,
+          requirements,
+          totalPrice: price,
           travelers,
           availability,
         });
@@ -341,42 +344,43 @@ export const createTourbooking = async (req, res) => {
     }
 
     // fresh booking
-    const tour = await TourBooking.create({
-      tour: tourId,
+    const destination = await DestinationBooking.create({
+      destination: destinationId,
       firstName,
       lastName,
       email,
       phone,
-      selectedDate,
-      totalPrice,
+      departureDate,
+      requirements,
+      totalPrice: price,
       travelers,
       availability,
     });
 
     // console.log("tour at create:>> ", tour);
 
-    await sendBookingEmails(tour);
+    await sendBookingEmails(destination);
 
     res.json({
       success: true,
-      message: "Tour Booking created and data emailed successfully",
-      data: tour,
+      message: "Destination Booking created and data emailed successfully",
+      data: destination,
     });
   } catch (error) {
-    console.log("Error in booking tour", error.message);
+    console.log("Error in booking destination", error.message);
     res.status(500).json({
       success: false,
-      message: "Error booking tour",
+      message: "Error booking destination",
       error: error.message,
     });
   }
 };
 
 // get all tour bookings
-export const getAllTourBookings = async (req, res) => {
+export const getAllDestinationBookings = async (req, res) => {
   try {
-    const bookings = await TourBooking.find()
-      .populate("tour") // include tour details
+    const bookings = await DestinationBooking.find()
+      .populate("destination") // include tour details
       .sort({ createdAt: -1 }); // newest first
 
     res.status(200).json({
@@ -396,36 +400,36 @@ export const getAllTourBookings = async (req, res) => {
 };
 
 // DELETE /api/tour-bookings/:id
-export const deleteTourBooking = async (req, res) => {
+export const deleteDestinationBooking = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletedBooking = await TourBooking.findByIdAndDelete(id);
+    const deletedBooking = await DestinationBooking.findByIdAndDelete(id);
 
     if (!deletedBooking) {
       return res.status(404).json({
         success: false,
-        message: "Tour booking not found",
+        message: "Destination booking not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Tour booking deleted successfully",
+      message: "Destination booking deleted successfully",
       data: deletedBooking,
     });
   } catch (error) {
-    console.error("Error deleting tour booking:", error);
+    console.error("Error deleting Destination booking:", error);
     return res.status(500).json({
       success: false,
-      message: "Server error while deleting tour booking",
+      message: "Server error while deleting Destination booking",
     });
   }
 };
 
-export const getTourBookingById = async (req, res) => {
+export const getDestinationBookingById = async (req, res) => {
   try {
-    const tour = await TourBooking.findById(req.params.id).populate("tour");
+    const tour = await DestinationBooking.findById(req.params.id).populate("tour");
     if (!tour) {
       return res.status(404).json({
         success: false,
