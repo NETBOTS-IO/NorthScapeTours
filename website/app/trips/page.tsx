@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function TripsPage() {
   return (
-    <div className="pt-16">
+    <div>
       {/* <TripsHero /> */}
       {/* <TripFilters /> */}
       <TripCategories />

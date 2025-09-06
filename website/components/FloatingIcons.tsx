@@ -4,14 +4,14 @@ import { Mail, MessageCircle } from "lucide-react";
 
 const FloatingContact = () => {
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
+    <div className="fixed bottom-6 right-6 flex flex-col gap-2 z-50">
       <a
         href="https://wa.me/923555758727" 
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110"
       >
-        <MessageCircle size={28} />
+        <MessageCircle size={24} />
       </a>
 
       <a
@@ -21,7 +21,7 @@ const FloatingContact = () => {
   rel="noopener noreferrer"
   className="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110"
 >
-        <Mail size={28} />
+        <Mail size={24} />
       </a>
     </div>
   );

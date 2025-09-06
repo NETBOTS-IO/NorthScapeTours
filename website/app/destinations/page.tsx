@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DestinationsPage() {
   return (
-    <div className="pt-16">
+    <div>
       <DestinationsHero />
       {/* <DestinationFilters /> */}
       <DestinationsGrid />

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function InternationalTravelersPage() {
   return (
-    <div className="pt-16">
+    <div>
       <InternationTravelersHero />
       <InternationalCategories/>
     </div>

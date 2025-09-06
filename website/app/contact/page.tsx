@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-16">
+    <div>
       <section className="section-padding bg-gray-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">

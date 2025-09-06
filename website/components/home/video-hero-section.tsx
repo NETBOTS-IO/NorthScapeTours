@@ -13,7 +13,7 @@ export default function VideoHeroSection() {
   const [isAutoplay, setIsAutoplay] = useState(true)
 
   const videoRef = useRef<HTMLVideoElement>(null)
-  const autoplayTimeout = useRef<NodeJS.Timeout>( null )
+  const autoplayTimeout = useRef<NodeJS.Timeout>(null)
 
   const currentVideo = heroVideos[currentVideoIndex]
 
@@ -107,7 +107,7 @@ export default function VideoHeroSection() {
           transition={{ duration: 0.5 }}
           className="absolute inset-0"
         >
-          <video
+          {/* <video
             ref={videoRef}
             className="w-full h-full object-cover"
             poster={currentVideo.posterUrl}
@@ -118,15 +118,16 @@ export default function VideoHeroSection() {
             onEnded={() => isAutoplay && changeVideo((currentVideoIndex + 1) % heroVideos.length)}
           >
             <source src={currentVideo.videoUrl} type="video/mp4" />
-          </video>
-
+          </video> */}
+          <img src={currentVideo.posterUrl} alt={currentVideo.title}
+            className="w-full h-full object-cover" />
           {/* Video Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         </motion.div>
       </AnimatePresence>
 
       {/* Loading Indicator */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isLoading && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -137,7 +138,7 @@ export default function VideoHeroSection() {
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Content Overlay */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -161,7 +162,7 @@ export default function VideoHeroSection() {
               </motion.div>
 
               {/* Title */}
-              <motion.h1 variants={childVariants} className="text-green-400 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <motion.h1 variants={childVariants} className="text-orange-400 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 {currentVideo.title}
               </motion.h1>
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 
 const Navigation = () => {
@@ -62,6 +62,13 @@ const Navigation = () => {
           : "bg-white/80 backdrop-blur-sm"
       }`}
     >
+      <div className="bg-sky-800 text-white h-8 flex items-center justify-between p-2">
+        <div className="flex gap-2 items-center pl-8">
+          <Mail size={14} className="text-orange-500"/>
+            <p className="text-sm">Info@northscapetours.com</p>
+        </div>
+      </div>
+    
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

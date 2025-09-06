@@ -113,7 +113,7 @@ export default function PopularPackagesClient() {
   if (error) return <p className="text-red-500 text-center py-8">Error: {error}</p>;
 
   return (
-    <section ref={ref} className="py-20 bg-green-400">
+    <section ref={ref} className="py-20 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -134,14 +134,12 @@ export default function PopularPackagesClient() {
             </span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-700 max-w-3xl mx-auto"
+            className="text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Discover our carefully curated selection of extraordinary
-            adventures, each designed to create unforgettable memories and
-            life-changing experiences.
+            Explore our handpicked collection of remarkable journeys, each crafted to deliver lasting memories and truly transformative experiences.
           </motion.p>
         </motion.div>
 
@@ -187,9 +185,8 @@ export default function PopularPackagesClient() {
                       transition={{ duration: 0.6 }}
                     >
                       <Image
-                        src={`${BASE_URL}${
-                          trip.images?.[0] || "/placeholder.svg"
-                        }`}
+                        src={`${BASE_URL}${trip.images?.[0] || "/placeholder.svg"
+                          }`}
                         alt={trip.name}
                         fill
                         className="object-cover"
@@ -244,13 +241,12 @@ export default function PopularPackagesClient() {
                         </Badge>
                         <Badge
                           variant="outline"
-                          className={`$${
-                            trip.difficulty === "Easy"
+                          className={`$${trip.difficulty === "Easy"
                               ? "border-green-300 text-green-700"
                               : trip.difficulty === "Moderate"
-                              ? "border-yellow-300 text-yellow-700"
-                              : "border-red-300 text-red-700"
-                          }`}
+                                ? "border-yellow-300 text-yellow-700"
+                                : "border-red-300 text-red-700"
+                            }`}
                         >
                           {trip.difficulty}
                         </Badge>
@@ -339,9 +335,8 @@ export default function PopularPackagesClient() {
                       <div>
                         <div className="flex items-center space-x-2">
                           <span className="text-2xl font-bold text-gray-900">{`$${trip.price}`}</span>
-                          <span className="text-sm text-gray-500 line-through">{`${
-                            trip.originalPrice ?? ""
-                          }`}</span>
+                          <span className="text-sm text-gray-500 line-through">{`${trip.originalPrice ?? ""
+                            }`}</span>
                         </div>
                         <span className="text-xs text-gray-500">
                           per person
@@ -352,8 +347,7 @@ export default function PopularPackagesClient() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
                         size="sm"
                         onClick={() =>
-                          (window.location.href = `/trips/${
-                            trip._id
+                        (window.location.href = `/trips/${trip._id
                           }-${generateSlug(trip.name)}`)
                         }
                       >
@@ -388,9 +382,8 @@ export default function PopularPackagesClient() {
                       : { opacity: 0, x: 50, zIndex: 0 }
                   }
                   transition={{ duration: 0.6, type: "spring" }}
-                  className={`absolute top-0 left-0 w-full min-w-0 max-w-full transition-all duration-500 ${
-                    index === currentIndex ? "block" : "hidden"
-                  }`}
+                  className={`absolute top-0 left-0 w-full min-w-0 max-w-full transition-all duration-500 ${index === currentIndex ? "block" : "hidden"
+                    }`}
                   style={{
                     pointerEvents: index === currentIndex ? "auto" : "none",
                   }}
@@ -415,9 +408,8 @@ export default function PopularPackagesClient() {
                       transition={{ duration: 0.6 }}
                     >
                       <Image
-                        src={`${BASE_URL}${
-                          trip.images?.[0] || "/placeholder.svg"
-                        }`}
+                        src={`${BASE_URL}${trip.images?.[0] || "/placeholder.svg"
+                          }`}
                         alt={trip.name}
                         fill
                         className="object-cover"
@@ -472,13 +464,12 @@ export default function PopularPackagesClient() {
                         </Badge>
                         <Badge
                           variant="outline"
-                          className={`$${
-                            trip.difficulty === "Easy"
+                          className={`$${trip.difficulty === "Easy"
                               ? "border-green-300 text-green-700"
                               : trip.difficulty === "Moderate"
-                              ? "border-yellow-300 text-yellow-700"
-                              : "border-red-300 text-red-700"
-                          }`}
+                                ? "border-yellow-300 text-yellow-700"
+                                : "border-red-300 text-red-700"
+                            }`}
                         >
                           {trip.difficulty}
                         </Badge>
@@ -567,9 +558,8 @@ export default function PopularPackagesClient() {
                       <div>
                         <div className="flex items-center space-x-2">
                           <span className="text-2xl font-bold text-gray-900">{`$${trip.price}`}</span>
-                          <span className="text-sm text-gray-500 line-through">{`${
-                            trip.originalPrice ?? ""
-                          }`}</span>
+                          <span className="text-sm text-gray-500 line-through">{`${trip.originalPrice ?? ""
+                            }`}</span>
                         </div>
                         <span className="text-xs text-gray-500">
                           per person
@@ -580,8 +570,7 @@ export default function PopularPackagesClient() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
                         size="sm"
                         onClick={() =>
-                          (window.location.href = `/trips/${
-                            trip._id
+                        (window.location.href = `/trips/${trip._id
                           }-${generateSlug(trip.name)}`)
                         }
                       >
@@ -597,9 +586,8 @@ export default function PopularPackagesClient() {
               {featuredTrips.slice(0, 3).map((_, idx) => (
                 <button
                   key={idx}
-                  className={`w-2.5 h-2.5 rounded-full ${
-                    currentIndex === idx ? "bg-orange-600" : "bg-gray-300"
-                  }`}
+                  className={`w-2.5 h-2.5 rounded-full ${currentIndex === idx ? "bg-orange-600" : "bg-gray-300"
+                    }`}
                   onClick={() => setCurrentIndex(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
                 />

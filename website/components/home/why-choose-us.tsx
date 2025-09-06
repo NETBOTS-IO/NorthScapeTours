@@ -9,58 +9,61 @@ const features = [
     icon: Shield,
     title: "Safety First",
     description:
-      "Your safety is our top priority with certified guides, comprehensive insurance coverage, and rigorous safety protocols.",
+      "We prioritize your protection with certified guides, full insurance, and strict safety standards on every trip.",
     stats: "99.9% Safety Record",
-    color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
+    color: "from-indigo-500 to-indigo-600",
+    bgColor: "bg-indigo-50",
+    borderColor: "border-indigo-200",
   },
   {
     icon: Award,
     title: "Expert Guides",
     description:
-      "Local experts with years of experience, deep destination knowledge, and passion for sharing their culture.",
-    stats: "500+ Certified Guides",
-    color: "from-orange-500 to-orange-600",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-200",
+      "Led by passionate local specialists with deep knowledge and years of proven travel expertise.",
+    stats: "500+ Certified Experts",
+    color: "from-amber-500 to-amber-600",
+    bgColor: "bg-amber-50",
+    borderColor: "border-amber-200",
   },
   {
     icon: Users,
     title: "Small Groups",
     description:
-      "Intimate group sizes ensure personalized attention, authentic experiences, and meaningful connections.",
-    stats: "Max 15 People",
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-50",
-    borderColor: "border-green-200",
+      "Enjoy personalized attention, authentic cultural immersion, and close connections in intimate groups.",
+    stats: "Groups Up to 15",
+    color: "from-emerald-500 to-emerald-600",
+    bgColor: "bg-emerald-50",
+    borderColor: "border-emerald-200",
   },
   {
     icon: Globe,
-    title: "Global Reach",
-    description: "Access to exclusive destinations, hidden gems, and off-the-beaten-path locations around the world.",
-    stats: "75+ Countries",
-    color: "from-purple-500 to-purple-600",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-200",
+    title: "Worldwide Access",
+    description:
+      "Discover hidden gems, iconic sights, and extraordinary places across every continent.",
+    stats: "80+ Countries",
+    color: "from-fuchsia-500 to-fuchsia-600",
+    bgColor: "bg-fuchsia-50",
+    borderColor: "border-fuchsia-200",
   },
   {
     icon: Clock,
     title: "24/7 Support",
-    description: "Round-the-clock assistance before, during, and after your journey with dedicated support team.",
-    stats: "Always Available",
-    color: "from-red-500 to-red-600",
-    bgColor: "bg-red-50",
-    borderColor: "border-red-200",
+    description:
+      "Dependable assistance before, during, and after your adventure, anytime you need it.",
+    stats: "Always On Call",
+    color: "from-rose-500 to-rose-600",
+    bgColor: "bg-rose-50",
+    borderColor: "border-rose-200",
   },
   {
     icon: Heart,
-    title: "Sustainable Travel",
-    description: "Committed to responsible tourism that benefits local communities and preserves natural environments.",
+    title: "Eco-Friendly Travel",
+    description:
+      "Dedicated to sustainable tourism that supports communities and protects our planet.",
     stats: "Carbon Neutral",
-    color: "from-teal-500 to-teal-600",
-    bgColor: "bg-teal-50",
-    borderColor: "border-teal-200",
+    color: "from-cyan-500 to-cyan-600",
+    bgColor: "bg-cyan-50",
+    borderColor: "border-cyan-200",
   },
 ]
 
@@ -68,28 +71,29 @@ const achievements = [
   {
     icon: Star,
     number: "4.9",
-    label: "Average Rating",
-    description: "Based on 10,000+ reviews",
+    label: "Traveler Rating",
+    description: "Based on over 10,000 glowing reviews",
   },
   {
     icon: CheckCircle,
     number: "15K+",
-    label: "Happy Travelers",
-    description: "Satisfied customers worldwide",
+    label: "Adventurers Served",
+    description: "Happy explorers across the globe",
   },
   {
     icon: MapPin,
     number: "500+",
-    label: "Adventures Completed",
-    description: "Successful trips organized",
+    label: "Journeys Completed",
+    description: "Unforgettable trips successfully delivered",
   },
   {
     icon: Headphones,
     number: "24/7",
-    label: "Customer Support",
-    description: "Always here to help",
+    label: "Global Assistance",
+    description: "Dedicated support whenever you need it",
   },
 ]
+
 
 export default function WhyChooseUs() {
   const router = useRouter()
@@ -149,19 +153,18 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Why Choose{" "}
+            Why{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
               NORTHSCAPE
             </span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            We're committed to creating extraordinary travel experiences that exceed your expectations and create
-            memories that last a lifetime.
+            We’re dedicated to delivering unforgettable travel adventures that surpass your expectations and provide memories to cherish forever.
           </motion.p>
         </motion.div>
 
@@ -234,8 +237,8 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">Trusted by Thousands of Travelers</h3>
-            <p className="text-lg text-gray-600">Our commitment to excellence is reflected in our achievements</p>
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">Loved by Thousands of Explorers</h3>
+            <p className="text-lg text-gray-400">Our pursuit of excellence is demonstrated by our achievements.</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -295,7 +298,7 @@ export default function WhyChooseUs() {
             </button>
             <button onClick={()=>{router.push('/about')}} className="border-2 border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300"
               >
-              Learn More About Us
+              Learn More
             </button>
           </motion.div>
         </motion.div>

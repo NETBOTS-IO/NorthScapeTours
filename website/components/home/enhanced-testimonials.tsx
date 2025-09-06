@@ -193,21 +193,20 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            What Our{" "}
+            Hear From{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
-              Travelers
+              Our
             </span>{" "}
-            Say
+            Travelers
           </motion.h2>
           <motion.p
-            className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto"
+            className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            Real stories from real adventurers who have experienced the magic of
-            our journeys
+            True tales from explorers who’ve discovered the wonder of our trips.
           </motion.p>
         </motion.div>
 
@@ -261,7 +260,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="bg-white rounded-2xl md:rounded-3xl shadow-lg md:shadow-xl p-6 md:p-8 relative"
+                className="bg-white rounded-2xl md:rounded-3xl shadow-lg md:shadow-xl p-6 md:p-8 relative border border-orange-400"
                 whileHover={{
                   scale: !isMobile ? 1.02 : 1,
                   boxShadow: !isMobile
@@ -319,9 +318,9 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
                         {currentTestimonial?.name}
                       </motion.h4>
 
-                      <motion.p className="text-sm md:text-base text-gray-700 mb-2">
+                      {/* <motion.p className="text-sm md:text-base text-gray-400 mb-2">
                         {currentTestimonial?.description}
-                      </motion.p>
+                      </motion.p> */}
 
                       <motion.p className="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">
                         {currentTestimonial?.location}
@@ -353,7 +352,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
                       <motion.div
                         className={`${
                           isMobile ? "text-base" : "text-lg md:text-xl"
-                        } text-gray-700 leading-relaxed ${
+                        } text-gray-400 leading-relaxed ${
                           expandedCards.has(currentTestimonial?._id || "")
                             ? ""
                             : "line-clamp-3"

@@ -1,9 +1,9 @@
 import type React from "react"
-import { Inter } from "next/font/google"
+import { Inter, Poppins, Roboto } from "next/font/google"
 import "./globals.css"
 import ClientLayout from "./ClientLayout"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Roboto({ subsets: ["latin"], weight: ["400", "600", "700"], })
 
 export const metadata = {
   title: "Northscape Tours and Travels Pakistan",

@@ -37,7 +37,7 @@ const Footer = () => {
     fetchCategories();
   },[]);
   return (
-    <footer className="bg-green-800 border-t border-slate-700">
+    <footer className="bg-sky-800 border-t border-slate-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -53,35 +53,35 @@ const Footer = () => {
               <a
               target="_blank"
                 href="https://www.facebook.com/share/1CSjyatsgw/?mibextid=wwXIfr"
-                className="text-slate-400 hover:text-[rgb(245,83,12)] transition-colors duration-200"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
               target="_blank"
                 href="https://www.instagram.com/northscapetours?igsh=eDBvd3liOG1hamh1&utm_source=qr"
-                className="text-slate-400 hover:text-[#f5530c] transition-colors duration-200"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
               target="_blank"
                 href="#"
-                className="text-slate-400 hover:text-[#f5530c] transition-colors duration-200"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Twitter className="w-5 h-5" />
               </a>
               <a
               target="_blank"
                 href="https://www.tiktok.com/@northscapetourstravels?_t=ZS-8yRBs4luce9&_r=1"
-                className="text-slate-400 hover:text-[#f5530c] transition-colors duration-200"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Music2 className="w-5 h-5" />
               </a>
               <a
               target="_blank"
                 href="https://youtube.com/@northscapetoursandtravels?si=t8M2-_WQi39gkdXd"
-                className="text-slate-400 hover:text-[#f5530c] transition-colors duration-200"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Youtube className="w-5 h-5" />
               </a>
@@ -103,7 +103,7 @@ const Footer = () => {
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    className="text-slate-300 hover:text-[#f5530c] transition-colors duration-200 text-sm"
+                    className="text-slate-300 hover:text-orange-500 transition-colors duration-200 text-sm"
                   >
                     {item.title}
                   </Link>
@@ -130,7 +130,7 @@ const Footer = () => {
       <li key={item.categoryId}>
         <Link
           href={`/trips/category?category=${encodeURIComponent(item.categoryId)}&tripType=${item._id}`}
-          className="text-slate-300 hover:text-[#f5530c] transition-colors duration-200 text-sm capitalize"
+          className="text-slate-300 hover:text-orange-500 transition-colors duration-200 text-sm capitalize"
         >
           {item._id}
         </Link>
@@ -163,7 +163,7 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-[#f5530c]" />
                 <span className="text-slate-300 text-sm">
-                  iInfo@northscapetours.com
+                  Info@northscapetours.com
                 </span>
               </div>
               <div className="flex items-center space-x-3">

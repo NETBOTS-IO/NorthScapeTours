@@ -62,7 +62,7 @@ const FAQAccordion = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
             Frequently Asked <span className="text-[#f5530c]">Questions</span>
           </h2>
-          <p className="text-xl text-slate-600">Find answers to common questions about our travel services</p>
+          <p className="text-xl text-slate-400">Find answers to common questions about our travel services</p>
         </motion.div>
 
         <div className="space-y-4">
@@ -73,16 +73,16 @@ const FAQAccordion = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="border border-slate-200 rounded-lg overflow-hidden"
+              className="border border-orange-200 rounded-lg overflow-hidden"
             >
               <motion.button
                 onClick={() => toggleAccordion(index)}
-                className="w-full px-6 py-4 text-left bg-slate-50 hover:bg-slate-100 transition-colors duration-200 flex items-center justify-between"
+                className="w-full px-6 py-4 text-left bg-slate-50 hover:bg-orange-100 transition-colors duration-200 flex items-center justify-between"
                 whileHover={{ backgroundColor: "#f1f5f9" }}
               >
                 <span className="font-semibold text-slate-800">{faq.question}</span>
                 <motion.div animate={{ rotate: activeIndex === index ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown className="w-5 h-5 text-slate-600" />
+                  <ChevronDown className="w-5 h-5 text-orange-600" />
                 </motion.div>
               </motion.button>
 

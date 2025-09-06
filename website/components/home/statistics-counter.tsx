@@ -62,8 +62,8 @@ const StatisticsCounter = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
             Our <span className="text-orange-600">Achievements</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Numbers that speak to our commitment to extraordinary travel experiences
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            Numbers that reflect our dedication to unforgettable travel
           </p>
         </motion.div>
 
