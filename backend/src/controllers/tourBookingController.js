@@ -77,10 +77,12 @@ export const updateBookingTour = async (req, res) => {
      * =============== EMAIL CONFIG ===============
      */
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true, // Secure for 465, otherwise false
       auth: {
-        user: process.env.EMAIL_USER || "sameerbalti704@gmail.com",
-        pass: process.env.EMAIL_PASS || "pcue iygv zngk etou",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -88,47 +90,52 @@ export const updateBookingTour = async (req, res) => {
       return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
         <div style="background: orange; padding: 20px; text-align: center; color: white;">
-          <h1 style="margin: 0;">${isAdmin ? "Booking Confirmation Detail!" : "Your Booking Done!"
-        }</h1>
-          <p style="margin: 5px 0;">${isAdmin
-          ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
-          : "Thank you for choosing us"
-        }</p>
+          <h1 style="margin: 0;">${
+            isAdmin ? "Booking Confirmation Detail!" : "Your Booking Done!"
+          }</h1>
+          <p style="margin: 5px 0;">${
+            isAdmin
+              ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
+              : "Thank you for choosing us"
+          }</p>
         </div>
 
         <div style="padding: 20px; color: #333;">
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${isAdmin ? "Customer Details" : "Your Details"
-        }</h2>
+          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${
+            isAdmin ? "Customer Details" : "Your Details"
+          }</h2>
           <p><strong>First Name:</strong> ${tour.firstName}</p>
           <p><strong>Last Name:</strong> ${tour.lastName}</p>
           <p><strong>Custemer Email:</strong> ${tour.email}</p>
           <p><strong>Custemer Phone:</strong> ${tour.phone}</p>
-          <p><strong>Tour Availability:</strong> ${tour.availability ? "Available" : "Not Available"
-        }</p>
-          <p><strong>No of Traveler:</strong> ${tour.travelers
-        }</p>
-          <p><strong>Tour Total Price:</strong> ${tour.totalPrice
-        }</p>
+          <p><strong>Tour Availability:</strong> ${
+            tour.availability ? "Available" : "Not Available"
+          }</p>
+          <p><strong>No of Traveler:</strong> ${tour.travelers}</p>
+          <p><strong>Tour Total Price:</strong> ${tour.totalPrice}</p>
           <p><strong>Selected Date:</strong> ${new Date(
-          tour.selectedDate
-        ).toDateString()}</p>
+            tour.selectedDate
+          ).toDateString()}</p>
 
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${isAdmin ? "Tour Details" : "Your Booked Tour Details"
-        }</h2>
+          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${
+            isAdmin ? "Tour Details" : "Your Booked Tour Details"
+          }</h2>
           <p><strong>Tour Name:</strong> ${tourUpdate.name}</p>
           <p><strong>Country:</strong> ${tourUpdate.country}</p>
           <p><strong>Location:</strong> ${tourUpdate.category}</p>
           <p><strong>Catergory:</strong> ${tourUpdate.category}</p>
           <p><strong>Market Price:</strong> ${tourUpdate.price}</p>
           <p><strong>Original Price:</strong> ${tourUpdate.originalPrice}</p>
-          <p><strong>Availability:</strong> ${tourUpdate.availability ? "Available" : "Not Available"
-        }</p>
+          <p><strong>Availability:</strong> ${
+            tourUpdate.availability ? "Available" : "Not Available"
+          }</p>
           <p><strong>Next Departure:</strong> ${tourUpdate.nextDeparture}</p>
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
-            ${isAdmin
-          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-          : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
-        }
+            ${
+              isAdmin
+                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="info@netbots.io" style="color: orange; font-weight: bold; text-decoration: none;">NetBots</a>also contact us for softwaree solutions.</p>`
+            }
           </div>
         </div>
       </div>
@@ -138,17 +145,19 @@ export const updateBookingTour = async (req, res) => {
     const sendBookingEmails = async (booking) => {
       try {
         await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER || "sameerbalti704@gmail.com"
-            }>`,
+          from: `"NORTHSCAPE TOURS AND TRAVELS" <${
+            process.env.EMAIL_USER 
+          }>`,
           to: checkAvailaibility.email,
           subject: `Booking Confirmation - ${tourUpdate.name}`,
           html: generateEmailTemplate(false),
         });
 
         await transporter.sendMail({
-          from: `"Automated Notification" <${process.env.EMAIL_USER || "sameerbalti704@gmail.com"
-            }>`,
-          to: process.env.USER_EMIAL || "sameerbalti704@gmail.com",
+          from: `"Automated Notification" <${
+            process.env.EMAIL_USER 
+          }>`,
+          to: process.env.EMAIL_USER, 
           subject: `New Booking - ${tourUpdate.name}`,
           html: generateEmailTemplate(true),
         });
@@ -213,34 +222,41 @@ export const createTourbooking = async (req, res) => {
 
     const existingTour = await Tour.findById(tourId);
     if (!existingTour) {
-      return res.status(404).json({ success: false, message: "Tour not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Tour not found" });
     }
 
     /**
      * =============== EMAIL HELPERS ===============
      */
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true, // Secure for 465, otherwise false
       auth: {
-        user: process.env.EMAIL_USER || "sameerbalti704@gmail.com",
-        pass: process.env.EMAIL_PASS || "pcue iygv zngk etou",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-    const generateEmailTemplate = (
-      isAdmin = false
-    ) => {
+    const generateEmailTemplate = (isAdmin = false) => {
       return `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
           <div style="background: orange; padding: 20px; text-align: center; color: white;">
             <h1 style="margin: 0;">
-              ${isAdmin ? "Booking Confirmation Detail!" : "Your Tour Booking Details!"}
+              ${
+                isAdmin
+                  ? "Booking Confirmation Detail!"
+                  : "Your Tour Booking Details!"
+              }
             </h1>
             <p style="margin: 5px 0;">
-              ${isAdmin
-          ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
-          : "Thank you for choosing us"
-        }
+              ${
+                isAdmin
+                  ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
+                  : "Thank you for choosing us"
+              }
             </p>
           </div>
 
@@ -252,29 +268,44 @@ export const createTourbooking = async (req, res) => {
             <p><strong>Last Name:</strong> ${lastName}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Tour Availability:</strong> ${availability ? "Available" : "Booked"}</p>
+            <p><strong>Tour Availability:</strong> ${
+              availability ? "Available" : "Booked"
+            }</p>
             <p><strong>No of Traveler:</strong> ${travelers}</p>
             <p><strong>Tour Total Price:</strong> ${totalPrice}</p>
-            <p><strong>Selected Date:</strong> ${new Date(selectedDate).toDateString()}</p>
+            <p><strong>Selected Date:</strong> ${new Date(
+              selectedDate
+            ).toDateString()}</p>
 
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">
-              ${isAdmin ? "Tour Booking Details" : "You are Going to Book Tour Details"}
+              ${
+                isAdmin
+                  ? "Tour Booking Details"
+                  : "You are Going to Book Tour Details"
+              }
             </h2>
             <p><strong>Tour Name:</strong> ${existingTour.name}</p>
             <p><strong>Country:</strong> ${existingTour.country}</p>
             <p><strong>Location:</strong> ${existingTour.location}</p>
             <p><strong>Category:</strong> ${existingTour.category}</p>
             <p><strong>Market Price:</strong> ${existingTour.price}</p>
-            <p><strong>Original Price:</strong> ${existingTour.originalPrice}</p>
-            <p><strong>Availability:</strong> ${existingTour.availability ? "Available" : "Booked"}</p>
-            <p><strong>Next Departure:</strong> ${existingTour.nextDeparture}</p>
+            <p><strong>Original Price:</strong> ${
+              existingTour.originalPrice
+            }</p>
+            <p><strong>Availability:</strong> ${
+              existingTour.availability ? "Available" : "Booked"
+            }</p>
+            <p><strong>Next Departure:</strong> ${
+              existingTour.nextDeparture
+            }</p>
           </div>
 
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
-            ${isAdmin
-          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-          : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
-        }
+            ${
+              isAdmin
+                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
+            }
           </div>
         </div>
       `;
@@ -293,7 +324,7 @@ export const createTourbooking = async (req, res) => {
         // send to admin
         await transporter.sendMail({
           from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-          to: process.env.USER_EMAIL || "sameerbalti704@gmail.com",
+          to: process.env.EMAIL_USER,
           subject: `New Booking - ${existingTour.name}`,
           html: generateEmailTemplate(true),
         });

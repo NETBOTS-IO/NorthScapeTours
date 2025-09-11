@@ -78,10 +78,12 @@ export const updateBookingDestination = async (req, res) => {
      * =============== EMAIL CONFIG ===============
      */
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true, // Secure for 465, otherwise false
       auth: {
-        user: process.env.EMAIL_USER || "sameerbalti704@gmail.com",
-        pass: process.env.EMAIL_PASS || "pcue iygv zngk etou",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -89,47 +91,56 @@ export const updateBookingDestination = async (req, res) => {
       return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
         <div style="background: orange; padding: 20px; text-align: center; color: white;">
-          <h1 style="margin: 0;">${isAdmin ? "Destination Booking Confirmation Detail!" : "Your Destination Booking Done!"
-        }</h1>
-          <p style="margin: 5px 0;">${isAdmin
-          ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
-          : "Thank you for choosing us"
-        }</p>
+          <h1 style="margin: 0;">${
+            isAdmin
+              ? "Destination Booking Confirmation Detail!"
+              : "Your Destination Booking Done!"
+          }</h1>
+          <p style="margin: 5px 0;">${
+            isAdmin
+              ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
+              : "Thank you for choosing us"
+          }</p>
         </div>
 
         <div style="padding: 20px; color: #333;">
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${isAdmin ? "Customer Details" : "Your Details"
-        }</h2>
+          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${
+            isAdmin ? "Customer Details" : "Your Details"
+          }</h2>
           <p><strong>First Name:</strong> ${destination.firstName}</p>
           <p><strong>Last Name:</strong> ${destination.lastName}</p>
           <p><strong>Custemer Email:</strong> ${destination.email}</p>
           <p><strong>Custemer Phone:</strong> ${destination.phone}</p>
-          <p><strong>destination Availability:</strong> ${destination.availability ? "Available" : "Not Available"
-        }</p>
-          <p><strong>No of Traveler:</strong> ${destination.travelers
-        }</p>
-          <p><strong>destination Total Price:</strong> ${destination.totalPrice
-        }</p>
+          <p><strong>destination Availability:</strong> ${
+            destination.availability ? "Available" : "Not Available"
+          }</p>
+          <p><strong>No of Traveler:</strong> ${destination.travelers}</p>
+          <p><strong>destination Total Price:</strong> ${
+            destination.totalPrice
+          }</p>
           <p><strong>Selected Date:</strong> ${new Date(
-          destination.selectedDate
-        ).toDateString()}</p>
+            destination.selectedDate
+          ).toDateString()}</p>
 
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${isAdmin ? "destination Details" : "Your Booked destination Details"
-        }</h2>
+          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${
+            isAdmin ? "destination Details" : "Your Booked destination Details"
+          }</h2>
           <p><strong>Destination Name:</strong> ${tourUpdate.name}</p>
           <p><strong>Country:</strong> ${tourUpdate.country}</p>
           <p><strong>Location:</strong> ${tourUpdate.category}</p>
           <p><strong>Catergory:</strong> ${tourUpdate.category}</p>
           <p><strong>Market Price:</strong> ${tourUpdate.price}</p>
           <p><strong>Original Price:</strong> ${tourUpdate.originalPrice}</p>
-          <p><strong>Availability:</strong> ${tourUpdate.availability ? "Available" : "Not Available"
-        }</p>
+          <p><strong>Availability:</strong> ${
+            tourUpdate.availability ? "Available" : "Not Available"
+          }</p>
           <p><strong>Next Departure:</strong> ${tourUpdate.nextDeparture}</p>
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
-            ${isAdmin
-          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-          : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
-        }
+            ${
+              isAdmin
+                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="info@netbots.io" style="color: orange; font-weight: bold; text-decoration: none;">NetBots</a> also Contact us for software solutions.</p>`
+            }
           </div>
         </div>
       </div>
@@ -138,18 +149,21 @@ export const updateBookingDestination = async (req, res) => {
 
     const sendBookingEmails = async (booking) => {
       try {
+        // client
         await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER || "sameerbalti704@gmail.com"
-            }>`,
+          from: `"NORTHSCAPE TOURS AND TRAVELS" <${
+            process.env.EMAIL_USER || "no-reply@netbots.io"
+          }>`,
           to: checkAvailaibility.email,
           subject: `Booking Confirmation - ${tourUpdate.name}`,
           html: generateEmailTemplate(false),
         });
-
+        // admin
         await transporter.sendMail({
-          from: `"Automated Notification" <${process.env.EMAIL_USER || "sameerbalti704@gmail.com"
-            }>`,
-          to: process.env.USER_EMIAL || "sameerbalti704@gmail.com",
+          from: `"Automated Notification" <${
+            process.env.EMAIL_USER || "no-reply@netbots.io"
+          }>`,
+          to: process.env.USER_EMIAL || "no-reply@netbots.io",
           subject: `New Booking - ${tourUpdate.name}`,
           html: generateEmailTemplate(true),
         });
@@ -195,7 +209,7 @@ export const createDestinationbooking = async (req, res) => {
       availability,
     } = req.body;
 
-    // console.log("req.body at create  :>> ", req.body);
+    console.log("req.body at create  :>> ", req.body);
 
     let tourData;
     if (req.body.tourData) {
@@ -215,68 +229,96 @@ export const createDestinationbooking = async (req, res) => {
 
     const existingDestination = await Destination.findById(destinationId);
     if (!existingDestination) {
-      return res.status(404).json({ success: false, message: "Destination not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Destination not found" });
     }
 
     /**
      * =============== EMAIL HELPERS ===============
      */
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true, // Secure for 465, otherwise false
       auth: {
-        user: process.env.EMAIL_USER || "sameerbalti704@gmail.com",
-        pass: process.env.EMAIL_PASS || "pcue iygv zngk etou",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-    const generateEmailTemplate = (
-      isAdmin = false
-    ) => {
+    const generateEmailTemplate = (isAdmin = false) => {
       return `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
           <div style="background: orange; padding: 20px; text-align: center; color: white;">
             <h1 style="margin: 0;">
-              ${isAdmin ? "Destination Booking Confirmation Detail!" : "Your Destination Booking Details!"}
+              ${
+                isAdmin
+                  ? "Destination Booking Confirmation Detail!"
+                  : "Your Destination Booking Details!"
+              }
             </h1>
             <p style="margin: 5px 0;">
-              ${isAdmin
-          ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
-          : "Thank you for choosing us"
-        }
+              ${
+                isAdmin
+                  ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
+                  : "Thank you for choosing us"
+              }
             </p>
           </div>
 
           <div style="padding: 20px; color: #333;">
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
-              ${isAdmin ? "Customer Details" : "Your Destination Booking Details"}
+              ${
+                isAdmin
+                  ? "Customer Details"
+                  : "Your Destination Booking Details"
+              }
             </h2>
             <p><strong>First Name:</strong> ${firstName}</p>
             <p><strong>Last Name:</strong> ${lastName}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Tour Availability:</strong> ${availability ? "Available" : "Booked"}</p>
+            <p><strong>Tour Availability:</strong> ${
+              availability ? "Available" : "Booked"
+            }</p>
             <p><strong>No of Traveler:</strong> ${travelers}</p>
-            <p><strong>Tour Total Price:</strong> ${totalPrice}</p>
-            <p><strong>Selected Date:</strong> ${new Date(selectedDate).toDateString()}</p>
+            <p><strong>Tour Total Price:</strong> ${price}</p>
+            <p><strong>Departure Date:</strong> ${new Date(
+              departureDate
+            ).toDateString()}</p>
 
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">
-              ${isAdmin ? "Destination Booking Details" : "You are Going to Book Destination Details"}
+              ${
+                isAdmin
+                  ? "Destination Booking Details"
+                  : "You are Going to Book Destination Details"
+              }
             </h2>
-            <p><strong>Destination Name:</strong> ${existingDestination.name}</p>
+            <p><strong>Destination Name:</strong> ${
+              existingDestination.name
+            }</p>
             <p><strong>Country:</strong> ${existingDestination.country}</p>
             <p><strong>Location:</strong> ${existingDestination.location}</p>
             <p><strong>Category:</strong> ${existingDestination.category}</p>
             <p><strong>Market Price:</strong> ${existingDestination.price}</p>
-            <p><strong>Original Price:</strong> ${existingDestination.originalPrice}</p>
-            <p><strong>Availability:</strong> ${existingDestination.availability ? "Available" : "Booked"}</p>
-            <p><strong>Next Departure:</strong> ${existingDestination.nextDeparture}</p>
+            <p><strong>Original Price:</strong> ${
+              existingDestination.originalPrice
+            }</p>
+            <p><strong>Availability:</strong> ${
+              existingDestination.availability ? "Available" : "Booked"
+            }</p>
+            <p><strong>Next Departure:</strong> ${
+              existingDestination.nextDeparture
+            }</p>
           </div>
 
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
-            ${isAdmin
-          ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this Destination booking.</p>`
-          : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
-        }
+            ${
+              isAdmin
+                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this Destination booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
+            }
           </div>
         </div>
       `;
@@ -295,7 +337,7 @@ export const createDestinationbooking = async (req, res) => {
         // send to admin
         await transporter.sendMail({
           from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-          to: process.env.USER_EMAIL || "sameerbalti704@gmail.com",
+          to: process.env.EMAIL_USER,
           subject: `New Destination Booking - ${existingDestination.name}`,
           html: generateEmailTemplate(true),
         });
@@ -307,7 +349,9 @@ export const createDestinationbooking = async (req, res) => {
     /**
      * =============== BOOKING CREATION ===============
      */
-    const existingDestinationBooking = await DestinationBooking.findOne({ destination: destinationId });
+    const existingDestinationBooking = await DestinationBooking.findOne({
+      destination: destinationId,
+    });
 
     if (existingDestinationBooking) {
       if (existingDestinationBooking.availability === false) {
@@ -429,7 +473,9 @@ export const deleteDestinationBooking = async (req, res) => {
 
 export const getDestinationBookingById = async (req, res) => {
   try {
-    const tour = await DestinationBooking.findById(req.params.id).populate("tour");
+    const tour = await DestinationBooking.findById(req.params.id).populate(
+      "tour"
+    );
     if (!tour) {
       return res.status(404).json({
         success: false,

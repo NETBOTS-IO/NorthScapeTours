@@ -1,6 +1,5 @@
 import Booking from "../models/bookingModel.js";
 import Car from "../models/rentModel.js";
-import nodemailer from "nodemailer";
 import bookingsServices from "../services/bookingService.js";
 import { sendBookingEmails } from "../utils/email.js";
 // pcue iygv zngk etou
@@ -13,37 +12,33 @@ export default async function BookingHandler(req, res) {
       const { carId } = bookingData;
 
       // console.log('carId', carId);
-      const IsCarBooked = await Booking.findOne({ carId:carId });
-// console.log('IsCarBooked', IsCarBooked);
+      const IsCarBooked = await Booking.findOne({ carId: carId });
+      // console.log('IsCarBooked', IsCarBooked);
 
       if (IsCarBooked) {
         if (IsCarBooked.status === "Confirmed") {
-          return res
-            .status(403)
-            .json({
-              success: false,
-              message: "Car already booked",
-              IsCarBooked,
-            });
+          return res.status(403).json({
+            success: false,
+            message: "Car already booked",
+            IsCarBooked,
+          });
         }
         if (IsCarBooked.status === "Pending") {
           const createSameBookings = await Booking.create(bookingData);
-          console.log('createSameBookings', createSameBookings);
-          await sendBookingEmails(createSameBookings) //sending email
-          return res
-            .status(201)
-            .json({
-              success: true,
-              message:
-                "Car already booked but not confirmed. We will contact you soon!",
-              createSameBookings,
-            });
+          // console.log("createSameBookings", createSameBookings);
+          await sendBookingEmails(createSameBookings); //sending email
+          return res.status(201).json({
+            success: true,
+            message:
+              "Car already booked but not confirmed. We will contact you soon!",
+            createSameBookings,
+          });
         }
       }
       //  Save booking to DB
       const bookings = await Booking.create(bookingData);
-// console.log('bookings', bookings)
-    await sendBookingEmails(bookings) //sending email
+      // console.log('bookings', bookings)
+      await sendBookingEmails(bookings); //sending email
 
       res.status(200).json({
         success: true,
@@ -126,20 +121,21 @@ export const updateBooking = async (req, res) => {
     }
 
     const { carId } = existingBooking;
-console.log('carId', carId)
+    // console.log('carId', carId)
 
     // Check if this car already has a confirmed booking
     const alreadyConfirmed = await Booking.findOne({
       carId,
-      status: "Confirmed", 
+      status: "Confirmed",
       _id: { $ne: id }, // exclude current booking
     });
-    console.log("alreadyConfirmed", alreadyConfirmed);
+    // console.log("alreadyConfirmed", alreadyConfirmed);
 
     if (alreadyConfirmed && status === "Confirmed") {
-      return res
-        .status(404)
-        .json({ success: false, message: "Car already confirmed earlier, cannot confirm again." });
+      return res.status(404).json({
+        success: false,
+        message: "Car already confirmed earlier, cannot confirm again.",
+      });
     }
 
     // Update booking status
@@ -151,6 +147,8 @@ console.log('carId', carId)
 
     // Update car status accordingly
     await Car.findByIdAndUpdate(carId, { status }, { new: true });
+
+    await sendBookingEmails(updatedBooking);
 
     return res.status(200).json({
       success: true,
@@ -164,7 +162,6 @@ console.log('carId', carId)
       .json({ success: false, error: "Failed to update booking" });
   }
 };
-
 
 // get confirmed and pending c total counts
 export const countBookings = async (req, res) => {
