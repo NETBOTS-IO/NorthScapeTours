@@ -429,12 +429,12 @@ export async function deleteBookingById(id: string) {
 }
 export async function updatingBookingById(id: string, status: string) {
   try {
-    const res = await axios.put(`${BASE_URL}/api/tour-booking/${id}`, {status});
-    console.log('response', res)
+    const res = await axios.put(`${BASE_URL}/api/bookings/${id}`, {status});
+    console.log('response', res) 
     return res.data || null;
   } catch (error) {
     const err = error as AxiosError;
-    console.error(`❌ Failed to fetch car with ID ${id}:`, err);
+    console.error(`❌ Failed to update car with ID ${id}:`, err);
     return err.response || null;
   }
 }
