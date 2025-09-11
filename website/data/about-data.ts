@@ -34,39 +34,39 @@ export const aboutMilestones = [
 export const aboutValues = [
   {
     icon: "Heart",
-    title: "Passion for Travel",
+    title: "Professionalism",
     description:
-      "We live and breathe travel. Our passion drives us to create experiences that inspire and transform lives.",
+      " Delivering reliable services with integrity",
     color: "text-red-500",
     bgColor: "bg-red-50",
   },
   {
     icon: "Shield",
-    title: "Safety First",
+    title: "Hospitality ",
     description:
-      "Your safety is our top priority. We maintain the highest safety standards and comprehensive insurance coverage.",
+      "Extending the warmth of Pakistan to every guest",
     color: "text-blue-500",
     bgColor: "bg-blue-50",
   },
   {
     icon: "Leaf",
-    title: "Sustainable Tourism",
-    description: "We're committed to responsible travel that protects environments and benefits local communities.",
+    title: "Authenticity ",
+    description: "Creating real connections with culture and people",
     color: "text-green-500",
     bgColor: "bg-green-50",
   },
   {
     icon: "Users",
-    title: "Local Partnerships",
+    title: "Safety & Comfort",
     description:
-      "We work closely with local guides and communities to provide authentic, culturally rich experiences.",
+      "Ensuring secure, hassle-free travel at every step.",
     color: "text-purple-500",
     bgColor: "bg-purple-50",
   },
   {
     icon: "Globe",
-    title: "Global Expertise",
-    description: "Our worldwide network of experts ensures you get insider knowledge and access to hidden gems.",
+    title: "Sustainability ",
+    description: "Promoting eco-friendly practices and supporting .",
     color: "text-indigo-500",
     bgColor: "bg-indigo-50",
   },
@@ -74,7 +74,7 @@ export const aboutValues = [
     icon: "Star",
     title: "Excellence",
     description:
-      "We strive for excellence in every detail, from planning to execution, ensuring unforgettable experiences.",
+      "We strive for excellence in every detail, from planning to execution.",
     color: "text-yellow-500",
     bgColor: "bg-yellow-50",
   },
@@ -218,8 +218,9 @@ export const aboutFounders = {
   image: "/images/b2.jpeg",
   alt: "Our founders",
   paragraphs: [
-    "NORTHSCAPE TOURS AND TRAVELS was founded by two passionate travelers who believed that everyone deserves to experience the transformative power of travel. After years of exploring remote corners of the world, they realized that the most meaningful journeys happen when you connect with local cultures and step outside your comfort zone.",
-    "What started as a small operation organizing treks in Nepal has grown into a global network of travel experts, local guides, and adventure enthusiasts. Today, we're proud to offer life-changing experiences across six continents, always staying true to our core values of authenticity, sustainability, and respect for local communities."
+    "We are proud to be based in Skardu — the gateway to some of the world’s highest peaks and most iconic valleys. As locals, we know the land, the culture, and the people, and we bring this deep knowledge into every journey we design.",
+
+    "Our goal is simple: to combine natural beauty, cultural richness, and authentic hospitality into journeys that are seamless, safe, and unforgettable. With in-depth regional expertise and a professional team, we ensure every tour is carefully designed and executed to international standards."
   ],
   stats: [
     { value: "15+", label: "Years Experience" },
@@ -227,3 +228,122 @@ export const aboutFounders = {
     { value: "10K+", label: "Happy Travelers" }
   ]
 }; 
+
+
+export const termsAndCondition = [
+  {
+    section: "Booking & Confirmation",
+    points: [
+      "All bookings must be confirmed in writing (via email, WhatsApp, or website).",
+      "A booking is considered valid only after receiving the required advance payment.",
+      "Final confirmation will be sent once payment is received and services are reserved."
+    ]
+  },
+  {
+    section: "Payments",
+    points: [
+      "An advance payment (usually 30–50% of total cost) is required at the time of booking.",
+      "The remaining balance must be paid before or during the tour, as agreed.",
+      "Payments can be made via bank transfer, online transfer, or cash in Pakistan."
+    ]
+  },
+  {
+    section: "Cancellations & Refunds",
+    points: [
+      "Cancellations must be communicated in writing.",
+      "Refunds (if any) depend on the timing of cancellation:",
+      "30+ days before tour: up to 80% refund (after service deductions).",
+      "15–29 days before tour: up to 50% refund.",
+      "Less than 15 days: no refund.",
+      "Non-refundable services (e.g., flight tickets, hotel prepayments) will be deducted."
+    ]
+  },
+  {
+    section: "Changes to Itinerary",
+    points: [
+      "Northscape Pakistan reserves the right to make reasonable changes to itineraries due to weather, road conditions, flight delays, or safety concerns.",
+      "In such cases, alternative arrangements will be provided without compromising the overall experience."
+    ]
+  },
+  {
+    section: "Client Responsibility",
+    points: [
+      "Clients are responsible for ensuring they have valid passports, visas, permits, and travel insurance (where required).",
+      "Clients must inform Northscape Pakistan of any medical conditions, dietary restrictions, or special requirements in advance.",
+      "Travelers are expected to respect local culture, laws, and environment during tours."
+    ]
+  },
+  {
+    section: "Travel Insurance",
+    points: [
+      "Northscape Pakistan strongly recommends that all clients, especially international travelers, purchase comprehensive travel insurance covering health, accidents, and trip cancellations."
+    ]
+  },
+  {
+    section: "Liability",
+    points: [
+      "Northscape Pakistan is not liable for injuries, damages, losses, delays, or expenses caused by natural disasters, accidents, weather, flight cancellations, political disturbances, or acts beyond our control.",
+      "While we take all necessary precautions for safety and comfort, travel in remote mountain regions may involve risks."
+    ]
+  },
+  {
+    section: "Accommodation & Transport",
+    points: [
+      "Hotel bookings are made in trusted partner hotels. In case of unavailability, similar standard alternatives will be provided.",
+      "Vehicles are provided with professional drivers. Specific vehicle requests are subject to availability."
+    ]
+  },
+  {
+    section: "Force Majeure",
+    points: [
+      "Northscape Pakistan is not responsible for delays, cancellations, or changes caused by events beyond our control, including but not limited to: weather, natural disasters, road closures, strikes, or political events."
+    ]
+  },
+  {
+    section: "Governing Law",
+    points: [
+      "All bookings and disputes are governed by the laws of Pakistan. Any legal matters shall fall under the jurisdiction of Pakistani courts."
+    ]
+  },
+  {
+    section: "Acceptance of Terms",
+    points: [
+      "By booking with Northscape Pakistan Tours and Travels (SMC-Pvt) Ltd, clients acknowledge that they have read, understood, and agreed to these Terms and Conditions."
+    ]
+  }
+];
+
+export const infoWeCollect = [
+  "Personal details (full name, email address, phone number, nationality)",
+  "Travel preferences (destinations, dates, group size, special requirements)",
+  "Payment information (bank transfer details or online payment confirmations)",
+  "Identification documents (passport/ID copy, if required for permits or bookings)",
+  "Communication history (emails, WhatsApp, or inquiry forms)"
+];
+export const infoWeUseCollect = [
+  "To confirm and manage your bookings",
+  "To process payments securely",
+  "To arrange travel services (hotels, flights, permits, car rentals, guides)",
+  "To communicate with you regarding your trip and inquiries",
+  "To improve our services and client experience",
+  "To comply with legal or government requirements when necessary"
+]
+export const securityData  = [
+  "We take reasonable measures to protect your personal data from unauthorized access, misuse, or loss.",
+  "Sensitive information (such as passport copies or payment details) is handled securely and only shared with trusted service providers when required for your bookings.",
+  "We never sell or share your personal information with third parties for marketing purposes."
+]
+export const thirtPartyData  = [
+  "Some services (e.g., hotels, airlines, transport providers) may require sharing limited client information (e.g., names, passport numbers for ticketing).",
+  "We ensure that such partners are reputable and use your information only for service delivery."
+]
+export const cookiesData  = [
+  "Our website may use cookies or analytics tools to improve user experience and understand visitor behavior.",
+  "You can adjust your browser settings to disable cookies at any time."
+]
+export const yourRightData  = [
+  "Request access to the personal information we hold about you",
+  "Correct or update inaccurate details",
+  "Request deletion of your data (unless legally required to retain it)",
+  "Withdraw consent for certain uses of your data"
+]

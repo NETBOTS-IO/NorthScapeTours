@@ -63,8 +63,7 @@ const router = useRouter()
             Our <span className="text-orange-600">Story</span>
           </motion.h1>
           <motion.p variants={childVariants} className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-8">
-            For over 15 years, we've been crafting extraordinary travel experiences that connect people with the world's
-            most incredible destinations
+            Northscape Pakistan was founded with a passion for sharing the breathtaking landscapes and cultural treasures of our homeland with the world. What began as a vision to connect travelers with the raw beauty of the Karakoram has grown into a professional travel company serving both domestic and international clients.
           </motion.p>
           <motion.div variants={childVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" onClick={()=>router.push("/contact")}>

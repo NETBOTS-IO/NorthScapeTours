@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "About Us - NORTHSCAPE",
   description:
     "Learn about NORTHSCAPE's journey, our passionate team, and our commitment to creating extraordinary travel experiences around the world.",
-  keywords: "about travelmaker, travel company, our story, travel experts, mission, values",
+  keywords: "about northscape, travel company, our story, travel experts, mission, values",
 }
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
       <AboutStory />
       <ValuesSection />
       <TeamSection />
-      <AwardsSection />
+      {/* <AwardsSection /> */}
       {/* <CertificationsSection /> */}
     </div>
   )

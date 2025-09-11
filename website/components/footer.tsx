@@ -163,13 +163,13 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-[#f5530c]" />
                 <span className="text-slate-300 text-sm">
-                  Info@northscapetours.com
+                  info@northscapepakistan.com
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-4 h-4 text-[#f5530c]" />
                 <span className="text-slate-300 text-sm">
-                  Office # 02 benazir road Sukmaidan, skardu
+                  Office No-02 benazir road Sukmaidan, skardu
                 </span>
               </div>
             </div>

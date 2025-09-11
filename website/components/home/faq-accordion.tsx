@@ -14,34 +14,34 @@ const FAQAccordion = () => {
 
   const faqs: FAQItem[] = [
     {
-      question: "What's included in your tour packages?",
+      question: "Is Northscape Pakistan a registered travel company?",
       answer:
-        "Our comprehensive tour packages include accommodation, meals, transportation, professional guides, entrance fees to attractions, and 24/7 support. Specific inclusions vary by package, and we provide detailed itineraries for each trip.",
+        "Yes. Northscape Pakistan Tours and Travels (SMC-Pvt) Ltd is officially registered with the Government of Pakistan, ensuring professionalism, reliability, and trust.",
     },
     {
-      question: "How do I book a trip?",
+      question: "Which destinations do you cover?",
       answer:
-        "Booking is easy! You can book online through our website, call our travel experts, or visit our office. We require a deposit to secure your booking, with the balance due before departure. We accept various payment methods for your convenience.",
+        "We specialize in Northern Pakistan, particularly Skardu and Hunza. We also organize cultural and city tours in Islamabad, Lahore, and other major destinations.",
     },
     {
-      question: "What is your cancellation policy?",
+      question: "What types of tours do you offer?",
       answer:
-        "Our cancellation policy varies by trip type and timing. Generally, cancellations made 60+ days before departure receive a full refund minus processing fees. We strongly recommend travel insurance to protect your investment.",
+        "We offer guided cultural tours, adventure trips, luxury tours, family holidays, and customized itineraries for individuals, groups, and corporate clients.",
     },
     {
-      question: "Do you offer custom itineraries?",
+      question: "Can you design tailor-made itineraries?",
       answer:
-        "We specialize in creating personalized travel experiences. Our expert team will work with you to design a custom itinerary that matches your interests, budget, and schedule. Contact us to start planning your unique adventure.",
+        "Yes. Every traveler is unique, and we create personalized itineraries based on your interests, budget, and time.",
     },
     {
-      question: "What safety measures do you have in place?",
+      question: "What is included in your tour packages?",
       answer:
-        "Safety is our top priority. We work with certified local guides, maintain comprehensive insurance coverage, provide safety briefings, and have 24/7 emergency support. All our trips are regularly assessed for safety and security.",
+        "Our packages typically include: Accommodation in carefully selected hotels Private transportation with professional drivers Sightseeing and guided tours Tour planning and support Additional services like meals, flights, and special activities can also be arranged on request.",
     },
     {
-      question: "What should I pack for my trip?",
+      question: "Do you provide transport-only services?",
       answer:
-        "Packing requirements vary by destination and season. We provide detailed packing lists for each trip, including essential items, recommended gear, and local considerations. Our team is always available to answer specific packing questions.",
+        "Yes. Through our Northscape Car Rentals, we provide vehicles with professional drivers for individuals, families, and groups.",
     },
   ]
 

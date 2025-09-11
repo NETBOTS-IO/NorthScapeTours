@@ -27,7 +27,9 @@ const TeamSection = () => {
             Meet Our <span className="text-orange-600">Team</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Our passionate team of travel experts
+            Zafer – Founder & CEO
+            Northscape Pakistan was founded by Zafer, a passionate travel entrepreneur from Skardu who has dedicated his career to promoting the beauty of Pakistan to the world. Growing up in the heart of the Karakoram, Zafer developed a deep connection with the mountains, culture, and traditions of his homeland.
+
           </p>
         </motion.div>
 
@@ -89,8 +91,8 @@ const TeamSection = () => {
                       i === 0
                         ? `mailto:${member.social.email}`
                         : i === 1
-                        ? member.social.linkedin
-                        : member.social.twitter
+                          ? member.social.linkedin
+                          : member.social.twitter
                     }
                   >
                     <Icon className="w-4 h-4" />

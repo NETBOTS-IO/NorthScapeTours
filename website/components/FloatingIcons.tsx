@@ -16,7 +16,7 @@ const FloatingContact = () => {
 
       <a
 //   href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@northscapetours.com&su=Tour%20Inquiry&body=Hello%20Northscape%20Tours,"
-    href="mailto:Info@northscapetours.com"
+    href="mailto:info@northscapepakistan.com"
   target="_blank"
   rel="noopener noreferrer"
   className="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110"

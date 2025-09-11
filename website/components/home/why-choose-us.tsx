@@ -9,7 +9,7 @@ const features = [
     icon: Shield,
     title: "Safety First",
     description:
-      "We prioritize your protection with certified guides, full insurance, and strict safety standards on every trip.",
+      "Registered with the Government of Pakistan – a name you can trust.",
     stats: "99.9% Safety Record",
     color: "from-indigo-500 to-indigo-600",
     bgColor: "bg-indigo-50",
@@ -19,7 +19,7 @@ const features = [
     icon: Award,
     title: "Expert Guides",
     description:
-      "Led by passionate local specialists with deep knowledge and years of proven travel expertise.",
+      "Local expertise with international service standards.",
     stats: "500+ Certified Experts",
     color: "from-amber-500 to-amber-600",
     bgColor: "bg-amber-50",
@@ -27,9 +27,9 @@ const features = [
   },
   {
     icon: Users,
-    title: "Small Groups",
+    title: "Professional Team",
     description:
-      "Enjoy personalized attention, authentic cultural immersion, and close connections in intimate groups.",
+      "Professional team and certified guides.",
     stats: "Groups Up to 15",
     color: "from-emerald-500 to-emerald-600",
     bgColor: "bg-emerald-50",
@@ -37,9 +37,9 @@ const features = [
   },
   {
     icon: Globe,
-    title: "Worldwide Access",
+    title: "Partnership",
     description:
-      "Discover hidden gems, iconic sights, and extraordinary places across every continent.",
+      "Strong partnerships with hotels and transport providers.",
     stats: "80+ Countries",
     color: "from-fuchsia-500 to-fuchsia-600",
     bgColor: "bg-fuchsia-50",
@@ -59,7 +59,7 @@ const features = [
     icon: Heart,
     title: "Eco-Friendly Travel",
     description:
-      "Dedicated to sustainable tourism that supports communities and protects our planet.",
+      "Custom itineraries tailored to individual, family, and group needs.",
     stats: "Carbon Neutral",
     color: "from-cyan-500 to-cyan-600",
     bgColor: "bg-cyan-50",
