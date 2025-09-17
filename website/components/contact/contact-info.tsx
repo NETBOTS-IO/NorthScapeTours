@@ -118,7 +118,6 @@ const ContactInfo = () => {
         </div>
       </motion.div>
 
-      {/* Office Hours */}
       <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl p-8">
         <div className="flex items-center mb-6">
           <Clock className="w-6 h-6 text-orange-600 mr-3" />

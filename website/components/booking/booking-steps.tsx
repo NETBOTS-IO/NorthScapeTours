@@ -120,7 +120,6 @@ const BookingSteps = () => {
                   <p className="text-slate-600 leading-relaxed">{step.description}</p>
                 </div>
 
-                {/* Connector Line */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-orange-600 to-green-600 transform -translate-y-1/2" />
                 )}

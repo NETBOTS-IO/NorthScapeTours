@@ -15,12 +15,12 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [travelers, setTravelers] = useState(1);
   const [showBookingForm, setShowBookingForm] = useState(false);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    firstName:"",
-    lastName:"",
-    email:"",
-    phone:""
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: ""
   })
 
   const departureDates = [
@@ -66,9 +66,9 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
     },
   };
 
-console.log('trip ', trip )
+  // console.log('trip ', trip )
 
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
@@ -77,55 +77,56 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   };
 
 
-interface ApiResponse<T> {
-  success: boolean;
-  message: string;
-  data?: T;
-}
+  interface ApiResponse<T> {
+    success: boolean;
+    message: string;
+    data?: T;
+  }
 
-const totalPrice = calculateTotal().toLocaleString()
+  const totalPrice = calculateTotal().toLocaleString()
   // Send booking via WhatsApp
 
-  type TourBooking ={
+  type TourBooking = {
     success: boolean;
     message: string;
   }
 
- const handleBooking = () => {
-  const updatedAvailability = trip.availability;
-// console.log('updatedAvailability', updatedAvailability);
-const customerDetails = {...form, selectedDate, totalPrice , travelers, }
-// console.log('customerDetails', customerDetails);
+  const handleBooking = () => {
+    const updatedAvailability = trip.availability;
+    // console.log('updatedAvailability', updatedAvailability);
+    const customerDetails = { ...form, selectedDate, totalPrice, travelers, }
+    // console.log('customerDetails', customerDetails);
 
-  async function tourBooking() {
-    setLoading(true)
-    try {
-      const response: ApiResponse<TourBooking> | undefined =  await createTourBooking( {
-        ...customerDetails,
-        tourId: trip._id,
-        availability: updatedAvailability,
-      });
-      // console.log('response :>> ', response);
-      if (response?.success) {
-        alert("Your Tour Booked successfully");
-        window.location.reload();
-        setForm({  
-          firstName:"",
-    lastName:"",
-    email:"",
-    phone:""});
-      }else{
-        alert(response?.data?.message || "Somethin went wrong")
+    async function tourBooking() {
+      setLoading(true)
+      try {
+        const response: ApiResponse<TourBooking> | undefined = await createTourBooking({
+          ...customerDetails,
+          tourId: trip._id,
+          availability: updatedAvailability,
+        });
+        // console.log('response :>> ', response);
+        if (response?.success) {
+          alert("Your Tour Booked successfully");
+          window.location.reload();
+          setForm({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: ""
+          });
+        } else {
+          alert(response?.data?.message || "Somethin went wrong")
+        }
+      } catch (error) {
+        console.log("error", error);
+      } finally {
+        setLoading(false)
       }
-    } catch (error) {
-      console.log("error", error); 
-    }finally{
-      setLoading(false)
     }
-  }
 
-  tourBooking();
-};
+    tourBooking();
+  };
 
 
   return (
@@ -258,61 +259,61 @@ const customerDetails = {...form, selectedDate, totalPrice , travelers, }
           </div>
 
           {/* Quick Booking Form */}
-           <motion.div
-      initial="hidden"
-      animate={showBookingForm ? "visible" : "hidden"}
-      className="overflow-hidden"
-    >
-      {showBookingForm && (
-        <div className="space-y-4 pt-4 border-t border-slate-200">
-          <h4 className="font-semibold text-slate-800">Quick Booking</h4>
-          <div className="grid grid-cols-2 gap-3">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={form.firstName}
-              onChange={handleInputChange}
-              className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={form.lastName}
-              onChange={handleInputChange}
-              className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-            />
-          </div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={form.email}
-            onChange={handleInputChange}
-            className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={form.phone}
-            onChange={handleInputChange}
-            className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
-          />
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleBooking}
-            disabled={!trip.availability}
-            className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 disabled:cursor-not-allowed "
+          <motion.div
+            initial="hidden"
+            animate={showBookingForm ? "visible" : "hidden"}
+            className="overflow-hidden"
           >
-            
-          { loading ? "Loading..." :!trip.availability ? "Booked": "Complete Booking"}  
-          </motion.button>
-        </div>
-      )}
-    </motion.div>
+            {showBookingForm && (
+              <div className="space-y-4 pt-4 border-t border-slate-200">
+                <h4 className="font-semibold text-slate-800">Quick Booking</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    value={form.firstName}
+                    onChange={handleInputChange}
+                    className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={form.lastName}
+                    onChange={handleInputChange}
+                    className="p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+                  />
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={form.email}
+                  onChange={handleInputChange}
+                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  value={form.phone}
+                  onChange={handleInputChange}
+                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-600"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleBooking}
+                  disabled={!trip.availability}
+                  className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 disabled:cursor-not-allowed "
+                >
+
+                  {loading ? "Loading..." : !trip.availability ? "Booked" : "Complete Booking"}
+                </motion.button>
+              </div>
+            )}
+          </motion.div>
           {/* Trust Indicators */}
           <div className="pt-6 border-t border-slate-200">
             <div className="grid grid-cols-3 gap-4 text-center">

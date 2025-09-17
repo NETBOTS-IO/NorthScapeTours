@@ -64,8 +64,6 @@ const BookingForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 3000))
 
     setIsBooked(true)
