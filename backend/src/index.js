@@ -39,24 +39,17 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://147.93.94.137",
   "https://147.93.94.137",
-  "http://mountaintravels.site",
-  "https://mountaintravels.site",
-  "http://dashboard.mountaintravels.site",
-  "https://dashboard.mountaintravels.site",
-  "http://api.mountaintravels.site",
-  "https://api.mountaintravels.site",
-  "http://mountaintravels.com",
-  "https://mountaintravels.com",
-  "http://dashboard.mountaintravels.com",
-  "https://dashboard.mountaintravels.com",
-  "http://api.mountaintravels.com",
-  "https://api.mountaintravels.com",
   "http://88.223.95.144:3000",
   "https://88.223.95.144:3000",
   "http://88.223.95.144",
   "https://88.223.95.144",
   "http://88.223.95.144:5000",
-  "https://88.223.95.144:5000",
+  "https://northscapepakistan.com",
+  "http://northscapepakistan.com",
+  "http://admin.northscapepakistan.com",
+  "https://admin.northscapepakistan.com",
+  "http://api.northscapepakistan.com",
+  "https://api.northscapepakistan.com",
 ];
 
 app.use(
@@ -111,7 +104,7 @@ app.use('/uploads', express.static(path.resolve(__dirname, 'uploads')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Mountain Travel Pakistan Server is running');
+  res.send(' Northscape Pakistan Server is running');
 });
 
 app.use("/api/auth", authRoutes);
