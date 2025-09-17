@@ -429,7 +429,6 @@ export default function DestinationForm({
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // ✅ Ensure a successful request before showing success toast
       if (response.status >= 200 && response.status < 300) {
         toast.success(`Destination ${isUpdating ? "updated" : "added"} successfully`);
         router.push("/admin/destinations");

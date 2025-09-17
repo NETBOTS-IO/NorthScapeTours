@@ -426,7 +426,6 @@ console.log('itineraryImagePreviews', itineraryImagePreviews)
     const method = isUpdating ? "put" : "post";
     console.log(`Submitting tour with method: ${method}, URL: ${url}`);
 
-    // ✅ Debugging: Log FormData before sending
     // for (let pair of formData.entries()) {
     //   console.log("FormData Key:", pair[0], "=>", pair[1]);
     // }
