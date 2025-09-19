@@ -72,6 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(res.data.user);
       setLoading(false)
     } catch (error) {
+      console.log('error', error)
       throw error;
     }finally{
       setLoading(false)
