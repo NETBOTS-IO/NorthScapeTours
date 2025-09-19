@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Book your dream adventure with NORTHSCAPE PAKISTAN. Secure online booking, flexible payment options, and expert support throughout your journey.",
   keywords: "book travel, adventure booking, secure booking, travel reservation, trip booking",
-}S
+}
 
 export default function BookingPage() {
   return (
