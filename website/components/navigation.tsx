@@ -90,7 +90,7 @@ const Navigation = () => {
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href="/" className="flex items-center space-x-2">
-              <Image alt="northscape logo" src="/Northscape-logo.png" width={140} height={140} />
+              <Image alt="northscape logo" src="/new-logo.png" width={90} height={85} />
             </Link>
           </motion.div>
 

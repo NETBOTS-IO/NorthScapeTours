@@ -19,8 +19,8 @@ const ContactInfo = () => {
     },
     {
       icon: Mail,
-      title: "Email Us",
-      details: ["Info@northscapetours.com"],
+      title: "Email Us", 
+      details: ["info@northscapepakistan.com"],
       description: "Get detailed responses to your inquiries",
       color: "text-blue-600",
       bgColor: "bg-blue-50",
@@ -36,7 +36,7 @@ const ContactInfo = () => {
     {
       icon: MapPin,
       title: "Visit Our Office",
-      details: ["Office # 02 benazir road Sukmaidan, skardu"],
+      details: ["Office No-02 benazir road Sukmaidan, skardu"],
       description: "Meet us in person for personalized planning",
       color: "text-orange-600",
       bgColor: "bg-orange-50",

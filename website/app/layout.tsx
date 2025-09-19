@@ -6,7 +6,7 @@ import ClientLayout from "./ClientLayout"
 const inter = Roboto({ subsets: ["latin"], weight: ["400", "600", "700"], })
 
 export const metadata = {
-  title: "Northscape Tours and Travels Pakistan",
+  title: "Northscape Pakistan Tours and Travels",
   description:
     "Discover extraordinary destinations and trips and create unforgettable memories with our premium travel experiences.",
 }

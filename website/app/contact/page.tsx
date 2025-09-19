@@ -5,7 +5,7 @@ import FAQ from "@/components/contact/faq";
 import LocationMap from "@/components/contact/location-map";
 
 export const metadata: Metadata = {
-  title: "Contact Us - NORTHSCAPE",
+  title: "Contact Us - NORTHSCAPE PAKISTAN",
   description: "Get in touch with our travel experts",
 };
 
@@ -29,9 +29,9 @@ export default function ContactPage() {
               <ContactForm />
             </div>
             <ContactInfo />
-            <div className=" col-span-full">
+            {/* <div className=" col-span-full">
               <LocationMap />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

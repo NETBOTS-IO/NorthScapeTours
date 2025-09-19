@@ -4,11 +4,11 @@ import BookingForm from "@/components/booking/booking-form"
 import BookingSteps from "@/components/booking/booking-steps"
 
 export const metadata: Metadata = {
-  title: "Book Your Adventure - NORTHSCAPE | Secure Online Booking",
+  title: "Book Your Adventure - NORTHSCAPE PAKISTAN | Secure Online Booking",
   description:
-    "Book your dream adventure with NORTHSCAPE. Secure online booking, flexible payment options, and expert support throughout your journey.",
+    "Book your dream adventure with NORTHSCAPE PAKISTAN. Secure online booking, flexible payment options, and expert support throughout your journey.",
   keywords: "book travel, adventure booking, secure booking, travel reservation, trip booking",
-}
+}S
 
 export default function BookingPage() {
   return (

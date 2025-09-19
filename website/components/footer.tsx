@@ -43,7 +43,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center">
-              <Image alt="northscape logo" src="/Northscape-logo.png" width={200} height={100} /> 
+              <Image alt="northscape logo" src="/new-logo.png" width={160} height={90} /> 
             </div>
             <p className="text-slate-300 text-sm">
               Creating extraordinary travel experiences and unforgettable
@@ -178,7 +178,7 @@ const Footer = () => {
 
         <div className="flex flex-col justify-between items-center space-y-4 md:flex-row md:space-y-0 md:space-x-8 border-t border-slate-700 mt-8 pt-8 px-4 text-center md:text-left">
           <p className="text-slate-400 text-sm">
-            © {new Date().getFullYear()} Northscape Tours and Travels. All rights reserved.
+            © {new Date().getFullYear()} Northscape Pakistan Tours and Travels. All rights reserved.
           </p>
           <p className="text-slate-400 text-sm">
             Designed and developed by{" "}

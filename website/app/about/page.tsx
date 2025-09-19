@@ -3,14 +3,12 @@ import AboutHero from "@/components/about/about-hero"
 import AboutStory from "@/components/about/about-story"
 import TeamSection from "@/components/about/team-section"
 import ValuesSection from "@/components/about/values-section"
-import AwardsSection from "@/components/about/awards-section"
-import CertificationsSection from "@/components/about/certifications"
 
 export const metadata: Metadata = {
-  title: "About Us - NORTHSCAPE",
+  title: "About Us - NORTHSCAPE PAKISTAN",
   description:
-    "Learn about NORTHSCAPE's journey, our passionate team, and our commitment to creating extraordinary travel experiences around the world.",
-  keywords: "about northscape, travel company, our story, travel experts, mission, values",
+    "Learn about NORTHSCAPE's pakistan journey, our passionate team, and our commitment to creating extraordinary travel experiences around the world.",
+  keywords: "about northscape pakistan, travel company, our story, travel experts, mission, values",
 }
 
 export default function AboutPage() {
