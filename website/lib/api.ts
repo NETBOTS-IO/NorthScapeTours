@@ -355,7 +355,7 @@ export async function getTestimonials(query: {
   if (query.limit) params.append("limit", query.limit.toString());
   if (query.search) params.append("search", query.search);
 
-  const res = await axios.get<GetTestimonialsResponse>(`${BASE_URL}/testimonials/?${params.toString()}`);
+  const res = await axios.get<GetTestimonialsResponse>(`${BASE_URL}/api/testimonials/?${params.toString()}`);
   return res.data.data; // Return the data bookings from the response
 }
 
