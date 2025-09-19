@@ -7,9 +7,9 @@ import { ContactDataTypes } from "@/data/contact-data";
 import axios from "axios";
 import { Destination } from "@/data/destinations-data";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL;
-// const BASE_URL = "https://api.northscapepakistan.com" 
+// const BASE_URL =
+  // process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const BASE_URL = "https://api.northscapepakistan.com" 
 
 interface ApiResponse<T> {
   success: boolean;
