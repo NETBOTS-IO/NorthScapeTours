@@ -45,7 +45,7 @@ function isAxiosError(error: any): boolean {
 
 export async function fetchTours() {
   try {
-    const res = await axios.get<ApiResponse<any[]>>(`${BASE_URL}/tours`, {
+    const res = await axios.get<ApiResponse<any[]>>(`${BASE_URL}/api/tours`, {
       withCredentials: true,
     });
     if (res.data && res.data.success) {
@@ -68,7 +68,7 @@ export async function fetchTours() {
 
 export async function fetchTourById(id: string) {
   try {
-    const res = await axios.get<ApiResponse<any>>(`${BASE_URL}/tours/${id}`, {
+    const res = await axios.get<ApiResponse<any>>(`${BASE_URL}/api/tours/${id}`, {
       withCredentials: true,
     });
     if (res.data && res.data.success) {
@@ -92,7 +92,7 @@ export async function fetchTourById(id: string) {
 export async function fetchRelatedTours(id: string) {
   try {
     const res = await axios.get<ApiResponse<any[]>>(
-      `${BASE_URL}/tours/${id}/related`,
+      `${BASE_URL}/api/tours/${id}/related`,
       { withCredentials: true }
     );
     if (res.data && res.data.success) {
@@ -116,7 +116,7 @@ export async function fetchRelatedTours(id: string) {
 export async function fetchTourCategories() {
   try {
     const res = await axios.get<ApiResponse<any[]>>(
-      `${BASE_URL}/tours/categories`,
+      `${BASE_URL}/api/tours/categories`,
       { withCredentials: true }
     );
     if (res.data && res.data.success) {
@@ -150,7 +150,7 @@ export async function fetchGalleryPhotos(
     });
 
     const res = await axios.get<GalleryApiResponse>(
-      `${BASE_URL}/gallery?${query}`,
+      `${BASE_URL}/api/gallery?${query}`,
       {
         withCredentials: true,
       }
@@ -182,7 +182,7 @@ export async function fetchGalleryPhotos(
 
 export async function fetchPhotoById(id: string) {
   try {
-    const res = await axios.get<ApiResponse<GalleryPhoto>>(`${BASE_URL}/gallery/${id}`, {
+    const res = await axios.get<ApiResponse<GalleryPhoto>>(`${BASE_URL}/api/gallery/${id}`, {
       withCredentials: true,
     });
     const photoData = res.data?.data;
@@ -200,7 +200,7 @@ export async function fetchPhotoById(id: string) {
 }
 export async function fetchRentalCar() {
   try {
-    const res = await axios.get<ApiResponse<RentCar>>(`${BASE_URL}/rent/`);
+    const res = await axios.get<ApiResponse<RentCar>>(`${BASE_URL}/api/rent/`);
     const rentCarData = res?.data;
 
     return rentCarData;
@@ -212,7 +212,7 @@ export async function fetchRentalCar() {
 
 export async function getCarById(id: string): Promise<RentCar | {}> {
   try {
-    const res = await axios.get(`${BASE_URL}/rent/${id}`);
+    const res = await axios.get(`${BASE_URL}/api/rent/${id}`);
     return res.data || {};
   } catch (error) {
     console.error(`Failed to fetch car with ID ${id}:`, error);
@@ -223,7 +223,7 @@ export async function getCarById(id: string): Promise<RentCar | {}> {
 //blogs apis 
 export async function fetchBlogs() {
   try {
-    const res = await axios.get<ApiResponse<any[]>>(`${BASE_URL}/blogs/`, {
+    const res = await axios.get<ApiResponse<any[]>>(`${BASE_URL}/api/blogs/`, {
       withCredentials: true,
     });
     if (res.data && res.data.success) {
@@ -270,7 +270,7 @@ export async function getBlogs(query: {
   if (query.limit) params.append("limit", query.limit.toString());
   if (query.search) params.append("search", query.search);
 
-  const res = await axios.get<ApiResponse<BlogsResponse>>(`${BASE_URL}/blogs?${params.toString()}`);
+  const res = await axios.get<ApiResponse<BlogsResponse>>(`${BASE_URL}/api/blogs?${params.toString()}`);
   return res.data.data; 
 }
 
@@ -278,7 +278,7 @@ export async function getBlogs(query: {
 // Get single blog by ID
 export const getBlogById = async (id: string): Promise<Blog> => {
   try {
-    const res = await axios.get<BlogAPIResponse>(`${BASE_URL}/blogs/${id}`);
+    const res = await axios.get<BlogAPIResponse>(`${BASE_URL}/api/blogs/${id}`);
     return res.data.data!; // Return the data property from the response
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || "Failed to fetch blog");
@@ -379,7 +379,7 @@ export async function createTourBooking(
 ): Promise<FormDataProps | undefined> {
   try {
     const response = await axios.post<{ data: FormDataProps }>(
-      `${BASE_URL}/tour-booking/`,
+      `${BASE_URL}/api/tour-booking/`,
       tourData
     );
     console.log("booking tour res:", response.data);
@@ -396,7 +396,7 @@ export async function updateTourBookingById(
 ): Promise<Tour | undefined> {
   try {
     const response = await axios.put<{ data: Tour }>(
-      `${BASE_URL}/tours/update-tour/${id}`,
+      `${BASE_URL}/api/tours/update-tour/${id}`,
       tourData
     );
     // console.log("Updated tour:", response.data.data);
@@ -410,7 +410,7 @@ export async function updateTourBookingById(
 
 export async function createContact(contactData: ContactDataTypes) {
   try {
-    const res = await axios.post(`${BASE_URL}/contact/`, contactData);
+    const res = await axios.post(`${BASE_URL}/api/contact/`, contactData);
     console.log('res', res)
     return res.data;
   } catch (error) {
@@ -422,7 +422,7 @@ export async function createContact(contactData: ContactDataTypes) {
 // ---------- Destinations ----------
 export async function getDestinations(): Promise<Destination | []> {
   try {
-    const response = await axios.get<Destination>(`${BASE_URL}/destinations/`);
+    const response = await axios.get<Destination>(`${BASE_URL}/api/destinations/`);
     // console.log('response', response)
     return response.data.data 
   } catch (error) {
@@ -433,7 +433,7 @@ export async function getDestinations(): Promise<Destination | []> {
 
 export async function getDestinationById(id: string): Promise<Destination | null> {
   try {
-    const res = await axios.get<{ data: Destination }>(`${BASE_URL}/destinations/${id}`)
+    const res = await axios.get<{ data: Destination }>(`${BASE_URL}/api/destinations/${id}`)
     console.log('res', res)
     return res.data.data ?? null
   } catch (error) {
@@ -459,7 +459,7 @@ export async function createDestinationBooking(
 ): Promise<DestinationFormProps | undefined> {
   try {
     const response = await axios.post<{ data: DestinationFormProps }>(
-      `${BASE_URL}/destination-booking/`,
+      `${BASE_URL}/api/destination-booking/`,
       destinationData
     );
     console.log("booking destination res:", response.data);
