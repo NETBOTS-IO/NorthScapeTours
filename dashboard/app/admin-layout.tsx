@@ -29,7 +29,7 @@ import { useAuth } from "../context/authContext";
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: PackageSearch, label: "Tour Packages", href: "/admin/tours" },
-  { icon: NotebookPen , label: "Bookings", href: "/admin/booking" },
+  { icon: NotebookPen , label: "Car Bookings", href: "/admin/booking" },
  { icon: CalendarCheck, label: "Tour Bookings", href: "/admin/tour-booking" }, 
   { icon: MapPinCheck, label: "Destination Bookings", href: "/admin/destination-booking" },
   { icon: Camera, label: "Gallery", href: "/admin/gallery" },
