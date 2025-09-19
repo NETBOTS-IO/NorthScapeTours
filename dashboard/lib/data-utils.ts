@@ -382,6 +382,7 @@ export async function updateCar(id: string, formData: FormData): Promise<boolean
     return false;
   }
 }
+
 // ✅ Get rent car by ID
 export async function getCarById(id: string): Promise<RentCar | null> {
   try {
