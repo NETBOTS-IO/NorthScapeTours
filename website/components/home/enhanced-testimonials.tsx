@@ -143,7 +143,8 @@ const router = useRouter()
     ));
   };
 
-const BASE_URL = "https://api.northscapepakistan.com" 
+// const BASE_URL = "https://api.northscapepakistan.com" 
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
