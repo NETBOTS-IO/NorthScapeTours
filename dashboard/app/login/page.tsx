@@ -28,7 +28,7 @@ export default function LoginPage() {
       toast.success("Login successful");
       router.push("/admin"); // redirect on success
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Invalid credentials");
+      toast.error(error.response?.data?.message);
     } finally {
     setIsSubmitting(false);
   }

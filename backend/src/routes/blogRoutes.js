@@ -14,7 +14,7 @@ import {
 import { parseJSONFields } from "../middlewares/parseJSONFields.js";
 import { blogValidation } from "../middlewares/validation.js";
 import { handleValidationErrors } from "../middlewares/errorHandler.js";
-import upload from "../utils/multerConfig.js"; // Multer config for uploads
+import upload, { convertToAvif } from "../utils/multerConfig.js"; // Multer config for uploads
 
 const router = express.Router();
 // Multer error handling middleware
@@ -56,6 +56,7 @@ router.get("/related/:id", getRelatedBlogs);
 router.post(
   "/upload-editor-image",
   upload.single("image"),
+  convertToAvif,
   handleMulterError,
   (req, res) => {
     if (!req.file) {
@@ -79,6 +80,7 @@ router.post(
 router.post(
   "/",
   upload.single("coverImage"),
+  convertToAvif,
   parseJSONFields,
   blogValidation,
   handleValidationErrors,
@@ -89,6 +91,7 @@ router.post(
 router.put(
   "/:id",
   upload.single("coverImage"),
+   convertToAvif,
   parseJSONFields, // Parse JSON fields in request body
   handleValidationErrors,
   updateBlog

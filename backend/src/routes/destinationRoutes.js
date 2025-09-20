@@ -1,7 +1,7 @@
 import express from 'express';
 import {  createDestination, deleteDestination, getAllDestinations, getDestinationCategories, getDestinationsById, getRelatedDestinations, searchDestinations, updateBookingDestination, updateDestination } from '../controllers/destinationController.js';
 import { tourValidation } from '../middlewares/validation.js';
-import upload from '../utils/multerConfig.js'; 
+import upload, { convertToAvif } from '../utils/multerConfig.js'; 
 
 const router = express.Router();
 
@@ -22,6 +22,7 @@ router.post(
       { name: "images", maxCount: 10 },
       { name: "itineraryImages", maxCount: 20 }
   ]),
+   convertToAvif,
   (req, res) => {
       console.log("Received files:", req.files); // ✅ Debugging
       console.log("Received body:", req.body); // ✅ Debugging
@@ -39,6 +40,7 @@ router.put(
     { name: "images", maxCount: 10 },
     { name: "itineraryImages", maxCount: 20 }
   ]),
+   convertToAvif,
   (req, res) => {
     // console.log("Id after multer:", req.params.destinationId); 
     console.log("Received files:", req.files); 

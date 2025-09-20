@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllTours, searchTours, getTourById, createTour, updateTour, deleteTour, getRelatedTours, getTourCategories, updateBookingTour } from '../controllers/tourController.js';
-import upload from '../utils/multerConfig.js'; // Remove { } since it's a default export
+import upload, { convertToAvif } from '../utils/multerConfig.js'; // Remove { } since it's a default export
 
 const router = express.Router();
 
@@ -21,6 +21,7 @@ router.post(
       { name: "images", maxCount: 10 },
       { name: "itineraryImages", maxCount: 20 }
   ]),
+   convertToAvif,
   (req, res) => {
       console.log("Received files:", req.files); // ✅ Debugging
       console.log("Received body:", req.body); // ✅ Debugging
@@ -38,6 +39,7 @@ router.put(
     { name: "images", maxCount: 10 },
     { name: "itineraryImages", maxCount: 20 }
   ]),
+   convertToAvif,
   (req, res) => {
     console.log("Id after multer:", req.params.tourId); // ✅ Debugging
     console.log("Received files:", req.files); // ✅ Debugging

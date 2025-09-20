@@ -50,4 +50,56 @@ const fileFilter = (req, file, cb) => {
 
 // Export as default
 const upload = multer({ storage, fileFilter, limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB limit
+
+// Convert uploaded images to AVIF
+export const convertToAvif = async (req, res, next) => {
+  try {
+    // Single file
+    if (req.file) {
+      const filePath = req.file.path;
+      const avifPath = filePath.replace(path.extname(filePath), ".avif");
+
+      await sharp(filePath).toFormat("avif", { quality: 50 }).toFile(avifPath);
+
+      try { await fs.unlink(filePath); } catch (err) {
+        console.warn("Could not delete original file:", err.message);
+      }
+
+      req.file.filename = path.basename(avifPath);
+      req.file.path = avifPath;
+      req.body.image = `/uploads/${path.basename(path.dirname(avifPath))}/${req.file.filename}`;
+    }
+
+    // Multiple files
+    if (req.files) {
+      for (const field in req.files) {
+        req.files[field] = await Promise.all(
+          req.files[field].map(async (file) => {
+            const filePath = file.path;
+            const avifPath = filePath.replace(path.extname(filePath), ".avif");
+
+            await sharp(filePath).toFormat("avif", { quality: 50 }).toFile(avifPath);
+
+            try { await fs.unlink(filePath); } catch (err) {
+              console.warn("Could not delete original file:", err.message);
+            }
+
+            return {
+              ...file,
+              filename: path.basename(avifPath),
+              path: avifPath,
+              url: `/uploads/${path.basename(path.dirname(avifPath))}/${path.basename(avifPath)}`,
+            };
+          })
+        );
+      }
+    }
+
+    next();
+  } catch (error) {
+    console.error("Error converting to AVIF:", error);
+    next(error);
+  }
+};
+
 export default upload;

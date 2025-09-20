@@ -2,7 +2,7 @@ import express from 'express';
 import { getAllPhotos, getPhotoById, createPhoto, updatePhoto, deletePhoto } from '../controllers/galleryController.js';
 import { galleryValidation } from '../middlewares/validation.js';
 import { handleValidationErrors } from '../middlewares/errorHandler.js';
-import upload from '../utils/multerConfig.js';
+import upload, { convertToAvif } from '../utils/multerConfig.js';
 // import auth from '../middlewares/auth.js';
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.post(
   '/',
   upload.fields([{ name: 'src', maxCount: 10 }]),
   // auth,
+   convertToAvif,
   galleryValidation,
   handleValidationErrors,
   createPhoto
@@ -23,6 +24,7 @@ router.post(
 router.put(
   '/:id',
   upload.fields([{ name: 'src', maxCount: 10 }]),
+   convertToAvif,
   // auth,
   galleryValidation,
   handleValidationErrors,
