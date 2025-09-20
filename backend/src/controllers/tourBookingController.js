@@ -133,9 +133,12 @@ export const updateBookingTour = async (req, res) => {
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
             ${
               isAdmin
-                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="info@netbots.io" style="color: orange; font-weight: bold; text-decoration: none;">NetBots</a>also contact us for softwaree solutions.</p>`
+                ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://northscapepakistan.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
             }
+          </div>
+          <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
+            <a style="color: blue" href="info@netbots.io">NetBots</a> Contact Us for software solutions.
           </div>
         </div>
       </div>
@@ -196,13 +199,11 @@ export const createTourbooking = async (req, res) => {
       lastName,
       email,
       phone,
-      selectedDate,
       totalPrice,
-      travelers,
       availability,
     } = req.body;
 
-    // console.log("req.body at create  :>> ", req.body);
+    // console.log("req.body at create tour  :>> ", req.body);
 
     let tourData;
     if (req.body.tourData) {
@@ -271,11 +272,7 @@ export const createTourbooking = async (req, res) => {
             <p><strong>Tour Availability:</strong> ${
               availability ? "Available" : "Booked"
             }</p>
-            <p><strong>No of Traveler:</strong> ${travelers}</p>
             <p><strong>Tour Total Price:</strong> ${totalPrice}</p>
-            <p><strong>Selected Date:</strong> ${new Date(
-              selectedDate
-            ).toDateString()}</p>
 
             <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">
               ${
@@ -303,9 +300,12 @@ export const createTourbooking = async (req, res) => {
           <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
             ${
               isAdmin
-                ? `<p style="margin: 0;">Please <a href="https://yourwebsite.com/admin/dashboard" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://yourwebsite.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
+                ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://northscapepakistan.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
             }
+          </div>
+           <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
+            <a style="color: blue" href="info@netbots.io">NetBots</a> Contact Us for software solutions.
           </div>
         </div>
       `;
@@ -337,6 +337,7 @@ export const createTourbooking = async (req, res) => {
      * =============== BOOKING CREATION ===============
      */
     const existingTourBooking = await TourBooking.findOne({ tour: tourId });
+// console.log('existingTourBooking', existingTourBooking)
 
     if (existingTourBooking) {
       if (existingTourBooking.availability === false) {
@@ -353,9 +354,7 @@ export const createTourbooking = async (req, res) => {
           lastName,
           email,
           phone,
-          selectedDate,
           totalPrice,
-          travelers,
           availability,
         });
 
@@ -378,9 +377,7 @@ export const createTourbooking = async (req, res) => {
       lastName,
       email,
       phone,
-      selectedDate,
       totalPrice,
-      travelers,
       availability,
     });
 

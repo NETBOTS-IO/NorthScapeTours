@@ -23,23 +23,23 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
     phone: ""
   })
 
-  const departureDates = [
-    { date: "2024-03-15", price: trip.price, availability: "Available", spots: 8 },
-    { date: "2024-04-12", price: trip.price, availability: "Available", spots: 12 },
-    { date: "2024-05-10", price: trip.price, availability: "Limited", spots: 3 },
-    { date: "2024-09-15", price: trip.price, availability: "Available", spots: 10 },
-    { date: "2024-10-20", price: trip.price, availability: "Available", spots: 15 },
-  ];
+  // const departureDates = [
+  //   { date: "2024-03-15", price: trip.price, availability: "Available", spots: 8 },
+  //   { date: "2024-04-12", price: trip.price, availability: "Available", spots: 12 },
+  //   { date: "2024-05-10", price: trip.price, availability: "Limited", spots: 3 },
+  //   { date: "2024-09-15", price: trip.price, availability: "Available", spots: 10 },
+  //   { date: "2024-10-20", price: trip.price, availability: "Available", spots: 15 },
+  // ];
 
-  const calculateTotal = () => {
-    const selectedDeparture = departureDates.find(
-      (d) => d.date === selectedDate
-    );
-    const basePrice = selectedDeparture && typeof selectedDeparture.price === 'number'
-      ? selectedDeparture.price
-      : (typeof trip.price === 'number' ? trip.price : 0);
-    return basePrice * travelers;
-  };
+  // const calculateTotal = () => {
+  //   const selectedDeparture = departureDates.find(
+  //     (d) => d.date === selectedDate
+  //   );
+  //   const basePrice = selectedDeparture && typeof selectedDeparture.price === 'number'
+  //     ? selectedDeparture.price
+  //     : (typeof trip.price === 'number' ? trip.price : 0);
+  //   return basePrice * travelers;
+  // };
 
   const widgetVariants = {
     initial: { opacity: 0, y: 50 },
@@ -66,7 +66,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
     },
   };
 
-  // console.log('trip ', trip )
+  console.log('trip ', trip )
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -83,7 +83,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
     data?: T;
   }
 
-  const totalPrice = calculateTotal().toLocaleString()
+  const totalPrice = trip.originalPrice;
   // Send booking via WhatsApp
 
   type TourBooking = {
@@ -93,8 +93,8 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
 
   const handleBooking = () => {
     const updatedAvailability = trip.availability;
-    // console.log('updatedAvailability', updatedAvailability);
-    const customerDetails = { ...form, selectedDate, totalPrice, travelers, }
+    console.log('updatedAvailability', updatedAvailability);
+    const customerDetails = { ...form, totalPrice }
     // console.log('customerDetails', customerDetails);
 
     async function tourBooking() {
@@ -105,9 +105,9 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
           tourId: trip._id,
           availability: updatedAvailability,
         });
-        // console.log('response :>> ', response);
+        console.log('response :>> ', response);
         if (response?.success) {
-          alert("Your Tour Booked successfully");
+          alert(response?.message);
           window.location.reload();
           setForm({
             firstName: "",
@@ -162,7 +162,9 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
               {trip.nextDeparture ? new Date(trip.nextDeparture).toLocaleDateString() : "N/A"}
             </span>
             <span className="bg-orange-400 px-2 py-1 rounded">
-              {trip.availability ? "Available" : "Limited"}
+              {trip.availability ?
+               "Available"
+                : "Limited"}
             </span>
           </div>
         </div>
@@ -170,7 +172,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
         {/* Booking Form */}
         <div className="p-6 space-y-6">
           {/* Date Selection */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-semibold text-slate-700 mb-3">
               <Calendar className="inline w-4 h-4 mr-2" />
               Select Departure Date
@@ -188,10 +190,10 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
 
           {/* Travelers */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-semibold text-slate-700 mb-3">
               <Users className="inline w-4 h-4 mr-2" />
               Number of Travelers
@@ -213,10 +215,10 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
                 +
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Price Breakdown */}
-          {selectedDate && (
+          {/* {selectedDate && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -236,10 +238,10 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
                 </span>
               </div>
             </motion.div>
-          )}
+          )} */}
 
           {/* Booking Buttons */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -249,14 +251,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
             >
               {showBookingForm ? "Hide Booking Form" : "Book Now"}
             </motion.button>
-            {/* <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 px-6 rounded-xl font-semibold transition-all duration-300"
-            >
-              Check Availability
-            </motion.button> */}
-          </div>
+          </div> */}
 
           {/* Quick Booking Form */}
           <motion.div
@@ -264,7 +259,7 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
             animate={showBookingForm ? "visible" : "hidden"}
             className="overflow-hidden"
           >
-            {showBookingForm && (
+            {/* {showBookingForm && ( */}
               <div className="space-y-4 pt-4 border-t border-slate-200">
                 <h4 className="font-semibold text-slate-800">Quick Booking</h4>
                 <div className="grid grid-cols-2 gap-3">
@@ -309,10 +304,12 @@ const TripBookingWidget = ({ trip }: TripBookingWidgetProps) => {
                   className="w-full bg-green-600 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 disabled:cursor-not-allowed "
                 >
 
-                  {loading ? "Loading..." : !trip.availability ? "Booked" : "Complete Booking"}
+                  {loading ? "Loading..." 
+                  : !trip.availability ? "Booked"
+                   : "Complete Booking"}
                 </motion.button>
               </div>
-            )}
+            {/* )} */}
           </motion.div>
           {/* Trust Indicators */}
           <div className="pt-6 border-t border-slate-200">

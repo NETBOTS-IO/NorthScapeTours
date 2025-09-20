@@ -431,7 +431,7 @@ export async function deleteBookingById(id: string) {
 export async function updatingBookingById(id: string, status: string) {
   try {
     const res = await axios.put(`${BASE_URL}/api/bookings/${id}`, {status});
-    console.log('response', res) 
+    // console.log('response', res) 
     return res.data || null;
   } catch (error) {
     const err = error as AxiosError;
@@ -555,7 +555,7 @@ export async function updateDestinationById(
 ): Promise<Destination | undefined> {
   try {
     const response = await axios.put(`${BASE_URL}/api/destinations/${id}`, DestinationData);
-    console.log("Updated Destination:", response.data.data);
+    // console.log("Updated Destination:", response.data.data);
     return response.data.data; // Adjust based on actual API response structure
   } catch (error) {
     console.error(`Failed to fetch Destination with ID ${id}:`, error);
@@ -567,7 +567,7 @@ export async function createDestination(
 ): Promise<Destination | undefined> {
   try {
     const response = await axios.post(`${BASE_URL}/api/destinations`, DestinationData);
-    console.log("Created Destination:", response.data.data);
+    // console.log("Created Destination:", response.data.data);
     return response.data.data; // Adjust based on actual API response structure
   } catch (error) {
     console.error("Failed to create Destination:", error);
@@ -580,7 +580,7 @@ export async function deleteDestination(id: string): Promise<boolean> {
     const response = await axios.delete(`${BASE_URL}/api/destinations/${id}`);
 
     if (response.status >= 200 && response.status < 300) {
-      console.log("Destination deleted successfully:", id);
+      // console.log("Destination deleted successfully:", id);
       return true;
     } else {
       console.error("Failed to delete Destination:", response.statusText);
@@ -663,7 +663,7 @@ export async function updateTourBookingById(
       `${BASE_URL}/api/tour-booking/${id}`,
       tourData
     );
-    console.log("Updated tour:", response);
+    // console.log("Updated tour:", response);
     return response.data;
   } catch (error) {
     // console.error(`Failed to fetch tour with ID ${id}:`, error);

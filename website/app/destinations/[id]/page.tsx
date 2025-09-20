@@ -52,7 +52,7 @@ const DestinationPage = () => {
 
   return (
   <PageTransition>
-    <div className="min-h-screen bg-slate-50 mt-16">
+    <div className="min-h-screen bg-slate-50">
       {destination ? (
         <>
           <DestinationDetailHero destination={destination} />

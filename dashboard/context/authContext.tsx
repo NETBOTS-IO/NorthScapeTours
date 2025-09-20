@@ -37,9 +37,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string | null>(null);
 
-  console.log('user', user)
-  console.log('token', token)
-  console.log('loading', loading)
+  // console.log('user', user)
+  // console.log('token', token)
+  // console.log('loading', loading)
 
  useEffect(() => {
   const fetchUser = async () => {

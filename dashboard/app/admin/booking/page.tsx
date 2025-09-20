@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus,  Trash, Eye} from "lucide-react";
+import { Plus, Trash, Eye } from "lucide-react";
 import { getBookings, deleteBookingById, updatingBookingById } from "@/lib/data-utils";
 import { Booking, type Blog } from "@/lib/types";
 import { toast } from "react-hot-toast";
@@ -23,6 +23,7 @@ export default function BlogManagement() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [rowLoading, setRowLoading] = useState<{[key:string]: boolean}>({});
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
@@ -32,12 +33,12 @@ export default function BlogManagement() {
       setLoading(true);
       try {
         const response = await getBookings({ page, search: searchTerm });
-      setBookings(response.bookings || []);
+        setBookings(response.bookings || []);
         setTotalPages(response.pages || 1);
       } catch (error) {
         console.error("Failed to load Bookings:", error);
         toast.error("Failed to load Bookings");
-      setBookings([]);
+        setBookings([]);
       } finally {
         setLoading(false);
       }
@@ -70,79 +71,43 @@ export default function BlogManagement() {
 
   // console.log('filteredBookings', filteredBookings)
 
-// Confirm booking
-const handleConfirm = async (id: string, status: string) => {
+  // Confirm booking
+  const handleConfirm = async (id: string, status: string) => {
     if (window.confirm(`Are you sure you want to ${status === "Confirmed" ? "Cancelled" : "Confirm"} this Booking?`)) {
       // api called for updating status 
+      setRowLoading((prev)=>({...prev, [id]: true}))
       try {
         // console.log('status', status)
         const updateStatus = status === "Pending" ? "Confirmed" : "Pending";
         const response = await updatingBookingById(id, updateStatus);
         // console.log('updateStatus', updateStatus)
-        console.log('res', response)
-
+        // console.log('res', response)
+        
         if (response.success) {
-        const response =   await getBookings({page, search: searchTerm})
-        setBookings(response.bookings || [])
-         setTotalPages(response.pages || 1);
-          toast.success(`Booking Updated Successfully`);
+          const response = await getBookings({ page, search: searchTerm })
+          // console.log('res res', response)
+          setBookings(response.bookings || [])
+          setTotalPages(response.pages || 1);
+          
         } else {
-          toast.error(`${response.message}`);
-          return 
-        } 
+          toast.error(response.message);
+          return
+        }
+        toast.success(response.message);
       } catch (error) {
         console.log('error', error)
         toast.error("An error occurred while Booking");
         return
+      }finally{
+        setRowLoading((prev)=>({...prev, [id]: false}))
       }
-//whatsapp contact 
-   const filterCurrentBooking = filteredBookings.find((booking) => booking._id === id)
-// console.log('filterCurrentBooking', filterCurrentBooking)
-
-
-const intNumberFormat = filterCurrentBooking?.phoneNumber.replace(/^0/, "92")
-const phoneNumber = `${intNumberFormat}`;  // already formatted as 92xxxx
-// const phoneNumber = `923555758727`;  // already formatted as 92xxxx
-// const phoneNumber = `923480578106`;  // already formatted as 92xxxx
-
-       const message = `${status === "Confirmed"? "*Your Car Booking has Cancelled*" : "*Your Car Has Booked*"} \n
-       *Please Note:* _Reply to this message quickly as soon as possible, So we complete further inquiries_ \n
-Car Name: ${filterCurrentBooking?.carName} \n
-Car Model: ${filterCurrentBooking?.carModel} \n
-Price: ${filterCurrentBooking?.pricePerDay} \n
-Seater: ${filterCurrentBooking?.seats} \n
-Driver Name: ${filterCurrentBooking?.driverName} \n
-Transmission (auto/petrol): ${filterCurrentBooking?.transmission} \n
-Fuel Type: ${filterCurrentBooking?.fuelType} \n
-Phone: ${filterCurrentBooking?.phoneNumber} \n\n
-
-*Customer Details* \n
-Customer Name: ${filterCurrentBooking?.customerName} \n
-Customer Email: ${filterCurrentBooking?.customerEmail} \n
-Phone Number: ${filterCurrentBooking?.phoneNumber} \n
-Pickup Location: ${filterCurrentBooking?.pickupLocation} \n
-Dropoff Location: ${filterCurrentBooking?.dropoffLocation} \n
-Pickup Date: ${filterCurrentBooking?.pickupDate} \n
-Dropoff Date: ${filterCurrentBooking?.dropoffDate} \n
-Pickup Time: ${filterCurrentBooking?.pickupTime} \n
-Dropoff Time: ${filterCurrentBooking?.dropoffTime} \n
-Special Requirements: ${filterCurrentBooking?.specialRequirements} \n
-`;
-const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-window.open(whatsappUrl, "_blank");
-
-
     }
   };
-// console.log('filteredBookings', filteredBookings)
+  // console.log('filteredBookings', filteredBookings)
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Blog Posts</h1>
-        <Button onClick={() => router.push("/admin/Bookings/add")}>
-          <Plus className="mr-2 h-4 w-4" /> Add New Post
-        </Button>
+        <h1 className="text-3xl font-bold">Booking Rental Cars</h1>
       </div>
 
       <div className="flex justify-between items-center">
@@ -202,23 +167,23 @@ window.open(whatsappUrl, "_blank");
                 <TableCell>
                   {new Date(book.createdAt).toLocaleDateString()}{" "}
                 </TableCell>
-                <TableCell><span    className={`${book.status === "Confirmed" ? "bg-green-500" : book.status ==="Cancelled" ? "bg-red-500" : "bg-amber-600" } px-2 py-1 rounded-md text-sm `}>{book.status}</span></TableCell>
-                 <TableCell className="text-center text-muted-foreground py-6">
+                <TableCell><span className={`${book.status === "Confirmed" ? "bg-green-500" : book.status === "Cancelled" ? "bg-red-500" : "bg-amber-600"} px-2 py-1 rounded-md text-sm `}>{book.status}</span></TableCell>
+                <TableCell className="text-center text-muted-foreground py-6">
                   {book.status !== "Confirmed" ? (
                     <Button
                       size="sm"
                       className="bg-green-600 hover:bg-green-700"
-                      onClick={() => handleConfirm(`${book._id}`, book.status )}
+                      onClick={() => handleConfirm(`${book._id}`, book.status)}
                     >
-                     Confirm
+                     {rowLoading[book._id!] ? "...": "Confirm"} 
                     </Button>
-                   ):(
+                  ) : (
                     <Button
                       size="sm"
                       className="bg-purple-800"
-                        onClick={() => handleConfirm(`${book._id}`, book.status )}
+                      onClick={() => handleConfirm(`${book._id}`, book.status)}
                     >
-                      Cancelled
+                     {rowLoading[book._id!] ? "...": "Cancelled"}  
                     </Button>
                   )}
 
@@ -230,7 +195,7 @@ window.open(whatsappUrl, "_blank");
                     className="mr-2"
                     onClick={() => router.push(`/admin/booking/${book._id}`)}
                   >
-                    <Eye className="h-4 w-4" /> 
+                    <Eye className="h-4 w-4" />
                   </Button>
                   {/* <Button
                     variant="outline"

@@ -76,10 +76,13 @@ const generateEmailTemplate = (bookings, isAdmin = false) => {
           </div>
         </div>
 
-        <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
-          &copy; ${new Date().getFullYear()} Northscape Tours and Travels. All rights reserved.
-        </div>
-
+       <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
+            ${
+              isAdmin
+                ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://northscapepakistan.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
+            }
+          </div>
           <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
             <a style="color: blue" href="info@netbots.io">NetBots</a> Contact Us for software solutions.
           </div>
@@ -105,7 +108,7 @@ export const sendBookingEmails = async (booking) => {
     // ✅ Send Email to Admin
     const adminMail = await transporter.sendMail({
       from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER ,
+      to: process.env.EMAIL_USER,
       subject: `New Booking - ${booking.carName}`,
       html: generateEmailTemplate(booking, true),
     });

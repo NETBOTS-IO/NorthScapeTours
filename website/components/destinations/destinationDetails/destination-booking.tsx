@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Calendar, Users, CreditCard, Shield, Star, Clock } from "lucide-react";
@@ -40,10 +40,10 @@ const DestinationBooking = ({ destination }: DestinationBookingProps) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const totalPrice = destination.price * travelers;
+  const totalPrice = destination?.price * travelers;
   const deposit = Math.round(totalPrice * 0.3);
 
-console.log('destination :>> ', destination);
+// console.log('destination :>> ', destination);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -70,7 +70,7 @@ const customerDetails = {...formData, travelers, price }
       // console.log('response :>> ', response);
       if (response?.success) {
         alert("Your Destination Booked successfully");
-        window.location.reload();
+        // window.location.reload();
         setFormData({  
           departureDate: "",
     firstName: "",
@@ -92,7 +92,7 @@ const customerDetails = {...formData, travelers, price }
   tourBooking();
 };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -100,7 +100,7 @@ const customerDetails = {...formData, travelers, price }
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 60, opacity: 0 },
     visible: {
       y: 0,

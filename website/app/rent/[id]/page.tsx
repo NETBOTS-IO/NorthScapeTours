@@ -15,17 +15,18 @@ const fadeInUp = {
 };
 
 const CarDetails = () => {
-  const [car, setCar] = useState<RentCar | null>(null); 
+  const [car, setCar] = useState<RentCar | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const params = useParams();
-  const id = params?.id as string | undefined; 
+  const id = params?.id as string | undefined;
   const router = useRouter();
 
-   // Form state
+  // Form state
   const [formData, setFormData] = useState({
     customerName: "",
-    customerEmail:"",
+    customerEmail: "",
     phoneNumber: "",
     pickupLocation: "",
     dropoffLocation: "",
@@ -41,11 +42,11 @@ const CarDetails = () => {
     setIsLoading(true)
     try {
       const res = await getCarById(id);
-     setCar(res as RentCar); 
-     setIsLoading(false)
+      setCar(res as RentCar);
+      setIsLoading(false)
     } catch (error) {
       console.error('Error fetching car details:', error);
-    }finally{
+    } finally {
       setIsLoading(false)
     }
   };
@@ -54,8 +55,8 @@ const CarDetails = () => {
     fetchCarDetails();
   }, [id]);
 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
-const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+  const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -65,101 +66,73 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
     }))
   }
 
-// console.log('car', car)
+  // console.log('car', car)
 
   const handleBookNow = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!formData.customerName || !formData.phoneNumber || !formData.pickupLocation || !formData.pickupDate 
-    || !formData.customerEmail) {
-    alert("Please fill in all required fields");
-    return;
-  }
-setIsLoading(true);
-   try {
-    const bookingPayload = {
-      ...formData,
-      carId: car?._id,
-      carName: car?.carName,
-      carModel: car?.carModel,
-      pricePerDay: car?.pricePerDay,
-      seats: car?.seats,
-      transmission: car?.transmission,
-      fuelType: car?.fuelType,
-      driverName: car?.driverName
-    };
+    if (!formData.customerName || !formData.phoneNumber || !formData.pickupLocation || !formData.pickupDate
+      || !formData.customerEmail) {
+      alert("Please fill in all required fields");
+      return;
+    }
+    setLoading(true);
+    try {
+      const bookingPayload = {
+        ...formData,
+        carId: car?._id,
+        carName: car?.carName,
+        carModel: car?.carModel,
+        pricePerDay: car?.pricePerDay,
+        seats: car?.seats,
+        transmission: car?.transmission,
+        fuelType: car?.fuelType,
+        driverName: car?.driverName
+      };
 
-    const response = await fetch(`${BASE_API_URL}/bookings/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingPayload),
-    });
-const data = await response.json();
+      const response = await fetch(`${BASE_API_URL}/api/bookings/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingPayload),
+      });
+      const data = await response.json();
 
-// console.log('response', response)
-// console.log('data', data)
-    if (!data.success) {
-      alert(data.message)
-      setIsLoading(false);
-      return // return here while car exist in booking
+      // console.log('response', response)
+      // console.log('data', data)
+      if (!data.success) {
+        alert(data.message)
+        setIsLoading(false);
+        return // return here while car exist in booking
+      }
+
+      if (data.success) {
+        alert(data.message)
+        setIsLoading(false);
+        setFormData({
+          customerName: "",
+          customerEmail: "",
+          phoneNumber: "",
+          pickupLocation: "",
+          dropoffLocation: "",
+          pickupDate: "",
+          dropoffDate: "",
+          pickupTime: "",
+          dropoffTime: "",
+          specialRequirements: "",
+        })
+      }
+
+
+      // console.log("Booking created:", data);
+    } catch (error) {
+      console.error("Error creating booking:", error);
+    } finally {
+      setLoading(false);
     }
 
-    if (data.success) {
-      alert(data.message)
-      setIsLoading(false);
-      setFormData({
-         customerName: "",
-    customerEmail:"",
-    phoneNumber: "",
-    pickupLocation: "",
-    dropoffLocation: "",
-    pickupDate: "",
-    dropoffDate: "",
-    pickupTime: "",
-    dropoffTime: "",
-    specialRequirements: "",
-      })
-    }
-
-    
-    // console.log("Booking created:", data);
-  } catch (error) {
-    console.error("Error creating booking:", error);
-  }finally{
-    setIsLoading(false);
-  }
-
- const message = `*Car Booking Details* \n
-Car Name: ${car?.carName} \n
-Car Model: ${car?.carModel} \n
-Price: ${car?.pricePerDay} \n
-Seater: ${car?.seats} \n
-Driver Name: ${car?.driverName} \n
-Transmission (auto/petrol): ${car?.transmission} \n
-Fuel Type: ${car?.fuelType} \n\n
-
-*Customer Details* \n
-Customer Name: ${formData?.customerName} \n
-Customer Email: ${formData?.customerEmail} \n
-Phone Number: ${formData?.phoneNumber} \n
-Pickup Location: ${formData?.pickupLocation} \n
-Dropoff Location: ${formData?.dropoffLocation} \n
-Pickup Date: ${formData?.pickupDate} \n
-Dropoff Date: ${formData?.dropoffDate} \n
-Pickup Time: ${formData?.pickupTime} \n
-Dropoff Time: ${formData?.dropoffTime} \n
-Special Requirements: ${formData?.specialRequirements} \n
-`;
-
-// const phoneNumber = `${intNumberFormat}`;  // already formatted as 92xxxx
-const phoneNumber = `923480578106`;  // already formatted as 92xxxx
-const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-window.open(whatsappUrl, "_blank");
-
-};
+  };
 
 
 
@@ -184,7 +157,7 @@ window.open(whatsappUrl, "_blank");
             <div className="space-y-4 pt-4">
               <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
                 <img
-                 src={`${BASE_URL}${car?.carImage}` || "/placeholder.jpg"}
+                  src={`${BASE_URL}${car?.carImage}` || "/placeholder.jpg"}
                   alt={car?.carName}
                   className="w-full h-full object-cover"
                 />
@@ -254,7 +227,7 @@ window.open(whatsappUrl, "_blank");
           </motion.div>
         </div>
 
- {/* Booking Form */}
+        {/* Booking Form */}
         <motion.div
           className="mt-12 bg-white rounded-2xl shadow-xl p-8 border"
           initial={{ opacity: 0, y: 50 }}
@@ -264,7 +237,7 @@ window.open(whatsappUrl, "_blank");
         >
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Book This Car</h2>
 
-           <form onSubmit={handleBookNow} className="space-y-6">
+          <form onSubmit={handleBookNow} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-2">
@@ -294,10 +267,10 @@ window.open(whatsappUrl, "_blank");
                   required
                 />
               </div>
-              
+
             </div>
-<div className="grid grid-cols-1  gap-6">
-<div>
+            <div className="grid grid-cols-1  gap-6">
+              <div>
                 <label className="block text-sm font-medium text-slate-600 mb-2">
                   Customer Email <span className="text-red-500">*</span>
                 </label>
@@ -311,7 +284,7 @@ window.open(whatsappUrl, "_blank");
                   required
                 />
               </div>
-</div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-2 items-center gap-2">
@@ -432,36 +405,31 @@ window.open(whatsappUrl, "_blank");
             </div>
 
             <motion.button
-  type="submit"
-  className={`w-full font-semibold py-4 px-6 rounded-lg text-lg transition-colors flex items-center justify-center gap-2
-    ${car?.status === "Confirmed" 
-      ? "bg-gray-400 cursor-not-allowed" 
-      : "bg-orange-500 hover:bg-orange-600 text-white"
-    }`}
-  whileHover={car?.status === "Confirmed" ? {} : { scale: 1.02 }}
-  whileTap={car?.status === "Confirmed" ? {} : { scale: 0.98 }}
-  disabled={car?.status === "Confirmed"}
->
-  {isLoading ? (
-    <div>...</div>
-  ) : (
-    <>
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
-      </svg>
-      <span>
-        {car?.status === "Confirmed" ? "Booking Confirmed" : `Book via WhatsApp - $${car?.pricePerDay}/day`}
-      </span>
-    </>
-  )}
-</motion.button>
+              type="submit"
+              className={`w-full font-semibold py-4 px-6 rounded-lg text-lg transition-colors flex items-center justify-center gap-2
+    ${car?.status === "Confirmed"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-orange-500 hover:bg-orange-600 text-white"
+                }`}
+              whileHover={car?.status === "Confirmed" ? {} : { scale: 1.02 }}
+              whileTap={car?.status === "Confirmed" ? {} : { scale: 0.98 }}
+              disabled={car?.status === "Confirmed"}
+            >
+              {loading ? (
+                <div>...</div>
+              ) : (
+                <span>
+                  {car?.status === "Confirmed" ? "Booking Confirmed" : `Book Now`}
+                </span>
+              )}
+            </motion.button>
             <p className="text-sm text-slate-500 text-center">
               * Required fields. You'll receive a comfirmation email within 24 hours.
             </p>
           </form>
         </motion.div>
         {/* contact information  */}
-            <motion.div
+        <motion.div
           className="mt-8 bg-blue-50 rounded-xl p-6 "
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -476,7 +444,7 @@ window.open(whatsappUrl, "_blank");
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-5 h-5 text-orange-600" />
-              <span className="text-slate-600">info@northscapetours.com</span>
+              <span className="text-slate-600">info@northscapepakistan.com</span>
             </div>
           </div>
         </motion.div>

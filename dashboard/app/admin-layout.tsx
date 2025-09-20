@@ -38,7 +38,7 @@ const menuItems = [
   { icon: FileText, label: "Blogs", href: "/admin/blogs" },
   { icon: BookOpenCheck , label: "Testimonials", href: "/admin/testimonials" },
   { icon: Users  , label: "Users", href: "/admin/user" },
-  { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
+  // { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
 ]
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -128,7 +128,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </header>
         <main className="flex-1 overflow-y-auto p-6">{children}</main>
         <footer className="sticky bottom-0 z-40 px-6 h-16 bg-white border-t flex items-center justify-around">
-          <p className="text-sm text-primary">© {new Date().getFullYear()} Northscape Tours and Travels. All rights reserved.</p>
+          <p className="text-sm text-primary">© {new Date().getFullYear()} Northscape Pakistan Tours and Travels. All rights reserved.</p>
           <p className="text-xs text-gray-500 mt-1">
             Design and developed by{" "}
             <a href="https://netbots.io" target="_blank" className="text-primary hover:underline">

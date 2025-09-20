@@ -11,8 +11,6 @@ const bookingSchema = new mongoose.Schema({
   email: { type: String, required: true, lowercase: true, trim: true },
   phone: { type: String, required: true },
   availability: { type: Boolean, default: true, required: true },
-  travelers: { type: Number, required: true, min: 1 },
-  selectedDate: { type: Date, required: true },
   totalPrice: { type: String, required: true },
 
 }, { timestamps: true });

@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Plus, Edit, Trash, Search, Eye } from "lucide-react"
 import { getTours, deleteTour, getTourBookings, TourBooking, deleteTourBooking, updatingBookingById, updateTourBookingById, getDestinationBookings, DestinationBooking, deleteDestinationBooking, updateDestinationBookingById } from "@/lib/data-utils"
-import {type Tour} from "@/lib/types";
+import { type Tour } from "@/lib/types";
 import { toast } from "react-hot-toast"
 import { useTourStore } from "@/store/tourStore";
 import {
@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function DestinationBookingPage() {
-    
+
   const [tourList, setTourList] = useState<DestinationBooking[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [sortBy, setSortBy] = useState("name")
@@ -33,7 +33,7 @@ export default function DestinationBookingPage() {
   const router = useRouter()
   const [deleteId, setDeleteId] = useState<string | null | undefined>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<{[key: string]: boolean}>({});
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -60,36 +60,36 @@ export default function DestinationBookingPage() {
   };
 
   const handleConfirm = async (id: string, status: boolean, _id: string | undefined) => {
-      if (window.confirm(`Are you sure you want to ${status === true ? "Confirm" : "Concelled"} this Booking?`)) {
-        // api called for updating status 
-        setLoading(true);
-        try {
-          console.log('_id', _id);
-          console.log('status', status);
+    if (window.confirm(`Are you sure you want to ${status === true ? "Confirm" : "Concelled"} this Booking?`)) {
+      // api called for updating status 
+      setLoading((prev)=> ({...prev, [id]: true}));
+      try {
+        console.log('_id', _id);
+        console.log('status', status);
 
-          const response = await updateDestinationBookingById(id, {status, _id});
-          console.log('res Destination booking', response)
-  
-          if (response.success) {
-          const response =   await getDestinationBookings();
+        const response = await updateDestinationBookingById(id, { status, _id });
+        console.log('res Destination booking', response)
+
+        if (response.success) {
+          const response = await getDestinationBookings();
           console.log('response get destination :>> ', response);
           setTourList(response || [])
-            toast.success(`Destination Booking Successfully Confirm`);
-          } else {
-            toast.error(`Error update Destination Booking ${response.message}`);
-            return 
-          } 
-        } catch (error) {
-          console.log('error', error)
-          toast.error("An error occurred while Destination Booking");
+          toast.success(`Destination Booking Successfully Confirm`);
+        } else {
+          toast.error(`Error update Destination Booking ${response.message}`);
           return
-        }finally{
-          setLoading(false);
         }
-  
+      } catch (error) {
+        console.log('error', error)
+        toast.error("An error occurred while Destination Booking");
+        return
+      } finally {
+        setLoading((prev)=> ({...prev, [id]: false}));
       }
-    };
-    
+
+    }
+  };
+
 
   const filteredTours = tourList
     .filter((tour) => tour.destination?.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -108,7 +108,7 @@ export default function DestinationBookingPage() {
   return (
     <div className="container">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Booking Tour Packages</h1>
+        <h1 className="text-3xl font-bold">Booking Destination Packages</h1>
         {/* <Button className="bg-primary hover:bg-primary-dark text-white" onClick={() => router.push("/admin/tours/add")}>
           <Plus className="mr-2 h-4 w-4" /> Add New Tour
         </Button> */}
@@ -173,69 +173,69 @@ export default function DestinationBookingPage() {
                 <TableCell>${destination?.destination?.price}</TableCell>
                 <TableCell>{destination?.destination?.category}</TableCell>
                 <TableCell>{destination?.destination?.difficulty}</TableCell>
-                <TableCell><span    className={`${destination?.destination?.availability === true ? " bg-red-500" : 
-                  destination?.destination?.availability === false ? "bg-green-500" : "bg-amber-600" } px-2 py-1 rounded-md text-sm `}>{destination?.destination?.availability === true ? "Pending" : "Confirmed" }</span>
-                  </TableCell>
-                   <TableCell className="text-center text-muted-foreground py-6">
-                                    {destination?.availability === true ? (
-                                      <Button
-                                        size="sm"
-                                        className="bg-green-600 hover:bg-green-700"
-                                        onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id  )}
-                                      >
-                                       {loading ? "..." : "Confirm"}
-                                      </Button>
-                                     ):(
-                                      <Button
-                                        size="sm"
-                                        className="bg-red-500"
-                                          onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id )}
-                                      >
-                                        {loading ? "..." : "Cancelled"}
-                                      </Button>
-                                    )}
-                  
-                                  </TableCell>
-                  <div className="flex space-x-2">
-                    <Link href={`/admin/destination-booking/${destination._id}`}>
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4 mr-1" /> View
+                <TableCell><span className={`${destination?.destination?.availability === true ? " bg-red-500" :
+                  destination?.destination?.availability === false ? "bg-green-500" : "bg-amber-600"} px-2 py-1 rounded-md text-sm `}>{destination?.destination?.availability === true ? "Pending" : "Confirmed"}</span>
+                </TableCell>
+                <TableCell className="text-center text-muted-foreground py-6">
+                  {destination?.availability === true ? (
+                    <Button
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700"
+                      onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id)}
+                    >
+                      {loading[destination._id!] ? "..." : "Confirm"}
+                    </Button>
+                  ) : (
+                    <Button
+                      size="sm"
+                      className="bg-red-500"
+                      onClick={() => handleConfirm(`${destination._id}`, destination?.destination?.availability, destination?.destination?._id)}
+                    >
+                      {loading[destination._id!] ? "..." : "Cancelled"}
+                    </Button>
+                  )}
+
+                </TableCell>
+                <div className="flex space-x-2">
+                  <Link href={`/admin/destination-booking/${destination._id}`}>
+                    <Button variant="outline" size="sm">
+                      <Eye className="h-4 w-4 mr-1" /> View
+                    </Button>
+                  </Link>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => setDeleteId(destination._id)}
+                      >
+                        <Trash className="h-4 w-4 mr-1" /> Delete
                       </Button>
-                    </Link>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => setDeleteId(destination._id)}
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Tour</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete this tour? This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel
+                          onClick={() => setDeleteId(null)}
+                          disabled={isDeleting}
                         >
-                          <Trash className="h-4 w-4 mr-1" /> Delete
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Delete Tour</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Are you sure you want to delete this tour? This action cannot be undone.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel
-                            onClick={() => setDeleteId(null)}
-                            disabled={isDeleting}
-                          >
-                            Cancel
-                          </AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={handleDelete}
-                            disabled={isDeleting}
-                          >
-                            {isDeleting ? "Deleting..." : "Delete"}
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={handleDelete}
+                          disabled={isDeleting}
+                        >
+                          {isDeleting ? "Deleting..." : "Delete"}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </TableRow>
             ))}
           </TableBody>

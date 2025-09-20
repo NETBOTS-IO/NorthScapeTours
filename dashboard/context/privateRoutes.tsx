@@ -12,7 +12,7 @@ interface PrivateRouteProps {
 export default function PrivateRoute({ children }: PrivateRouteProps) {
   const router = useRouter();
   const { user, token, loading } = useAuth();
-console.log('private route', user, token, loading)
+// console.log('private route', user, token, loading)
   useEffect(() => {
     if (!loading && (!user || !token)) {
       router.replace("/login");

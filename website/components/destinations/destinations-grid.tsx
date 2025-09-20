@@ -41,7 +41,7 @@ useEffect(()=>{
     // Find the destination by id
  
   }
-console.log('destinations :>> ', destinations);
+// console.log('destinations :>> ', destinations);
 
 //   const handleBooking = (id?: string)=>{
 // if (!id) return;
@@ -237,7 +237,7 @@ const handleMore = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="absolute bottom-4 right-4 flex space-x-2">
+                  {/* <div className="absolute bottom-4 right-4 flex space-x-2">
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
@@ -257,7 +257,7 @@ const handleMore = () => {
                     >
                       <Share2 className="w-4 h-4" />
                     </motion.button>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="p-6">

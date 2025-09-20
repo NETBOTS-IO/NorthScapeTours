@@ -10,7 +10,7 @@ import { fetchTourById, fetchRelatedTours } from "@/lib/api";
 import { generateSlug } from "@/lib/slug";
 
 export const metadata: Metadata = {
-  title: "Trip Details - TOURMAKER | Adventure Details & Booking",
+  title: "Trip Details - Northscape Pakistan | tour Details & Booking",
   description: "Detailed information about your chosen adventure including itinerary, inclusions, and booking options.",
   keywords: "trip details, adventure booking, itinerary, travel information",
 }
