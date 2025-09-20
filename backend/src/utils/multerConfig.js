@@ -1,8 +1,9 @@
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import fs from 'fs';
-import fs from "fs/promises"; // use promises API
+import fsSync from "fs";
+import fs from "fs/promises";
+// import fs from "fs"; 
 import sharp from "sharp";
 
 
@@ -10,13 +11,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Ensure directory exists
-const ensureDirectoryExists = (dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+// const ensureDirectoryExists = (dir) => {
+//   if (!fs.existsSync(dir)) {
+//     fs.mkdirSync(dir, { recursive: true });
+//     console.log(`Created directory: ${dir}`);
+//   }
+// };
+const ensureDirectoryExists = async (dir) => {
+  if (!fsSync.existsSync(dir)) {
+    await fs.mkdir(dir, { recursive: true });
     console.log(`Created directory: ${dir}`);
   }
 };
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let uploadPath = path.join(__dirname, '../uploads/others'); // Default path
