@@ -40,6 +40,12 @@ export default function PopularPackagesClient() {
   const [error, setError] = useState("");
   const featuredTrips = tours.filter((trip: any) => trip.featured);
   const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BLOGS_PER_PAGE = 9;
+      const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
+    
+      const handleLoadMore = () => {
+        setVisibleCount((prev) => prev + BLOGS_PER_PAGE); 
+      };
 
   useEffect(() => {
     fetchTours()
@@ -151,7 +157,7 @@ export default function PopularPackagesClient() {
             animate="visible"
             className="lg:grid lg:grid-cols-3 gap-8 flex flex-row overflow-x-auto lg:overflow-x-visible space-x-4 lg:space-x-0 snap-x snap-mandatory scrollbar-hide"
           >
-            {featuredTrips.slice(0, 3).map((trip: any, index: number) => {
+            {featuredTrips.slice(0, visibleCount).map((trip: any, index: number) => {
               const CategoryIcon =
                 categoryIcons[trip.category as keyof typeof categoryIcons] ||
                 Mountain;
@@ -347,7 +353,7 @@ export default function PopularPackagesClient() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
                         size="sm"
                         onClick={() =>
-                        (window.location.href = `/trips/${trip._id
+                        (window.location.href = `/tours/${trip._id
                           }-${generateSlug(trip.name)}`)
                         }
                       >
@@ -368,7 +374,7 @@ export default function PopularPackagesClient() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {featuredTrips.slice(0, 3).map((trip: any, index: number) => {
+            {featuredTrips.slice(0, visibleCount).map((trip: any, index: number) => {
               const CategoryIcon =
                 categoryIcons[trip.category as keyof typeof categoryIcons] ||
                 Mountain;
@@ -570,7 +576,7 @@ export default function PopularPackagesClient() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
                         size="sm"
                         onClick={() =>
-                        (window.location.href = `/trips/${trip._id
+                        (window.location.href = `/tours/${trip._id
                           }-${generateSlug(trip.name)}`)
                         }
                       >
@@ -597,6 +603,8 @@ export default function PopularPackagesClient() {
         )}
 
         {/* View All Button */}
+         {
+          visibleCount < featuredTrips.length &&(
         <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0, y: 30 }}
@@ -607,11 +615,12 @@ export default function PopularPackagesClient() {
             variant="outline"
             size="lg"
             className="border-2 border-gray-300 text-gray-700 hover:border-green-500 hover:text-green-600 hover:bg-green-50 px-8 py-4 text-lg font-semibold rounded-full bg-white transition-all duration-300"
-            onClick={() => (window.location.href = "/trips")}
+             onClick={handleLoadMore}
           >
             View All Tour Packages
           </Button>
         </motion.div>
+          )}
       </div>
     </section>
   );

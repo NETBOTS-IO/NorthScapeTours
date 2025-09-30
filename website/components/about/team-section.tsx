@@ -82,17 +82,19 @@ const TeamSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
               >
-                {[Mail, Linkedin, Twitter].map((Icon, i) => (
+                {[Mail].map((Icon, i) => (
                   <motion.a
                     key={i}
                     whileHover={{ y: -3 }}
                     className="p-2 bg-slate-100 hover:bg-orange-100 rounded-full text-slate-600 hover:text-orange-600 transition-colors"
                     href={
-                      i === 0
-                        ? `mailto:${member.social.email}`
-                        : i === 1
-                          ? member.social.linkedin
-                          : member.social.twitter
+                      `https://mail.google.com/mail/?view=cm&fs=1&to=${member.social.email}&su=Tour%20Inquiry&body=Hello%20Northscape%20Tours`
+                      // i === 0
+                      //   ? 
+                        // `mailto:${member.social.email}`
+                        // : i === 1
+                        //   ? member.social.linkedin
+                        //   : member.social.twitter
                     }
                   >
                     <Icon className="w-4 h-4" />

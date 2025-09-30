@@ -80,7 +80,7 @@ const RelatedTrips = ({ trips }: RelatedTripsProps) => {
               {trip.shortDescription}
             </p>
             <button className="h-10 px-4 py-2 mt-auto bg-orange-600 text-white text-base font-semibold hover:bg-orange-700 transition-all duration-300">
-              <Link href={`/trips/${trip._id}-${generateSlug(trip.name)}`}>View Details</Link>
+              <Link href={`/tours/${trip._id}-${generateSlug(trip.name)}`}>View Details</Link>
             </button>
           </motion.div>
         ))}

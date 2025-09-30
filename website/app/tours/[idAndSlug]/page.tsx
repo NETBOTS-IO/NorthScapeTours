@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import TripDetailHero from "@/components/trips/tripsDetails/trip-detail-hero"
-import TripDetailContent from "@/components/trips/tripsDetails/trip-detail-content"
-import TripItinerary from "@/components/trips/tripsDetails/trip-itinerary"
-import TripGallery from "@/components/trips/tripsDetails/trip-gallery"
-import TripBookingWidget from "@/components/trips/tripsDetails/trip-booking-widget"
+import TripDetailHero from "@/components/tours/tripsDetails/trip-detail-hero"
+import TripDetailContent from "@/components/tours/tripsDetails/trip-detail-content"
+import TripItinerary from "@/components/tours/tripsDetails/trip-itinerary"
+import TripGallery from "@/components/tours/tripsDetails/trip-gallery"
+import TripBookingWidget from "@/components/tours/tripsDetails/trip-booking-widget"
 import NotFound from "@/app/not-found"
-import RelatedTrips from "@/components/trips/tripsDetails/related-trips";
+import RelatedTrips from "@/components/tours/tripsDetails/related-trips";
 import { fetchTourById, fetchRelatedTours } from "@/lib/api";
 import { generateSlug } from "@/lib/slug";
 

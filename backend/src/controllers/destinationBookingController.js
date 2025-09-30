@@ -166,7 +166,8 @@ export const updateBookingDestination = async (req, res) => {
           from: `"Automated Notification" <${
             process.env.EMAIL_USER || "no-reply@netbots.io"
           }>`,
-          to: process.env.USER_EMIAL || "no-reply@netbots.io",
+          // to: process.env.USER_EMIAL || "no-reply@netbots.io",
+            to: process.env.NORTHSCAPE_EMAIL,
           subject: `New Booking - ${tourUpdate.name}`,
           html: generateEmailTemplate(true),
         });
@@ -343,7 +344,8 @@ export const createDestinationbooking = async (req, res) => {
         // send to admin
         await transporter.sendMail({
           from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-          to: process.env.EMAIL_USER,
+          // to: process.env.EMAIL_USER,
+            to: process.env.NORTHSCAPE_EMAIL,
           subject: `New Destination Booking - ${existingDestination.name}`,
           html: generateEmailTemplate(true),
         });

@@ -215,7 +215,7 @@ export const aboutCertifications = [
 
 // About Founders Section (for AboutStory)
 export const aboutFounders = {
-  image: "/images/b2.jpeg",
+  image: "/images/profile-img.jpeg",
   alt: "Our founders",
   paragraphs: [
     "We are proud to be based in Skardu — the gateway to some of the world’s highest peaks and most iconic valleys. As locals, we know the land, the culture, and the people, and we bring this deep knowledge into every journey we design.",
@@ -223,9 +223,9 @@ export const aboutFounders = {
     "Our goal is simple: to combine natural beauty, cultural richness, and authentic hospitality into journeys that are seamless, safe, and unforgettable. With in-depth regional expertise and a professional team, we ensure every tour is carefully designed and executed to international standards."
   ],
   stats: [
-    { value: "15+", label: "Years Experience" },
-    { value: "50+", label: "Countries" },
-    { value: "10K+", label: "Happy Travelers" }
+    { value: "5+", label: "Years Experience" },
+    { value: "8+", label: "Countries" },
+    { value: "255+", label: "Happy Travelers" }
   ]
 }; 
 

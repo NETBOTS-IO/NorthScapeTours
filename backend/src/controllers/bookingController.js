@@ -113,7 +113,7 @@ export const updateBooking = async (req, res) => {
 
     // Get the booking we are updating
     const existingBooking = await Booking.findById(id);
-    console.log('existingBooking', existingBooking)
+    // console.log('existingBooking', existingBooking)
     if (!existingBooking) {
       return res
         .status(404)
@@ -135,7 +135,7 @@ export const updateBooking = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Car already confirmed earlier, cannot confirm again.",
-      });
+      }); 
     }
 
     // Update booking status

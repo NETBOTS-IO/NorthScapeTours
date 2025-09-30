@@ -148,19 +148,16 @@ export const updateBookingTour = async (req, res) => {
     const sendBookingEmails = async (booking) => {
       try {
         await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${
-            process.env.EMAIL_USER 
-          }>`,
+          from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
           to: checkAvailaibility.email,
           subject: `Booking Confirmation - ${tourUpdate.name}`,
           html: generateEmailTemplate(false),
         });
 
         await transporter.sendMail({
-          from: `"Automated Notification" <${
-            process.env.EMAIL_USER 
-          }>`,
-          to: process.env.EMAIL_USER, 
+          from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
+          // to: process.env.EMAIL_USER,
+          to: process.env.NORTHSCAPE_EMAIL,
           subject: `New Booking - ${tourUpdate.name}`,
           html: generateEmailTemplate(true),
         });
@@ -324,7 +321,8 @@ export const createTourbooking = async (req, res) => {
         // send to admin
         await transporter.sendMail({
           from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-          to: process.env.EMAIL_USER,
+          // to: process.env.EMAIL_USER,
+          to: process.env.NORTHSCAPE_EMAIL,
           subject: `New Booking - ${existingTour.name}`,
           html: generateEmailTemplate(true),
         });
@@ -337,7 +335,7 @@ export const createTourbooking = async (req, res) => {
      * =============== BOOKING CREATION ===============
      */
     const existingTourBooking = await TourBooking.findOne({ tour: tourId });
-// console.log('existingTourBooking', existingTourBooking)
+    // console.log('existingTourBooking', existingTourBooking)
 
     if (existingTourBooking) {
       if (existingTourBooking.availability === false) {

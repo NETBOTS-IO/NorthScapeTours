@@ -6,8 +6,23 @@ import Link from "next/link";
 import {
   Mountain,
   Telescope,
-  Crown,
   Compass,
+  Crown,
+  Image,
+  Landmark,
+  Trees,
+  History,
+  Tent,
+  Users,
+  Plane,
+  Bus,
+  Heart,
+  Gem,
+  TreePine,
+  Church,
+  Shield,
+  Map,
+  TreePalm,
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { fetchTourCategories } from "@/lib/api"
@@ -44,11 +59,24 @@ const TripCategories = () => {
     getCategories();
   }, []);
 
-    const iconMap: Record<string, React.ComponentType<any>> = {
-  "adventure": Mountain,
-  "cultural": Telescope,
-  "custom family tour": Compass,
+   const iconMap: Record<string, React.ComponentType<any>> = {
   "trekking": Crown,
+  "adventure": Mountain,
+  "landscape": Image,
+  "sightseeing": Telescope,
+  "wildlife": Trees,
+  "historical": Landmark,
+  "mountaineering": Tent,
+  "custom family tour": Compass,
+  "religious and culture tours": Church,
+  "exclusive private tours": Shield,
+  "group tours": Users,
+  "hiking": TreePine,
+  "honeymoon tours": Heart,
+  "luxury": Gem,
+  "by air tours": Plane,
+  "by road tours": Bus,
+  "weekend retreat": TreePalm,
 };
 
   const containerVariants = {
@@ -107,21 +135,21 @@ const TripCategories = () => {
             const IconComponent = iconMap[category._id.toLowerCase()] || Mountain; 
             return (
               <motion.div key={index} variants={itemVariants} className=  "group">
-                <Link href={`/trips/category?category=${encodeURIComponent(category.categoryId)}&tripType=${category._id}`}>
+                <Link href={`/tours/category?category=${encodeURIComponent(category.categoryId)}&tripType=${category._id}`}>
                   <motion.div
-                    // whileHover={{
-                    //   scale: 1.05,
-                    //   y: -10,
-                    //   rotateY: 5,
-                    //   transition: {
-                    //     type: "spring",
-                    //     stiffness: 300,
-                    //     damping: 20,
-                    //   },
-                  // }}
-                  whileHover={{scale: 1.09, rotate: "1.18deg"}}
-                  whileTap={{scale: 0.2}}
-                  transition={{duration: 0.4}}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -10,
+                      rotateY: 5,
+                      // transition: {
+                      //   type: "spring",
+                      //   stiffness: 300,
+                      //   damping: 20,
+                      // },
+                  }}
+                  // whileHover={{scale: 1.09, rotate: "1.18deg"}}
+                  // whileTap={{scale: 0.2}}
+                  transition={{duration: 0.4, ease:'easeInOut'}}
                     className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                   >
                     {/* Background Gradient */}

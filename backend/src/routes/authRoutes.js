@@ -10,7 +10,7 @@ router.post("/logout", logout);
 
 //authentication routes used at dashboard
 router.get("/me", verifyToken, (req, res) => {
-  res.json({ success: true, user: req.user, token: req.cookies.token }); // role + id available
+  res.json({ user: req.user, token: req.cookies.token }); // role + id available
 });
 
 export default router;

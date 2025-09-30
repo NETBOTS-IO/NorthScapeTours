@@ -32,7 +32,7 @@ const TripsListing = () => {
     const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
   
     const handleLoadMore = () => {
-      setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
+      setVisibleCount((prev) => prev + BLOGS_PER_PAGE); 
     };
 
 
@@ -412,7 +412,7 @@ useEffect(() => {
                         className="flex-1"
                       >
                         <Link
-                          href={`/trips/${trip._id}-${generateSlug(trip.name)}`}
+                          href={`/tours/${trip._id}-${generateSlug(trip.name)}`}
                           className="block bg-orange-600 hover:bg-green-600 text-white text-center py-3 px-4 rounded-lg font-semibold transition-all duration-300"
                         >
                           View Details
@@ -574,7 +574,7 @@ useEffect(() => {
                             whileTap={{ scale: 0.95 }}
                           >
                             <Link
-                              href={`/trips/${trip._id}-${generateSlug(trip.name)}`}
+                              href={`/tours/${trip._id}-${generateSlug(trip.name)}`}
                               className="bg-orange-600 hover:bg-green-600 text-white py-3 px-6 font-semibold transition-all duration-300"
                             >
                               View Details

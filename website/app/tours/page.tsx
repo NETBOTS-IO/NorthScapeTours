@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import TripCategories from "@/components/trips/trip-categories"
-import TripsListing from "@/components/trips/trips-listing"
+import TripCategories from "@/components/tours/trip-categories"
+import TripsListing from "@/components/tours/trips-listing"
 
 export const metadata: Metadata = {
-  title: "Northscape Pakistan Tours & Travels | Adventure Trips, Tours & Holiday Packages",
+  title: "Northscape Pakistan | Adventure Trips, Tours & Holiday Packages",
   description:
     "Explore unforgettable adventures with Northscape Pakistan Tours & Travels. From trekking and safaris to cultural tours and luxury holidays, find the perfect trip for your next journey.",
   keywords:

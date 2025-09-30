@@ -3,7 +3,7 @@ import HeroSection from '@/components/rent/hero-section'
 import CarCards from '@/components/rent/card'
 
 export const metadata: Metadata = {
-  title: "Rent Cars - Northscape Pakistan Tours & Travels | Tour Packages & Luxury Travel",
+  title: "Rent Cars - Northscape Pakistan | Tour Packages & Luxury Travel",
   description:
     "Book your dream ride and explore stunning destinations with Northscape Pakistan Tours & Travels. Choose from premium rental cars, adventure tour packages, and luxury travel experiences tailored for every journey.",
   keywords:

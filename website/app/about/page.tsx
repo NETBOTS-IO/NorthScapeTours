@@ -7,7 +7,7 @@ import ValuesSection from "@/components/about/values-section"
 export const metadata: Metadata = {
   title: "About Us - NORTHSCAPE PAKISTAN",
   description:
-    "Learn about NORTHSCAPE's pakistan journey, our passionate team, and our commitment to creating extraordinary travel experiences around the world.",
+    "Learn about NORTHSCAPE's pakistan, our passionate team, and our commitment to creating extraordinary travel experiences around the world.",
   keywords: "about northscape pakistan, travel company, our story, travel experts, mission, values",
 }
 

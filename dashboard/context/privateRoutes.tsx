@@ -1,26 +1,31 @@
-// context/PrivateRoute.tsx
 "use client";
 
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
 
-interface PrivateRouteProps {
-  children: ReactNode;
-}
-
-export default function PrivateRoute({ children }: PrivateRouteProps) {
-  const router = useRouter();
+export default function PrivateRoute({ children }: { children: ReactNode }) {
   const { user, token, loading } = useAuth();
-// console.log('private route', user, token, loading)
+  const router = useRouter();
+
   useEffect(() => {
-    if (!loading && (!user || !token)) {
-      router.replace("/login");
+    if (!loading) {
+      if (!user || !token) {
+        router.replace("/login"); 
+      }
     }
   }, [loading, user, token, router]);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Checking authentication...
+      </div>
+    );
+  }
+
+  if (!user || !token) {
+    return null; 
   }
 
   return <>{children}</>;

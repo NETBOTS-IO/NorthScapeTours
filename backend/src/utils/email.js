@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+
+// console.log('process.env.NORTHSCAPE_EMAIL', process.env.NORTHSCAPE_EMAIL)
+
 // ✅ Configure Nodemailer with Hostinger SMTP
 const transporter = nodemailer.createTransport({
   host: "smtp.hostinger.com",
@@ -95,7 +98,8 @@ export const sendBookingEmails = async (booking) => {
   try {
     // ✅ Send Email to Client
     const clientMail = await transporter.sendMail({
-      from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
+      from: `"NORTHSCAPE PAKISTAN TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
+      // from: `"NORTHSCAPE PAKISTAN TOURS AND TRAVELS" <info@northscapepakistan.com>`,
       to: booking.customerEmail,
       subject: `Booking Confirmation - ${booking.carName}`,
       html: generateEmailTemplate(booking, false),
@@ -108,7 +112,8 @@ export const sendBookingEmails = async (booking) => {
     // ✅ Send Email to Admin
     const adminMail = await transporter.sendMail({
       from: `"Automated Notification" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
+      to: process.env.NORTHSCAPE_EMAIL,
+      // to: "<info@northscapepakistan.com>",
       subject: `New Booking - ${booking.carName}`,
       html: generateEmailTemplate(booking, true),
     });

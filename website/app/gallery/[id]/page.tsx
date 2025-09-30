@@ -42,11 +42,14 @@ export default async function PhotoDetailsPage({ params }: Props) {
       </div>
 
       <div className="mt-6 text-sm text-gray-500">
-        <p>
+        <p >
           <strong>Category:</strong> {photo.category || "Uncategorized"}
         </p>
         <p>
           <strong>Location:</strong> {photo.location || "Unknown"}
+        </p>
+        <p>
+          <strong>Photographer:</strong> {photo.photographer || "Unknown"}
         </p>
         <p>
           <strong>Date:</strong>{" "}

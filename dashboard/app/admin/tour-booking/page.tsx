@@ -105,7 +105,7 @@ export default function TourBookingPage() {
       }
     })
 
-console.log('filteredTours', filteredTours)
+// console.log('filteredTours', filteredTours)
 
   return (
     <div className="container">

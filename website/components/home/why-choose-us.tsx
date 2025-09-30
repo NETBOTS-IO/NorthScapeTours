@@ -20,7 +20,7 @@ const features = [
     title: "Expert Guides",
     description:
       "Local expertise with international service standards.",
-    stats: "500+ Certified Experts",
+    stats: "50+ Certified Experts",
     color: "from-amber-500 to-amber-600",
     bgColor: "bg-amber-50",
     borderColor: "border-amber-200",
@@ -40,7 +40,7 @@ const features = [
     title: "Partnership",
     description:
       "Strong partnerships with hotels and transport providers.",
-    stats: "80+ Countries",
+    stats: "8+ Countries",
     color: "from-fuchsia-500 to-fuchsia-600",
     bgColor: "bg-fuchsia-50",
     borderColor: "border-fuchsia-200",
@@ -76,13 +76,13 @@ const achievements = [
   },
   {
     icon: CheckCircle,
-    number: "15K+",
+    number: "255+",
     label: "Adventurers Served",
     description: "Happy explorers across the globe",
   },
   {
     icon: MapPin,
-    number: "500+",
+    number: "255+",
     label: "Journeys Completed",
     description: "Unforgettable trips successfully delivered",
   },

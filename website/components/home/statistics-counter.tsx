@@ -44,10 +44,10 @@ const StatisticsCounter = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   const stats = [
-    { value: 500, label: "Adventures Completed", suffix: "+" },
-    { value: 50, label: "Countries Explored", suffix: "+" },
-    { value: 10000, label: "Happy Travelers", suffix: "+" },
-    { value: 15, label: "Years Experience", suffix: "+" },
+    { value: 255, label: "Adventures Completed", suffix: "+" },
+    { value: 8, label: "Countries Explored", suffix: "+" },
+    { value: 255, label: "Happy Travelers", suffix: "+" },
+    { value: 5, label: "Years Experience", suffix: "+" },
   ]
 
   return (

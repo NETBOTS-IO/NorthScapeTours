@@ -38,7 +38,7 @@ const AboutStory = () => {
 
   return (
     <section ref={ref} className="section-padding bg-white">
-      <div className="max-w-7xl mx-auto border border-amber-800">
+      <div className="max-w-7xl mx-auto">
         {/* Header section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -286,7 +286,7 @@ const AboutStory = () => {
 
         </div>
         {/* international and policy update  */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start mb-16 md:mb-20 px-4 sm:px-6 border border-red-800">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start mb-16 md:mb-20 px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}

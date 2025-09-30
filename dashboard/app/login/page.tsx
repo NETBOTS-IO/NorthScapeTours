@@ -12,27 +12,26 @@ import { useAuth } from "@/context/authContext"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" })
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter()
-  const { login , loading} = useAuth(); 
+  const { login, loading } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
- const handleLogin = async (e: React.FormEvent) => {
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-     setIsSubmitting(true);
     try {
-      await login(formData.email, formData.password); // use context login
+      await login(formData.email, formData.password);
       toast.success("Login successful");
-      router.push("/admin"); // redirect on success
+      router.replace("/admin"); // replace avoids back button glitch
     } catch (error: any) {
-      toast.error(error.response?.data?.message);
-    } finally {
-    setIsSubmitting(false);
-  }
+      toast.error(error.response?.data?.message || "Login failed");
+    }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -64,8 +63,13 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-               {isSubmitting ? "Logging in..." : "Log in"}
+            <Button type="submit" className="w-full"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." 
+              : 
+              "Log in"
+               }
             </Button>
           </form>
         </CardContent>
