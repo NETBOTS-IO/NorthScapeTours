@@ -45,7 +45,7 @@ const Navigation = () => {
     getCategories();
   }, []);
 
-  // console.log("categoriesData", categoriesData)
+  console.log("categoriesData", categoriesData)
   // console.log("loading", loading)
 
   const navItems = [
@@ -53,7 +53,8 @@ const Navigation = () => {
     {
       name: "Tours", href: "/tours", children: categoriesData.slice(0, 10).map((ct) => ({
         name: ct._id,
-        href: `/${ct.categoryId}`
+        href: `/${ct.categoryId}`,
+        count: ct.count,
       }))
     },
     { name: "Car Rental", href: "/rent" },
@@ -179,7 +180,7 @@ const Navigation = () => {
 
                   {/* Dropdown only if children exist */}
                   {item.children && isDropdownOpen && (
-                    <div className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48 z-50">
+                    <div className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-60 z-50">
                       <ul className="py-2">
                         {item.children.map((child) => (
                           <li key={child.name}>
@@ -187,7 +188,10 @@ const Navigation = () => {
                               href={`/tours/category?category=${encodeURIComponent(child.href)}&tripType=${child.name}`}
                               className="block px-4 py-2 text-sm capitalize text-slate-700 hover:bg-orange-100 hover:text-orange-600"
                             >
-                              {loading ? "loading..." : child.name}
+                              <div className="inline-flex items-center justify-center gap-2">
+                                {loading ? "loading..." : child.name}
+                                <span className="w-5 h-5 bg-orange-500 flex items-center justify-center text-white rounded-full text-sm">{child.count}</span>
+                              </div>
                             </Link>
                           </li>
                         ))}
@@ -236,8 +240,8 @@ const Navigation = () => {
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      // onClick={() => setIsDropdownOpen(item.name)}
-                      // onMouseLeave={() => setIsDropdownOpen(null)}
+                    // onClick={() => setIsDropdownOpen(item.name)}
+                    // onMouseLeave={() => setIsDropdownOpen(null)}
                     >
                       <Link
                         href={item.href}
@@ -248,8 +252,8 @@ const Navigation = () => {
                         onClick={() => setIsOpen(false)}
                       >
                         {/* <span className="flex items-center justify-start gap-4"> */}
-                          {item.name}
-                          {/* {
+                        {item.name}
+                        {/* {
                             item.name === "Tours" && (
                               isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />
                             )
