@@ -47,7 +47,7 @@ const InternationalCategories = () => {
 
   const categoriesData = [
     {id:1, title:"Pakistan Visa Help", href: "/pakistanVisaHelp"},
-    {id:2, title:"Best Seller",  href: "/bestSeller"}
+    // {id:2, title:"Best Seller",  href: "/bestSeller"}
   ]
 
 

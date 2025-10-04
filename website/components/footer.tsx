@@ -46,8 +46,7 @@ const Footer = () => {
               <Image alt="northscape logo" src="/new-logo.png" width={160} height={90} />
             </div>
             <p className="text-slate-300 text-sm">
-              Creating extraordinary travel experiences and unforgettable
-              memories around the world.
+              Delivering unforgettable travel experiences with professionalism, comfort, and cultural authenticity across Pakistan.
             </p>
             <div className="flex space-x-4">
               <a
