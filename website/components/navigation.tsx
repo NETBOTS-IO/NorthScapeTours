@@ -45,7 +45,7 @@ const Navigation = () => {
     getCategories();
   }, []);
 
-  console.log("categoriesData", categoriesData)
+  // console.log("categoriesData", categoriesData)
   // console.log("loading", loading)
 
   const navItems = [
@@ -57,7 +57,7 @@ const Navigation = () => {
         count: ct.count,
       }))
     },
-    { name: "Car Rental", href: "/rent" },
+    { name: "Car Rental", href: "/car-rent" },
     { name: "Destinations", href: "/destinations" },
     { name: "Gallery", href: "/gallery" },
     { name: "International Travelers", href: "/international-travelers" },

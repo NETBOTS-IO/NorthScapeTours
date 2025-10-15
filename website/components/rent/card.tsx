@@ -110,7 +110,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
                     <span className="text-2xl font-bold text-black-600">${car.pricePerDay}/day</span>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
-                      onClick={()=> router.push(`/rent/${car._id}`)}
+                      onClick={()=> router.push(`/car-rent/${car._id}`)}
                       >
                         View Details
                       </button>
