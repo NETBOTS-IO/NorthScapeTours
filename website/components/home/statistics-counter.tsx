@@ -45,7 +45,7 @@ const StatisticsCounter = () => {
 
   const stats = [
     { value: 255, label: "Adventures Completed", suffix: "+" },
-    { value: 8, label: "Countries Explored", suffix: "+" },
+    { value: 8, label: "Cities Explored", suffix: "+" },
     { value: 255, label: "Happy Travelers", suffix: "+" },
     { value: 5, label: "Years Experience", suffix: "+" },
   ]
