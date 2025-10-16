@@ -20,6 +20,7 @@ import DestinationRoutes from './routes/destinationRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import TourBookingRoutes from './routes/tourBookingRoutes.js';
 import DestinationBookingRoutes from './routes/destinationBookingRoutes.js';
+import FeedbackRoutes from './routes/feedbackRoutes.js' 
 
 dotenv.config();
 
@@ -120,6 +121,7 @@ app.use('/api/contact', ContactRoutes);
 app.use('/api/destinations', DestinationRoutes);
 app.use('/api/tour-booking', TourBookingRoutes);
 app.use('/api/destination-booking', DestinationBookingRoutes);
+app.use("/api", FeedbackRoutes);
 
 // vN9RvwsMBLkwKU16
 
