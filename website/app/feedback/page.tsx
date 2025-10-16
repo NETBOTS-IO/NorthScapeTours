@@ -313,40 +313,40 @@ export default function CustomerReviewForm() {
 
                     {/* Submit Button */}
                     <Grid size={{ xs: 12 }}>
-                    <Box textAlign="center">
-                        <Button
-                            type="submit"
-                            disabled={loading}
-                            aria-label="Submit Review"
-                            sx={{
-                                px: 6,
-                                py: 1.5,
-                                borderRadius: 2,
-                                textTransform: "none",
-                                backgroundColor: "#f97316",
-                                color: "#fff",
-                                fontWeight: 600,
-                                fontSize: "18px",
-                                transition: "background-color 0.3s ease",
-                                ":hover": { backgroundColor: "#fb923c" },
-                            }}
-                        >
-                            {loading ? (
-                                <CircularProgress size={24} color="inherit" />
-                            ) : (
-                                "Submit Review"
-                            )}
-                        </Button>
-                    </Box>
+                        <Box textAlign="center">
+                            <Button
+                                type="submit"
+                                disabled={loading}
+                                aria-label="Submit Review"
+                                sx={{
+                                    px: 6,
+                                    py: 1.5,
+                                    borderRadius: 2,
+                                    textTransform: "none",
+                                    backgroundColor: "#f97316",
+                                    color: "#fff",
+                                    fontWeight: 600,
+                                    fontSize: "18px",
+                                    transition: "background-color 0.3s ease",
+                                    ":hover": { backgroundColor: "#fb923c" },
+                                }}
+                            >
+                                {loading ? (
+                                    <CircularProgress size={24} color="inherit" />
+                                ) : (
+                                    "Submit Review"
+                                )}
+                            </Button>
+                        </Box>
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            {responseMsg && (
-                <Box mt={4}>
-                    <Alert severity={responseMsg.type}>{responseMsg.text}</Alert>
-                </Box>
-            )}
-        </Box>
-    </Container >
-  );
+                {responseMsg && (
+                    <Box mt={4}>
+                        <Alert severity={responseMsg.type}>{responseMsg.text}</Alert>
+                    </Box>
+                )}
+            </Box>
+        </Container >
+    );
 }
