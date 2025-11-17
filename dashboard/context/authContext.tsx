@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
 
-console.log('user', user)
+// console.log('user', user)
 // console.log('token', token)
 // console.log('loading', loading)
 
