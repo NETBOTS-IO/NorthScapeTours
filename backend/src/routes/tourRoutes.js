@@ -23,8 +23,6 @@ router.post(
   ]),
    convertToAvif,
   (req, res) => {
-      console.log("Received files:", req.files); // ✅ Debugging
-      console.log("Received body:", req.body); // ✅ Debugging
       createTour(req, res); // Proceed with actual handler
   }
 );
@@ -32,7 +30,6 @@ router.post(
 router.put(
   "/:tourId",
   (req, res, next) => {
-    console.log("Received tourId before multer:", req.params.tourId); // ✅ Debugging
     next(); // Call the next middleware
   },
   upload.fields([
@@ -41,9 +38,6 @@ router.put(
   ]),
    convertToAvif,
   (req, res) => {
-    console.log("Id after multer:", req.params.tourId); // ✅ Debugging
-    console.log("Received files:", req.files); // ✅ Debugging
-    console.log("Received body:", req.body); // ✅ Debugging
     updateTour(req, res);
   }
 );

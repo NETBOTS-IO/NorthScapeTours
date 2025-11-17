@@ -312,7 +312,7 @@ export const createTourbooking = async (req, res) => {
       try {
         // send to client
         await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
+          from: `"NORTHSCAPE PAKISTAN TOURS AND TRAVELS" <${process.env.EMAIL_USER}>`,
           to: email,
           subject: `Booking Confirmation - ${existingTour.name}`,
           html: generateEmailTemplate(false),

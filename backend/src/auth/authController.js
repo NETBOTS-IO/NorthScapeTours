@@ -9,7 +9,6 @@ const JWT_EXPIRES_IN = "15m";
 export const register = async (req, res) => {
   try {
     const { username, email, password, confirmPassword, role } = req.body;
-
     if (!username || !email || !password || !confirmPassword) {
       return res
         .status(400)
@@ -58,14 +57,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('email, password', email, password);
     if (!email || !password)
       return res
         .status(400)
         .json({ success: false, message: "Email and password required" });
 
     const user = await User.findOne({ email });
-    console.log('user', user);
     if (!user)
       return res
         .status(401)
@@ -80,7 +77,6 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN,
     });
-console.log('token', token)
     res.cookie("token", token, {
       httpOnly: true, // ❌ JS can't read this
       secure: process.env.NODE_ENV === "production", // only HTTPS in prod
@@ -105,7 +101,6 @@ console.log('token', token)
 export const forgotPassword = async (req, res) => {
   try {
     const { email, oldPassword, newPassword } = req.body;
-
     // 1. Check user exists
     const user = await User.findOne({ email });
     if (!user) {
@@ -144,7 +139,6 @@ export const logout = (req, res) => {
 export const verifyToken = (req, res, next) => {
   try {
     const token = req.cookies.token; // from cookie
-    console.log('token', token)
     if (!token)
       return res
         .status(401)

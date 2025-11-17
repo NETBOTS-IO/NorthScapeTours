@@ -138,7 +138,7 @@ export const createTour = async (req, res) => {
 
 export const updateTour = async (req, res) => {
   try {
-    console.log("Update Tour API Endpoint Hit", req.body);
+    // console.log("Update Tour API Endpoint Hit", req.body);
 
     let tourData;
     if (req.body.tourData) {
@@ -160,7 +160,7 @@ export const updateTour = async (req, res) => {
       !tourData.name ||
       (!tourData.shortDescription && !tourData.longDescription)
     ) {
-      console.log("Name and at least one description are required");
+      // console.log("Name and at least one description are required");
       return res.status(400).json({
         success: false,
         message:
@@ -212,7 +212,7 @@ export const updateTour = async (req, res) => {
       new: true,
     });
     if (!tour) {
-      console.log("Tour not found");
+      // console.log("Tour not found");
       return res
         .status(404)
         .json({ success: false, message: "Tour not found" });
@@ -479,7 +479,7 @@ export const updateBookingTour = async (req, res) => {
       try {
         // ✅ Send Email to Client
         const clientMail = await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${process.env.EMAIL_USER} || 'sameerbalti704@gmail.com'>`,
+          from: `"NORTHSCAPE PAKISTAN TOURS AND TRAVELS" <${process.env.EMAIL_USER} || "no-reply@netbots.io">`,
           to: email,
           subject: `Booking Confirmation - ${tour.name}`,
           html: generateEmailTemplate(booking, false),
@@ -491,7 +491,7 @@ export const updateBookingTour = async (req, res) => {
 
         // ✅ Send Email to Admin
         const adminMail = await transporter.sendMail({
-          from: `"Automated Notification" <${email} || 'sameerbalti704@gmail.com'>`,
+          from: `"Automated Notification" <${email} || "no-reply@netbots.io">`,
           to: process.env.USER_EMIAL || "sameerbalti704@gmail.com",
           subject: `New Booking - ${tour.name}`,
           html: generateEmailTemplate(booking, true),

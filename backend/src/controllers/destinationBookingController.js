@@ -154,7 +154,7 @@ export const updateBookingDestination = async (req, res) => {
       try {
         // client
         await transporter.sendMail({
-          from: `"NORTHSCAPE TOURS AND TRAVELS" <${
+          from: `"NORTHSCAPE PAKISTAN TOURS AND TRAVELS" <${
             process.env.EMAIL_USER || "no-reply@netbots.io"
           }>`,
           to: checkAvailaibility.email,
