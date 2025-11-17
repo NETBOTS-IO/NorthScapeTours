@@ -51,14 +51,14 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 target="_blank"
-                href="https://www.facebook.com/share/1CSjyatsgw/?mibextid=wwXIfr"
+                href="https://www.facebook.com/share/1FbhcB8xeo/?mibextid=wwXIfr"
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
                 target="_blank"
-                href="https://www.instagram.com/northscapetours?igsh=eDBvd3liOG1hamh1&utm_source=qr"
+                href="https://www.instagram.com/northscapepakistantours?igsh=eDBvd3liOG1hamh1&utm_source=qr"
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Instagram className="w-5 h-5" />
@@ -72,7 +72,7 @@ const Footer = () => {
               </a> */}
               <a
                 target="_blank"
-                href="https://www.tiktok.com/@northscapetourstravels?_t=ZS-8yRBs4luce9&_r=1"
+                href="https://www.tiktok.com/@northscapepakistan?_r=1&_t=ZS-91OXH1wJ3MD"
                 className="transition-colors duration-200"
               >
                 <svg
@@ -92,7 +92,7 @@ const Footer = () => {
 
               <a
                 target="_blank"
-                href="https://youtube.com/@northscapetoursandtravels?si=t8M2-_WQi39gkdXd"
+                href="https://youtube.com/@northscapepakistan?si=y3WbuRDELjoMNJo7"
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Youtube className="w-5 h-5" />
