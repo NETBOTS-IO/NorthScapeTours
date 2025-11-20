@@ -10,6 +10,7 @@ import axios from "axios"
 import { Card, CardContent } from "@/components/ui/card"
 import { User, Mail, Lock, ShieldCheck } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BASE_URL } from "@/Var";
 
 export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +28,6 @@ export default function RegisterPage() {
     newPassword: "",
   })
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
@@ -41,7 +41,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", formData, {
+      const response = await axios.post(`${BASE_URL}/api/auth/register`, formData, {
         withCredentials: true
       })
       toast.success("Registration successful! Please login.")
@@ -66,7 +66,7 @@ export default function RegisterPage() {
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await axios.post("http://localhost:5000/api/auth/forgot-password", forgotData, {withCredentials: true})
+      await axios.post(`${BASE_URL}/api/auth/forgot-password`, forgotData, {withCredentials: true})
       toast.success("Password updated successfully")
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to update password")
