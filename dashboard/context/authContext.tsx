@@ -38,7 +38,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setToken(res.data.token);
       } catch (error: any) {
         setUser(null);
-        toast.error(error.response.data.message)
+        // We only show error toast if it's not a 401 (unauthorized is normal on first load)
+        if (error.response?.status !== 401) {
+          toast.error(error.response?.data?.message || "Connection error");
+        }
       } finally {
         setLoading(false); 
       }

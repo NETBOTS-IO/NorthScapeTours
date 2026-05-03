@@ -49,6 +49,8 @@ const allowedOrigins = [
   "http://northscapepakistan.com",
   "http://admin.northscapepakistan.com",
   "https://admin.northscapepakistan.com",
+  "http://dashboard.northscapepakistan.com",
+  "https://dashboard.northscapepakistan.com",
   "http://api.northscapepakistan.com",
   "https://api.northscapepakistan.com",
   "http://www.northscapepakistan.com",
@@ -61,26 +63,13 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Origin not allowed by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
-    methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(helmet({
