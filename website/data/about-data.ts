@@ -2,8 +2,8 @@
 export const aboutMilestones = [
   {
     year: "2008",
-    title: "Founded TRAVELMAKER",
-    description: "Started with a simple mission: to make extraordinary travel accessible to everyone.",
+    title: "Founded Northscape Pakistan",
+    description: "Started with a simple mission: to make extraordinary and luxury travel accessible to everyone.",
     icon: "Calendar",
     image: "/placeholder.svg"
   },
@@ -88,7 +88,7 @@ export const aboutTeam = [
     location: "Pakistan",
     image: "/images/g1.jpeg",
     // image: "/placeholder.svg?height=300&width=300",
-    bio: "With over 20 years of trekking experience in the Himalayas, Sarah founded TRAVELMAKER to share her passion for adventure travel.",
+    bio: "With over 20 years of trekking experience in the Himalayas, the team founded Northscape Pakistan to share their passion for adventure and luxury travel.",
     specialties: ["Himalayan Treks", "Adventure Planning", "Team Leadership"],
     social: {
       email: "sarah@travelmaker.com",
@@ -172,7 +172,7 @@ export const aboutTeam = [
 export const aboutAwards = [
   {
     year: "2024",
-    title: "Best Adventure Tour Operator",
+    title: "Best Adventure and Luxury Tour Operator",
     organization: "World Travel Awards",
     description: "Recognized for excellence in adventure tourism and customer satisfaction.",
     icon: "Trophy",

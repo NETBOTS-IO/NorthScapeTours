@@ -51,7 +51,8 @@ const allowedOrigins = [
   "https://admin.northscapepakistan.com",
   "http://api.northscapepakistan.com",
   "https://api.northscapepakistan.com",
-  "http://www.northscapepakistan.com"
+  "http://www.northscapepakistan.com",
+  "https://www.northscapepakistan.com"
 ];
 
 app.use(

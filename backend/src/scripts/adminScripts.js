@@ -12,9 +12,9 @@ const createAdmin = async () => {
     await mongoose.connect(MONGO_URI);
     console.log("✅ Connected to MongoDB");
 
-    const existingAdmin = await User.findOne({ role: "admin" });
+    const existingAdmin = await User.findOne({ email: process.env.ADMIN_EMAIL });
     if (existingAdmin) {
-      console.log("⚠️ Admin user already exists:", existingAdmin.email);
+      console.log("⚠️ Admin user already exists with this email:", existingAdmin.email);
       process.exit(0);
     }
 

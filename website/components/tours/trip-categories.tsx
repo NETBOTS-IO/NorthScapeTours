@@ -117,7 +117,7 @@ const TripCategories = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
-            Adventure <span className="text-orange-600">Categories</span>
+            Adventure & Luxury <span className="text-orange-600">Categories</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Discover the perfect type of adventure that matches your interests

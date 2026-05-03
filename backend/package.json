@@ -9,7 +9,9 @@
     "dev": "nodemon src/index.js",
     "lint": "eslint src/**/*.js",
     "format": "prettier --write src/**/*.js",
-    "adminScript": "node src/scripts/adminScripts.js"
+    "adminScript": "node src/scripts/adminScripts.js",
+    "create-admin": "node src/scripts/adminScripts.js",
+    "test-admin": "node src/scripts/verifyAdmin.js"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +32,7 @@
     "mongoose": "^8.16.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.10.1",
+    "nodemailer": "^8.0.7",
     "qrcode": "^1.5.4",
     "sharp": "^0.34.4"
   },

@@ -51,14 +51,14 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 target="_blank"
-                href="https://www.facebook.com/share/1FbhcB8xeo/?mibextid=wwXIfr"
+                href="https://www.facebook.com/Northscapepakistan"
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
                 target="_blank"
-                href="https://www.instagram.com/northscapepakistantours?igsh=eDBvd3liOG1hamh1&utm_source=qr"
+                href="https://www.instagram.com/northscapepakistan"
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Instagram className="w-5 h-5" />
@@ -72,7 +72,7 @@ const Footer = () => {
               </a> */}
               <a
                 target="_blank"
-                href="https://www.tiktok.com/@northscapepakistan?_r=1&_t=ZS-91OXH1wJ3MD"
+                href="https://www.tiktok.com/@northscapepakistan"
                 className="transition-colors duration-200"
               >
                 <svg
@@ -96,6 +96,14 @@ const Footer = () => {
                 className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
               >
                 <Youtube className="w-5 h-5" />
+              </a>
+              <a
+                target="_blank"
+                href="https://share.google/UUTIY9jmDCXfNE1q5"
+                className="text-slate-400 hover:text-orange-500 transition-colors duration-200"
+                title="Google Business"
+              >
+                <MapPin className="w-5 h-5" />
               </a>
             </div>
           </div>

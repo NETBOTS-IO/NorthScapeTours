@@ -112,7 +112,7 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              Adventure
+              Adventure & Luxury
             </motion.span>
           </motion.h1>
 

@@ -3,11 +3,11 @@ import GalleryHero from "@/components/gallery/gallery-hero";
 import PhotoGallery from "@/components/gallery/photo-gallery";
 
 export const metadata: Metadata = {
-  title: "Northscape Pakistan | Explore Destinations & Travel Packages",
+  title: "Gallery - Northscape Pakistan | Adventure and Luxury Tours",
   description:
-    "Discover unforgettable travel experiences with Northscape pakistan Tours & Travels. Explore curated tour packages, breathtaking destinations, and personalized journeys tailored for adventure, leisure, and luxury travel.",
+    "Explore our collection of breathtaking photos from premium adventure and luxury tours across Pakistan. Experience the beauty of Skardu, Hunza, and Gilgit-Baltistan through our lens.",
   keywords:
-    "Northscape pakistan tours, Northscape pakistan travels, travel agency, tour packages, holiday packages, adventure tours, luxury travel, group tours, honeymoon packages, custom tours, best travel deals",
+    "Northscape Pakistan gallery, travel photos Pakistan, adventure tours, luxury travel Pakistan, Skardu photos, Hunza Valley images, Pakistan tourism",
 };
 
 

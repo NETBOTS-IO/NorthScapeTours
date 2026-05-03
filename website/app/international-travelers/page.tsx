@@ -5,10 +5,10 @@ import InternationalCategories from "@/components/international-travelers/intern
 // import DestinationFilters from "@/components/destination-filters"
 
 export const metadata: Metadata = {
-  title: "International Travelers - NORTHSCAPE PAKISTAN | Explore Amazing Travel Destinations",
+  title: "International Travelers - Northscape Pakistan | Adventure and Luxury Tours",
   description:
-    "Discover breathtaking destinations around the world. From adventure treks to luxury retreats, find your perfect travel experience with NORTHSCAPE PAKISTAN.",
-  keywords: "travel destinations, adventure tours, luxury travel, cultural experiences, custom family tours",
+    "Information for international travelers visiting Pakistan. Explore breathtaking destinations with our premium adventure and luxury tour packages.",
+  keywords: "travel destinations, adventure tours, luxury travel Pakistan, cultural experiences, custom family tours, international travelers Pakistan, Pakistan visa guide",
 }
 
 export default function InternationalTravelersPage() {

@@ -4,10 +4,10 @@ import DestinationsGrid from "@/components/destinations/destinations-grid"
 // import DestinationFilters from "@/components/destination-filters"
 
 export const metadata: Metadata = {
-  title: "Destinations - NORTHSCAPE PAKISTAN | Explore Amazing Travel Destinations",
+  title: "Destinations - Northscape Pakistan | Adventure and Luxury Tours",
   description:
-    "Discover breathtaking destinations around the world. From adventure treks to luxury retreats, find your perfect travel experience with NORTHSCAPE PAKISTAN.",
-  keywords: "travel destinations, adventure tours, luxury travel, cultural experiences, custom family tours",
+    "Discover breathtaking destinations in Pakistan. From premium adventure tours to luxury retreats in Skardu, Hunza, and beyond, find your perfect travel experience with Northscape Pakistan.",
+  keywords: "travel destinations, adventure tours, luxury travel Pakistan, cultural experiences, custom family tours, Skardu tours, Hunza trips",
 }
 
 export default function DestinationsPage() {
