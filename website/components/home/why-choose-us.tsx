@@ -40,7 +40,7 @@ const features = [
     title: "Partnership",
     description:
       "Strong partnerships with hotels and transport providers.",
-    stats: "8+ Countries",
+    stats: "8+ destinations",
     color: "from-fuchsia-500 to-fuchsia-600",
     bgColor: "bg-fuchsia-50",
     borderColor: "border-fuchsia-200",
@@ -147,17 +147,14 @@ export default function WhyChooseUs() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Why{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
-              NORTHSCAPE
-            </span>
-          </motion.h2>
+       <motion.h2
+  className="text-4xl sm:text-5xl font-bold text-black mb-4 font-serif"
+  initial={{ opacity: 0, y: 20 }}
+  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+>
+  Why NORTHSCAPE
+</motion.h2>
           <motion.p
             className="text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}

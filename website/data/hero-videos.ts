@@ -72,4 +72,16 @@ export const heroVideos: HeroVideo[] = [
     primaryCTA: "Book Safari",
     secondaryCTA: "Wildlife Tours",
   },
+  {
+    id: "shagrila-trips",
+    title: "Shangrila Escape",
+    subtitle: "Experience the heaven of Skardu surrounded by crystal lakes and majestic mountains.",
+    // videoUrl: "/videos/Travel_Video.mp4?height=1080&width=1920&text=Kenya+Safari+Video",
+    posterUrl: "/images/shangrila.jpg?height=1080&width=1920&text=Shangrila+Poster",
+    location: "Shrangila Resort, Skardu",
+    duration: 16,
+    category: "Luxary",
+    primaryCTA: "Book Safari",
+    secondaryCTA: "Explore Resort",
+  },
 ]
