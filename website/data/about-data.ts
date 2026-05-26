@@ -224,7 +224,7 @@ export const aboutFounders = {
   ],
   stats: [
     { value: "5+", label: "Years Experience" },
-    { value: "8+", label: "Countries" },
+    { value: "8+", label: "destinations" },
     { value: "255+", label: "Happy Travelers" }
   ]
 }; 

@@ -115,7 +115,7 @@ const AboutStory = () => {
             className="text-left text-balance mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
-              Our <span className="text-orange-600">Mission & Vision</span>
+              Our <span className="black">Mission & Vision</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto px-4">
               Mission: To provide travelers with safe, authentic, and personalized travel experiences that showcase the best of Pakistan. <br /><br />
@@ -129,7 +129,7 @@ const AboutStory = () => {
             className="text-left text-balance mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
-              Our <span className="text-orange-600">Commitment</span>
+              Our <span className="black">Commitment</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto px-4">
               At Northscape Pakistan, we believe travel is not just about visiting places — it’s about creating lasting memories. We are committed to:
@@ -154,7 +154,7 @@ const AboutStory = () => {
             className="text-left text-balance mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
-              Our <span className="text-orange-600">Terms & Consdition</span>
+              Our <span className="text-orange-600">Terms & Conditions</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl px-4">
               These Terms and Conditions govern all bookings made with Northscape Pakistan Tours and Travels (SMC-Pvt) Ltd. By confirming a booking with us, clients agree to abide by the following terms:

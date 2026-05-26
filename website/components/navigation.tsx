@@ -164,7 +164,7 @@ const Navigation = () => {
                   {/* Main Nav Item */}
                   <Link
                     href={item.href}
-                    className={`flex items-center space-x-1 px-1 py-2 text-sm font-medium transition-colors duration-200 
+                    className={`flex items-center space-x-1 px-1 py-2 text-sm font-semibold tracking-wide transition-colors duration-200 font-serif
           ${pathname === item.href
                         ? "text-orange-600 border-b-2 border-orange-600"
                         : "text-slate-700 hover:text-orange-600"
