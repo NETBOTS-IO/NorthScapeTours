@@ -692,16 +692,25 @@ console.log('itineraryImagePreviews', itineraryImagePreviews)
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="availability">Availability</Label>
-              <Input
-                id="availability"
-                name="availability"
-                value={tour.availability}
-                onChange={handleChange}
-                placeholder="e.g., Year-round"
-              />
-            </div>
+            <div className="space-y-2 flex items-center gap-3">
+  <input
+    type="checkbox"
+    id="availability"
+    name="availability"
+    checked={tour.availability}
+    onChange={(e) =>
+      setTour({
+        ...tour,
+        availability: e.target.checked
+      })
+    }
+    className="h-4 w-4"
+  />
+
+  <Label htmlFor="availability">
+    Available
+  </Label>
+</div>
 
             <div className="space-y-2">
               <Label htmlFor="nextDeparture">Next Departure</Label>
