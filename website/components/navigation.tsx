@@ -163,41 +163,38 @@ const Navigation = () => {
                 >
                   {/* Main Nav Item */}
                   <Link
-                    href={item.href}
-                    className={`flex items-center space-x-1 px-1 py-2 text-sm font-semibold tracking-wide transition-colors duration-200 font-serif
-          ${pathname === item.href
-                        ? "text-orange-600 border-b-2 border-orange-600"
-                        : "text-slate-700 hover:text-orange-600"
-                      }`}
-                  >
-                    <span>{item.name}</span>
-                    {
-                      item.name === "Tours" && (
-                        isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />
-                      )
-                    }
-                  </Link>
+  href={item.href}
+  className={`flex items-center px-1 py-2 text-sm font-semibold tracking-wide transition-colors duration-200 font-serif
+    ${pathname === item.href
+      ? "text-orange-600 border-b-2 border-orange-600"
+      : "text-slate-700 hover:text-orange-600"
+    }`}
+>
+  <span>{item.name}</span>
+</Link>
 
                   {/* Dropdown only if children exist */}
-                  {item.children && isDropdownOpen && (
-                    <div className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-60 z-50">
-                      <ul className="py-2">
-                        {item.children.map((child) => (
-                          <li key={child.name}>
-                            <Link
-                              href={`/tours/category?category=${encodeURIComponent(child.href)}&tripType=${child.name}`}
-                              className="block px-4 py-2 text-sm capitalize text-slate-700 hover:bg-orange-100 hover:text-orange-600"
-                            >
-                              <div className="inline-flex items-center justify-center gap-2">
-                                {loading ? "loading..." : child.name}
-                                <span className="w-5 h-5 bg-orange-500 flex items-center justify-center text-white rounded-full text-sm">{child.count}</span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {item.children && isDropdownOpen === item.name && (
+  <div className="absolute left-0 top-full bg-white shadow-lg rounded-md w-60 z-50">
+    <ul className="py-2">
+      {item.children.map((child) => (
+        <li key={child.name}>
+          <Link
+            href={`/tours/category?category=${encodeURIComponent(child.href)}&tripType=${child.name}`}
+            className="block px-4 py-2 text-sm capitalize text-slate-700 hover:bg-orange-100 hover:text-orange-600"
+          >
+            <div className="inline-flex items-center justify-center gap-2">
+              {loading ? "loading..." : child.name}
+              <span className="w-5 h-5 bg-orange-500 flex items-center justify-center text-white rounded-full text-sm">
+                {child.count}
+              </span>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
                 </motion.div>
               )
             })}
