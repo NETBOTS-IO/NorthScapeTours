@@ -44,7 +44,7 @@ const ValuesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif">
             Our <span className="text-orange-600">Values</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">

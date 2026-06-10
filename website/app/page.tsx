@@ -7,6 +7,8 @@ import StatisticsCounter from "@/components/home/statistics-counter"
 import NewsletterSection from "@/components/home/newsletter-section"
 import FAQAccordion from "@/components/home/faq-accordion"
 import PopularPackagesClient from "@/components/home/popular-packages-client"
+import CertificationsSection from "@/components/home/certificationsection"
+
 
 export default function Home() {
   return (
@@ -17,7 +19,7 @@ export default function Home() {
       <WhyChooseUs />
       <EnhancedTestimonials />
       <StatisticsCounter />
-      {/* <NewsletterSection /> */}
+      <CertificationsSection />
       <FAQAccordion />
     </div>
   )

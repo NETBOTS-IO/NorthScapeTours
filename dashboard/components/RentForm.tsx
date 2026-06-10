@@ -25,6 +25,8 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
     fuelType: "",
     seats: "",
     driverName: "",
+    mileage: "null",
+    conditioned: "null",
     carImage: null as File | null,
   });
 
@@ -83,6 +85,8 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
       formData.append("fuelType", form.fuelType);
       formData.append("seats", form.seats);
       formData.append("driverName", form.driverName);
+      formData.append("mileage", form.mileage);
+      formData.append("conditioned", form.conditioned);
 
       if (form.carImage) {
         formData.append("carImage", form.carImage);
@@ -136,7 +140,29 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
               required
             />
           </div>
-
+          <div>
+            <Label htmlFor="seats">Max People</Label>
+            <Input
+            typeof="number"
+              type="number"
+              name="seats"
+              value={form.seats}
+              onChange={handleChange}
+              placeholder="e.g., 5"
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor="fuelType">Door Count</Label>
+            <Input
+            type="number"
+              name="fuelType"
+              value={form.fuelType}
+              onChange={handleChange}
+              placeholder="e.g.,5"
+              required
+            />
+          </div>
           {/* Price Per Day */}
           <div>
             <Label htmlFor="pricePerDay">
@@ -163,46 +189,73 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
               required
             />
           </div>
-
-          {/* Fuel Type */}
-          <div>
-            <Label htmlFor="fuelType">Fuel Type</Label>
-            <Input
-              name="fuelType"
-              value={form.fuelType}
-              onChange={handleChange}
-              placeholder="Petrol / Diesel"
-              required
-            />
-          </div>
-
-          {/* Seats */}
-          <div>
-            <Label htmlFor="seats">Seats</Label>
-            <Input
-              type="number"
-              name="seats"
-              value={form.seats}
-              onChange={handleChange}
-              placeholder="e.g., 5"
-              required
-            />
-          </div>
-
-          {/* Driver Name */}
           <div>
             <Label htmlFor="driverName">
-              <User className="inline w-4 h-4 mr-2" /> Driver Name
+              <User className="inline w-4 h-4 mr-2" /> Minimun Drive Age
             </Label>
             <Input
+            type="number"
               name="driverName"
               value={form.driverName}
               onChange={handleChange}
-              placeholder="Enter driver name"
+              placeholder="Enter Minimun Drive Age"
               required
             />
           </div>
+          <div>
+  <Label className="mb-2 block">Unlimited Mileage?</Label>
 
+  <div className="flex items-center gap-6">
+    <label className="flex items-center gap-2">
+      <input
+        type="radio"
+        name="mileage"
+        value="yes"
+        checked={form.mileage === "yes"}
+        onChange={handleChange}
+      />
+      Yes
+    </label>
+
+    <label className="flex items-center gap-2">
+      <input
+        type="radio"
+        name="mileage"
+        value="no"
+        checked={form.mileage === "no"}
+        onChange={handleChange}
+      />
+      No
+    </label>
+  </div>
+</div>
+<div>
+  <Label className="mb-2 block">Air-Conditioned?</Label>
+
+  <div className="flex items-center gap-6">
+    <label className="flex items-center gap-2">
+      <input
+        type="radio"
+        name="conditioned"
+        value="yes"
+        checked={form.conditioned === "yes"}
+        onChange={handleChange}
+      />
+      Yes
+    </label>
+
+    <label className="flex items-center gap-2">
+      <input
+        type="radio"
+        name="conditioned"
+        value="no"
+        checked={form.conditioned === "no"}
+        onChange={handleChange}
+      />
+      No
+    </label>
+  </div>
+</div>
           {/* Car Image */}
           <div>
                       <Label>Image</Label>
@@ -224,6 +277,7 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
           />
                       )}
                     </div>
+
           {/* Submit */}
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit Details"}

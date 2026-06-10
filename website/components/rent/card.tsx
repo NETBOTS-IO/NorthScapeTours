@@ -52,7 +52,8 @@ if (isLoading) return <div>Loading...</div>;
 
 // console.log('cars', cars)
 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+ const BASE_URL = "http://localhost:5000";
 
   return (
      <div className="min-h-screen bg-white">
@@ -91,32 +92,70 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
                 transition={{ duration: 0.3 }}
               >
                 <img src={`${BASE_URL}${car.carImage}` || "/placeholder.jpg"} alt={car.carName} className="w-full h-48 object-cover" />
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-slate-800">{car.carName}</h3>
-                  <div className="flex items-center justify-between">
+                <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
+  <div className="p-6">
+    {/* Header with Status Badge */}
+    <div className="flex justify-between items-start mb-4">
+      <div>
+        <h3 className="text-xl font-semibold text-slate-800 mb-1">{car.carName}</h3>
+        <p className="text-slate-500 text-sm">{car.carModel} Model</p>
+      </div>
+      {car.status === "Confirmed" && (
+        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+          {car.status}
+        </span>
+      )}
+    </div>
 
-                  <p className="text-slate-600 mb-4">{car.carModel} Model</p>
-                  {
-                    car.status === "Confirmed" && (
-                 <span
-                     className="px-2 py-1 rounded-full text-xs border text-white  bg-green-500 "
-                   >
-                       {car.status}
-                    </span>
-                    )
-                  }
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-black-600">${car.pricePerDay}/day</span>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
-                      onClick={()=> router.push(`/car-rent/${car._id}`)}
-                      >
-                        View Details
-                      </button>
-                    </motion.div>
-                  </div>
-                </div>
+    {/* Features as List Items */}
+    <div className="space-y-2 mb-5">
+      <div className="flex items-center text-sm">
+        <span className="w-32 text-slate-500">Mileage</span>
+        <span className="text-slate-800 font-medium">{car.mileage ? "Yes" : "No"}</span>
+      </div>
+      
+      <div className="flex items-center text-sm">
+        <span className="w-32 text-slate-500">Air Conditioned</span>
+        <span className="text-slate-800 font-medium">{car.conditioned ? "Yes" : "No"}</span>
+      </div>
+      
+    <div className="flex items-center text-sm">
+  <span className="mr-2 text-slate-500">Minimum Driver Age</span>
+  <span className="text-slate-800 font-medium">{car.driverName}</span>
+</div>
+      
+      <div className="flex items-center text-sm">
+        <span className="w-32 text-slate-500">Capacity</span>
+        <span className="text-slate-800 font-medium">{car.seats} people</span>
+      </div>
+      
+      <div className="flex items-center text-sm">
+        <span className="w-32 text-slate-500">Doors-Count</span>
+        <span className="text-slate-800 font-medium">{car.fuelType}</span>
+      </div>
+    </div>
+
+    {/* Price and Action */}
+    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div>
+        <span className="text-3xl font-bold text-orange-600">${car.pricePerDay}</span>
+        <span className="text-slate-400 text-sm"> / day</span>
+      </div>
+      
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <button 
+          className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-5 py-2 rounded-lg transition-all duration-300 flex items-center gap-2"
+          onClick={() => router.push(`/car-rent/${car._id}`)}
+        >
+          View Details
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </motion.div>
+    </div>
+  </div>
+</div>
               </motion.div>
             ))}
           </motion.div> 
