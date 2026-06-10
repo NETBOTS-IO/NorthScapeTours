@@ -143,6 +143,7 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
           <div>
             <Label htmlFor="seats">Max People</Label>
             <Input
+            typeof="number"
               type="number"
               name="seats"
               value={form.seats}
@@ -154,6 +155,7 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
           <div>
             <Label htmlFor="fuelType">Door Count</Label>
             <Input
+            type="number"
               name="fuelType"
               value={form.fuelType}
               onChange={handleChange}
@@ -192,10 +194,11 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
               <User className="inline w-4 h-4 mr-2" /> Minimun Drive Age
             </Label>
             <Input
+            type="number"
               name="driverName"
               value={form.driverName}
               onChange={handleChange}
-              placeholder="Enter driver name"
+              placeholder="Enter Minimun Drive Age"
               required
             />
           </div>

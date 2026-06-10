@@ -176,8 +176,8 @@ export default function RentManagement() {
                     <span
                       className={`px-2 py-1 text-xs rounded ${
                         car.conditioned === "Yes"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-green-100 text-green-700"
                       }`}
                     >
                       {car.conditioned}
@@ -185,7 +185,17 @@ export default function RentManagement() {
                   </TableCell>
 
                   {/* Mileage */}
-                  <TableCell>{car.mileage}</TableCell>
+                  <TableCell>
+                  <span
+                      className={`px-2 py-1 text-xs rounded ${
+                        car.mileage === "Yes"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-green-100 text-green-700"
+                      }`}
+                    >
+                      {car.mileage}
+                    </span>
+                    </TableCell>
 
                   {/* Fuel */}
                   {/* <TableCell>{car.fuelType}</TableCell> */}
