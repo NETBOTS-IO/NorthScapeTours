@@ -8,7 +8,7 @@ const getImageUrls = (files) => {
 // 📌 CREATE CAR
 export const createCar = async (req, res) => {
   try {
-    const { carName, carModel, pricePerDay, transmission, fuelType, seats, driverName } = req.body;
+    const { carName, carModel, pricePerDay, transmission, fuelType, seats, driverName, conditioned, mileage } = req.body;
 
     // Handle uploaded images
     if (req.files && req.files.carImage) {
@@ -27,6 +27,8 @@ export const createCar = async (req, res) => {
       fuelType,
       seats,
       driverName,
+      conditioned,
+      mileage,
       carImage: req.body.carImage
     });
     await newCar.save();
@@ -66,6 +68,8 @@ export const updateCar = async (req, res) => {
       transmission,
       fuelType,
       seats,
+      conditioned,
+      mileage,
       driverName
     } = req.body;
     
@@ -76,6 +80,8 @@ export const updateCar = async (req, res) => {
       transmission,
       fuelType,
       seats,
+      conditioned,
+      mileage,
       driverName
     };
 

@@ -89,11 +89,11 @@ export default function RentManagement() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Preview</TableHead>
-            <TableHead>Name</TableHead>
+            {/* <TableHead>Preview</TableHead> */}
+            <TableHead>Car Name</TableHead>
             <TableHead>Model</TableHead>
             <TableHead>Price/Day</TableHead>
-            <TableHead>Driver</TableHead>
+            <TableHead>Minimum Driver Age</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -102,7 +102,7 @@ export default function RentManagement() {
             .slice((page - 1) * perPage, page * perPage)
             .map((car) => (
               <TableRow key={car._id}>
-                <TableCell>
+                {/* <TableCell>
                   {car.carImage ? (
                     <img
                       src={`${BASE_URL}${car.carImage[0]}`}
@@ -112,7 +112,7 @@ export default function RentManagement() {
                   ) : (
                     <span className="text-gray-400">No Image</span>
                   )}
-                </TableCell>
+                </TableCell> */}
                 <TableCell>{car.carName}</TableCell>
                 <TableCell>{car.carModel}</TableCell>
                 <TableCell>${car.pricePerDay}</TableCell>

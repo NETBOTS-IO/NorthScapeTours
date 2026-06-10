@@ -339,13 +339,13 @@ import Image from "next/image";
 
 const iconMap = { Calendar, Users, Globe, Award };
 const titleStyle =
-  "font-sans text-3xl md:text-4xl font-extrabold tracking-[-0.02em] text-slate-600 leading-tight";
+  "font-serif text-3xl md:text-4xl font-extrabold tracking-[-0.02em] text-slate-600 leading-tight";
 
 const subTitleStyle =
-  "font-sans text-xl md:text-2xl font-semibold tracking-tight text-slate-900 leading-snug";
+  "font-serif text-xl md:text-2xl font-semibold tracking-tight text-slate-900 leading-snug semibold";
 
-const textStyle =
-"font-sans text-base md:text-lg leading-7 text-slate-600 font-normal"
+  const textStyle =
+  "font-sans text-lg md:text-xl leading-8 text-slate-600 font-normal";
 
 const AboutStory = () => {
   const ref = useRef(null);
@@ -467,7 +467,7 @@ const AboutStory = () => {
             transition={{ duration: 0.6 }}
             className="text-left text-balance mb-12 md:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+            <h2 className={titleStyle}>
               Our <span className="black">Commitment</span>
             </h2>
             <p className={textStyle}>
