@@ -52,8 +52,8 @@ if (isLoading) return <div>Loading...</div>;
 
 // console.log('cars', cars)
 
-// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
- const BASE_URL = "http://localhost:5000";
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+//  const BASE_URL = "http://localhost:5000";
 
   return (
      <div className="min-h-screen bg-white">
