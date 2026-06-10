@@ -11,5 +11,7 @@ export interface RentCar {
   carImage: string;
   createdAt?: string;
   updatedAt?: string;
-  status?:string
+  status?:string;
+  conditioned:string;
+  mileage:string;
 }

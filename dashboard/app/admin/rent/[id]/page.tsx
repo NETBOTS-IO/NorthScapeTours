@@ -65,7 +65,7 @@ export default function SingleRentCar() {
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border">
         <div className="grid lg:grid-cols-2 gap-8 p-6">
           {/* Car Images */}
-          {/* <div>
+          <div>
             {car.carImage?.length > 0 ? (
               <img
                 src={`${BASE_URL}${car.carImage[0]}`}
@@ -90,7 +90,7 @@ export default function SingleRentCar() {
                 ))}
               </div>
             )}
-          </div> */}
+          </div>
 
           {/* Car Details */}
           <div>

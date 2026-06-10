@@ -257,7 +257,7 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
   </div>
 </div>
           {/* Car Image */}
-          {/* <div>
+          <div>
                       <Label>Image</Label>
                       <Input
                         type="file"
@@ -276,7 +276,7 @@ export default function RentForm({ initialData, onSuccess }: RentFormProps) {
             className="mt-2 h-40 object-cover border"
           />
                       )}
-                    </div> */}
+                    </div>
 
           {/* Submit */}
           <Button type="submit" disabled={isSubmitting}>

@@ -116,7 +116,7 @@ export default function RentManagement() {
         <Table>
           <TableHeader>
             <TableRow>
-              {/* <TableHead>Image</TableHead> */}
+              <TableHead>Image</TableHead>
               <TableHead>Car Name</TableHead>
               <TableHead>Model</TableHead>
               <TableHead>Price/Day</TableHead>
@@ -137,7 +137,7 @@ export default function RentManagement() {
               .map((car) => (
                 <TableRow key={car._id}>
                   {/* Image */}
-                  {/* <TableCell>
+                  <TableCell>
                     {car.carImage?.length > 0 ? (
                       <img
                         src={`${BASE_URL}${car.carImage[0]}`}
@@ -149,7 +149,7 @@ export default function RentManagement() {
                         No Image
                       </span>
                     )}
-                  </TableCell> */}
+                  </TableCell>
 
                   {/* Name */}
                   <TableCell className="font-medium">

@@ -11,7 +11,7 @@ export const QRFeedbackGenerator = async (req, res) => {
       width: 800,
       margin: 2,
       color: {
-        dark: "#f97316",
+        dark: "#000000",
         light: "#ffffff",
       },
     });
