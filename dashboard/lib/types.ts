@@ -162,8 +162,11 @@ export interface RentCar {
   seats: number;
   driverName: string;
   carImage: string;
+  conditioned: string;
+mileage:string;
   createdAt?: string;
   updatedAt?: string;
+  status:string;
 }
 
 export interface Booking {

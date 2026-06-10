@@ -125,12 +125,12 @@ export default function SingleRentCar() {
               />
 
               <DetailCard
-                title="Fuel Type"
+                title="Door Count"
                 value={car.fuelType}
               />
 
               <DetailCard
-                title="Seats"
+                title="Max People"
                 value={String(car.seats)}
               />
 
