@@ -103,14 +103,29 @@ const book = booking.data
         <CardContent>
           <div className="prose max-w-none">
             <div className="whitespace-pre-line">
-                    <h2 className="text-lg text-gray-700 mb-4">Customer Detials</h2>
+                    <h2 className="text-lg text-gray-700 mb-4">Customer Details</h2>
                     <p className="text-medium text-gray-900 mb-4">Customer Name:{book.customerName}</p>
                     <p className="text-medium text-gray-900 mb-4">Customer Email:{book.customerEmail}</p>
-                    <p className="text-medium text-gray-900 mb-4">Custmoer Phome:{book.phoneNumber}</p>
+                    <p className="text-medium text-gray-900 mb-4">Custmoer Phone:{book.phoneNumber}</p>
                     <p className="text-medium text-gray-900 mb-4">Pick UP Location:{book.pickupLocation}</p>
                     <p className="text-medium text-gray-900 mb-4">Drop Off Location:{book.dropoffLocation}</p>
-                    <p className="text-medium text-gray-900 mb-4">Pick Up Date:{book.pickupDate}</p>
-                    <p className="text-medium text-gray-900 mb-4">Drop Off Date:{book.dropoffDate}</p>
+                    <p className="text-medium text-gray-900 mb-4">
+  Pick Up Date:{" "}
+  {new Date(book.pickupDate).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
+</p>
+
+<p className="text-medium text-gray-900 mb-4">
+  Drop Off Date:{" "}
+  {new Date(book.dropoffDate).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
+</p>
                 </div>
             </div>
 

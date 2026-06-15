@@ -31,6 +31,7 @@ import {
   Activity,
   MountainSnow,
 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { getDestinationById } from "@/lib/data-utils";
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "@/Var";
@@ -684,15 +685,22 @@ export default function DestinationForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="availability">Availability</Label>
-              <Input
-                id="availability"
-                name="availability"
-                value={tour.availability}
-                onChange={handleChange}
-                placeholder="e.g., Year-round"
-              />
-            </div>
+  <Label htmlFor="availability">Availability</Label>
+
+  <div className="flex items-center space-x-2">
+    <Checkbox
+      id="availability"
+      checked={tour.availability}
+      onCheckedChange={(checked) =>
+        setTour((prev) => ({
+          ...prev,
+          availability: checked,
+        }))
+      }
+    />
+    <Label htmlFor="availability">Available</Label>
+  </div>
+</div>
 
             <div className="space-y-2">
               <Label htmlFor="nextDeparture">Next Departure</Label>
