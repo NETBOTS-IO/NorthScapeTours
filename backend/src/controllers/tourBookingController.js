@@ -129,8 +129,13 @@ export const updateBookingTour = async (req, res) => {
           <p><strong>Availability:</strong> ${
             tourUpdate.availability ? "Available" : "Not Available"
           }</p>
-          <p><strong>Next Departure:</strong> ${tourUpdate.nextDeparture}</p>
-          <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
+          <p><strong>Next Departure:</strong> ${
+            new Date(tourUpdate.nextDeparture).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
+          }</p>          <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
             ${
               isAdmin
                 ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
