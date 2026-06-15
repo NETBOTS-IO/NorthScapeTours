@@ -109,7 +109,7 @@ export default function ViewBlogPage() {
                     <p className="text-medium text-gray-900 mb-4">Custmoer Phome:{booking.phone}</p>
                     <p className="text-medium text-gray-900 mb-4">Customer Email:{booking.email}</p>
                     <p className="text-medium text-gray-900 mb-4">Booking Created Date:{new Date(booking?.createdAt!).toLocaleDateString()}</p>
-                    <p className="text-medium text-gray-900 mb-4">Selected Departure Date:{new Date(booking.selectedDate).toLocaleDateString()}</p>
+                    <p className="text-medium text-gray-900 mb-4">Selected Departure Date:{new Date(booking.tour.nextDeparture).toLocaleDateString()}</p>
                     <p className="text-medium text-gray-900 mb-4">Tour Total Price:{booking.totalPrice}</p>
                     <p className="text-medium text-gray-900 mb-4">Number of Travelers:{booking.travelers}</p>
                 </div>
