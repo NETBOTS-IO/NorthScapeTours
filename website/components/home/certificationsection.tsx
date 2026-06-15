@@ -38,7 +38,7 @@ export default function CertificationsSection() {
           </h2>
 
           <p className="mt-4 max-w-3xl mx-auto font-sans text-base md:text-lg leading-6 text-slate-600">
-            NorthScape Tours operates under official registrations and tourism
+            NorthScape Pakistan operates under official registrations and tourism
             licenses, demonstrating our commitment to professionalism,
             transparency, and trusted travel services across Pakistan.
           </p>
