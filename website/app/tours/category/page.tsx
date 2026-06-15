@@ -35,9 +35,9 @@ const TripsListing = () => {
       setVisibleCount((prev) => prev + BLOGS_PER_PAGE); 
     };
 
-    const BASE_URL = "https://api.northscapepakistan.com" 
+    // const BASE_URL = "https://api.northscapepakistan.com" 
 
-  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
   const minPrice = searchParams.get("minPrice");
