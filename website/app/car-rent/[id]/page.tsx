@@ -215,7 +215,7 @@ const CarDetails = () => {
         </svg>
         <div>
           <p className="text-sm text-slate-600">Mileage</p>
-          <p className="font-semibold">{car?.mileage ? "Yes" : "No"}</p>
+          <p className="font-semibold">{car?.mileage}</p>
         </div>
       </div>
       
@@ -226,7 +226,7 @@ const CarDetails = () => {
         </svg>
         <div>
           <p className="text-sm text-slate-600">Air Conditioned</p>
-          <p className="font-semibold">{car?.conditioned ? "Yes" : "No"}</p>
+          <p className="font-semibold">{car?.conditioned}</p>
         </div>
       </div>
     </div>
