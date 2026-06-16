@@ -41,7 +41,7 @@ const ContactForm = () => {
 
   `
 
-  const phoneNumber = 923480578106
+  const phoneNumber = 923555758727
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, "_blank")
 
