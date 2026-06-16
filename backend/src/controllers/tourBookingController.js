@@ -88,61 +88,62 @@ export const updateBookingTour = async (req, res) => {
 
     const generateEmailTemplate = (isAdmin = false) => {
       return `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; background: #ffffff;">
-        <div style="background: orange; padding: 20px; text-align: center; color: white;">
-          <h1 style="margin: 0;">${
-            isAdmin ? "Booking Confirmation Detail!" : "Your Booking Done!"
-          }</h1>
-          <p style="margin: 5px 0;">${
-            isAdmin
-              ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
-              : "Thank you for choosing us"
-          }</p>
-        </div>
-
-        <div style="padding: 20px; color: #333;">
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">${
-            isAdmin ? "Customer Details" : "Your Details"
-          }</h2>
-          <p><strong>First Name:</strong> ${tour.firstName}</p>
-          <p><strong>Last Name:</strong> ${tour.lastName}</p>
-          <p><strong>Custemer Email:</strong> ${tour.email}</p>
-          <p><strong>Custemer Phone:</strong> ${tour.phone}</p>
-          <p><strong>Tour Availability:</strong> ${
-            tour.availability ? "Available" : "Not Available"
-          }</p>
-          <p><strong>No of Traveler:</strong> ${tour.travelers}</p>
-          <p><strong>Tour Total Price:</strong> ${tour.totalPrice}</p>
-          <p><strong>Selected Date:</strong> ${new Date(
-            tour.selectedDate
-          ).toDateString()}</p>
-
-          <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">${
-            isAdmin ? "Tour Details" : "Your Booked Tour Details"
-          }</h2>
-          <p><strong>Tour Name:</strong> ${tourUpdate.name}</p>
-          <p><strong>Country:</strong> ${tourUpdate.country}</p>
-          <p><strong>Location:</strong> ${tourUpdate.category}</p>
-          <p><strong>Catergory:</strong> ${tourUpdate.category}</p>
-          <p><strong>Market Price:</strong> ${tourUpdate.price}</p>
-          <p><strong>Original Price:</strong> ${tourUpdate.originalPrice}</p>
-          <p><strong>Availability:</strong> ${
-            tourUpdate.availability ? "Available" : "Not Available"
-          }</p>
-          <p><strong>Next Departure:</strong> ${tourUpdate.nextDeparture}</p>
-          <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
-            ${
-              isAdmin
-                ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
-                : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://northscapepakistan.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
-            }
-          </div>
-          <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
-            <a style="color: blue" href="info@netbots.io">NetBots</a> Contact Us for software solutions.
-          </div>
-        </div>
+    
+    ${
+      isAdmin ? "Booking Confirmation Detail!" : "Your Booking Done!"
+    }
+    ${
+      isAdmin
+        ? "Customer details are mentioned below. Go to dashboard to confirm this Booking"
+        : "Thank you for choosing us"
+    }
+    
+    <div style="padding: 20px; color: #333;">
+      <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        ${isAdmin ? "Customer Details" : "Your Details"}
+      </h2>
+    
+      <p><strong>First Name:</strong> ${tour.firstName}</p>
+      <p><strong>Last Name:</strong> ${tour.lastName}</p>
+      <p><strong>Customer Email:</strong> ${tour.email}</p>
+      <p><strong>Customer Phone:</strong> ${tour.phone}</p>
+    
+      <p><strong>No of Traveler:</strong> ${tour.travelers}</p>
+      <p><strong>Tour Total Price:</strong> ${tour.totalPrice}</p>
+    
+      <h2 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 20px;">
+        ${isAdmin ? "Tour Details" : "Your Booked Tour Details"}
+      </h2>
+    
+      <p><strong>Tour Name:</strong> ${tourUpdate.name}</p>
+      <p><strong>Country:</strong> ${tourUpdate.country}</p>
+      <p><strong>Location:</strong> ${tourUpdate.location}</p>
+      <p><strong>Category:</strong> ${tourUpdate.category}</p>
+      <p><strong>Market Price:</strong> ${tourUpdate.price}</p>
+      <p><strong>Original Price:</strong> ${tourUpdate.originalPrice}</p>
+    
+      <p><strong>Next Departure:</strong> ${new Date(
+        tourUpdate.nextDeparture
+      ).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })}</p>
+    
+      <div style="background: #f5f5f5; padding: 15px; text-align: center; border-top: 1px solid #ddd; color: #555;">
+        ${
+          isAdmin
+            ? `<p style="margin: 0;">Please <a href="https://admin.northscapepakistan.com/login" style="color: orange; font-weight: bold; text-decoration: none;">login to your dashboard</a> to confirm this booking.</p>`
+            : `<p style="margin: 0;">We look forward to your trip! If you have any questions, please <a href="https://northscapepakistan.com/contact" style="color: orange; font-weight: bold; text-decoration: none;">contact us</a>.</p>`
+        }
       </div>
-      `;
+    
+      <div style="background: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; color: #555;">
+        <a style="color: blue" href="info@netbots.io">NetBots</a> Contact Us for software solutions.
+      </div>
+    </div>
+    
+    `;
     };
 
     const sendBookingEmails = async (booking) => {
@@ -266,7 +267,8 @@ export const createTourbooking = async (req, res) => {
             <p><strong>Last Name:</strong> ${lastName}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Tour Availability:</strong> ${
+            <p><strong>Tour Availability:</strong>
+             ${
               availability ? "Available" : "Booked"
             }</p>
             <p><strong>Tour Total Price:</strong> ${totalPrice}</p>

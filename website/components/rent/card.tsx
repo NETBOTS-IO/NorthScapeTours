@@ -48,11 +48,23 @@ useEffect(()=>{
   fetchCars();
 },[])
 
-if (isLoading) return <div>Loading...</div>;
-
+if (isLoading) {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500"></div>
+        <p className="text-sm text-gray-500 font-medium">
+          Please Wait! Loading...
+        </p>
+      </div>
+    </div>
+  );
+}
 // console.log('cars', cars)
 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+const BASE_URL = "https://api.northscapepakistan.com" 
+
 //  const BASE_URL = "http://localhost:5000";
 
   return (
@@ -111,12 +123,12 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
     <div className="space-y-2 mb-5">
       <div className="flex items-center text-sm">
         <span className="w-32 text-slate-500">Mileage</span>
-        <span className="text-slate-800 font-medium">{car.mileage ? "Yes" : "No"}</span>
+        <span className="text-slate-800 font-medium">{car.mileage}</span>
       </div>
       
       <div className="flex items-center text-sm">
         <span className="w-32 text-slate-500">Air Conditioned</span>
-        <span className="text-slate-800 font-medium">{car.conditioned ? "Yes" : "No"}</span>
+        <span className="text-slate-800 font-medium">{car.conditioned}</span>
       </div>
       
     <div className="flex items-center text-sm">
