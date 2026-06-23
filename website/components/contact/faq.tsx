@@ -126,7 +126,7 @@ const FAQ = () => {
         >
           <div className="flex items-center justify-center mb-6">
             <HelpCircle className="w-12 h-12 text-orange-600 mr-4" />
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 font-serif">
               Frequently Asked <span className="text-orange-600">Questions</span>
             </h2>
           </div>
@@ -234,7 +234,7 @@ const FAQ = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12 p-8 bg-gradient-to-r from-orange-50 to-green-50 rounded-2xl border border-slate-200"
         >
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">Still Have Questions?</h3>
+          <h3 className="text-2xl font-bold text-slate-800 mb-4 font-serif">Still Have Questions?</h3>
           <p className="text-slate-600 mb-6">Our travel experts are here to help you plan the perfect adventure</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" 

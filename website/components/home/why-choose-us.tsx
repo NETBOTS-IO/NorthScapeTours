@@ -234,7 +234,7 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">Loved by Thousands of Explorers</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-4 font-serif">Loved by Thousands of Explorers</h3>
             <p className="text-lg text-gray-400">Our pursuit of excellence is demonstrated by our achievements.</p>
           </motion.div>
 
