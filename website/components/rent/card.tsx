@@ -62,8 +62,8 @@ if (isLoading) {
 }
 // console.log('cars', cars)
 
-// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
-const BASE_URL = "https://api.northscapepakistan.com" 
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+// const BASE_URL = "https://api.northscapepakistan.com" 
 
 //  const BASE_URL = "http://localhost:5000";
 
@@ -73,14 +73,14 @@ const BASE_URL = "https://api.northscapepakistan.com"
       <section className="py-16 bg-white ">
         <div className="container mx-auto px-4">
          <motion.h2
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 text-center "
+            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 text-center font-serif "
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             Our{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 font-serif">
               Fleet
             </span>
           </motion.h2>
