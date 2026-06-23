@@ -59,7 +59,7 @@ const FAQAccordion = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif">
             Frequently Asked <span className="text-[#f5530c]">Questions</span>
           </h2>
           <p className="text-xl text-slate-400">Find answers to common questions about our travel services</p>

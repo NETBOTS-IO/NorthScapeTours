@@ -56,7 +56,7 @@ const InternationTravelersHero = () => {
 
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
         <motion.div variants={textVariants} initial="initial" animate="animate">
-          <motion.h1 variants={childVariants} className="text-5xl md:text-6xl font-bold mb-6 text-slate-800">
+          <motion.h1 variants={childVariants} className="text-5xl md:text-6xl font-bold mb-6 text-slate-800 font-serif">
             Pakistan <span className="text-orange-600">Tourist</span> Visa Guides
           </motion.h1>
           <motion.p variants={childVariants} className="text-xl text-slate-700 max-w-2xl mx-auto">
