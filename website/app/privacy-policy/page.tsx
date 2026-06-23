@@ -18,8 +18,8 @@ const PrivacyPolicy = () => {
             transition={{ duration: 0.6 }}
             className="text-left text-balance mb-12 md:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
-              Our <span className="text-orange-600">Terms & Consdition</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
+              Our <span className="text-orange-600">Terms & Conditions</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl px-4">
               These Terms and Conditions govern all bookings made with Northscape Pakistan Tours and Travels (SMC-Pvt) Ltd. By confirming a booking with us, clients agree to abide by the following terms:
@@ -41,14 +41,14 @@ const PrivacyPolicy = () => {
             transition={{ duration: 0.6 }}
             className="text-left text-balance mb-12 md:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
               Our <span className="text-orange-600">Policy</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl px-4">
               At Northscape Pakistan Tours and Travels (SMC-Pvt) Ltd (“Northscape Pakistan,” “we,” “our,” or “us”), we value your trust and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you interact with our website, services, and team.
             </p>
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 Information <span className="text-orange-600">We Collect</span>
               </h2>
               <ul className="list-disc list-inside text-slate-600 max-w-3xl px-4">
@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
               </ul>
             </div>
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 How We Use <span className="text-orange-600"> Your Information</span>
               </h2>
               <p className="text-lg sm:text-xl text-slate-600 max-w-3xl px-4">
@@ -83,7 +83,7 @@ const PrivacyPolicy = () => {
             </div>
             {/* security data  */}
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 Data <span className="text-orange-600">  Protection & Security</span>
               </h2>
               <ul className="list-disc list-inside text-slate-600 max-w-3xl px-4 mt-4">
@@ -99,7 +99,7 @@ const PrivacyPolicy = () => {
             </div>
             {/* thirt party data  */}
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 Third-Party <span className="text-orange-600">Services</span>
               </h2>
               <ul className="list-disc list-inside text-slate-600 max-w-3xl px-4 mt-4">
@@ -115,7 +115,7 @@ const PrivacyPolicy = () => {
             </div>
             {/* Cookies & Website Tracking */}
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 Cookies & Website <span className="text-orange-600">Tracking</span>
               </h2>
               <ul className="list-disc list-inside text-slate-600 max-w-3xl px-4 mt-4">
@@ -131,7 +131,7 @@ const PrivacyPolicy = () => {
             </div>
             {/* Your Rights */}
             <div className="mt-6 w-full">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
                 Your <span className="text-orange-600">Rights</span>
               </h2>
               <ul className="list-disc list-inside text-slate-600 max-w-3xl px-4 mt-4">
@@ -158,7 +158,7 @@ const PrivacyPolicy = () => {
             transition={{ duration: 0.6 }}
             className="text-left text-balance mb-12 md:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
               International  <span className="text-orange-600">Clients</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto px-4">
@@ -172,7 +172,7 @@ const PrivacyPolicy = () => {
             transition={{ duration: 0.6 }}
             className="text-left text-balance mb-12 md:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-800 font-serif">
               Policy  <span className="text-orange-600">Updates</span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto px-4">

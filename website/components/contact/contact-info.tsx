@@ -83,7 +83,7 @@ const ContactInfo = () => {
     >
       {/* Contact Methods */}
       <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl p-8">
-        <h3 className="text-2xl font-bold text-slate-800 mb-6">Get In Touch</h3>
+        <h3 className="text-2xl font-bold text-slate-800 mb-6 font-serif">Get In Touch</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon
@@ -121,7 +121,7 @@ const ContactInfo = () => {
       <motion.div variants={itemVariants} className="bg-slate-50 rounded-2xl p-8">
         <div className="flex items-center mb-6">
           <Clock className="w-6 h-6 text-orange-600 mr-3" />
-          <h3 className="text-2xl font-bold text-slate-800">Office Hours</h3>
+          <h3 className="text-2xl font-bold text-slate-800 font-serif">Office Hours</h3>
         </div>
         <div className="space-y-3">
           {officeHours.map((schedule, index) => (

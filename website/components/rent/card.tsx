@@ -122,12 +122,12 @@ const BASE_URL = "https://api.northscapepakistan.com"
     {/* Features as List Items */}
     <div className="space-y-2 mb-5">
       <div className="flex items-center text-sm">
-        <span className="w-32 text-slate-500">Mileage</span>
+        <span className="w-32 text-slate-500">Unlimited Mileage?</span>
         <span className="text-slate-800 font-medium">{car.mileage}</span>
       </div>
       
       <div className="flex items-center text-sm">
-        <span className="w-32 text-slate-500">Air Conditioned</span>
+        <span className="w-32 text-slate-500">Air Conditioned?</span>
         <span className="text-slate-800 font-medium">{car.conditioned}</span>
       </div>
       

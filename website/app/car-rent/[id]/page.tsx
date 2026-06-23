@@ -200,13 +200,13 @@ const CarDetails = () => {
         </div>
       </div>
       
-      <div className="flex items-center gap-3">
+      {/* <div className="flex items-center gap-3">
         <Shield className="w-5 h-5 text-orange-600" />
         <div>
           <p className="text-sm text-slate-600">Insurance</p>
           <p className="font-semibold">Included</p>
         </div>
-      </div>
+      </div> */}
       
       {/* Mileage */}
       <div className="flex items-center gap-3">
