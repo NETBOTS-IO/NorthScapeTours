@@ -20,6 +20,7 @@ import {
   NotebookPen,
   Users ,
    CalendarCheck, 
+   QrCode,
   MapPinCheck, 
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -38,6 +39,8 @@ const menuItems = [
   { icon: FileText, label: "Blogs", href: "/admin/blogs" },
   { icon: BookOpenCheck , label: "Testimonials", href: "/admin/testimonials" },
   { icon: Users  , label: "Users", href: "/admin/user" },
+  { icon: QrCode  , label: "FeedBack-QrCode", href: "/admin/qrcode" },
+
   // { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
 ]
 

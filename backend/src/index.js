@@ -21,6 +21,7 @@ import authRoutes from './routes/authRoutes.js';
 import TourBookingRoutes from './routes/tourBookingRoutes.js';
 import DestinationBookingRoutes from './routes/destinationBookingRoutes.js';
 import FeedbackRoutes from './routes/feedbackRoutes.js' 
+import qrRoutes from './routes/qrRoutes.js' 
 
 dotenv.config();
 
@@ -112,6 +113,7 @@ app.use('/api/destinations', DestinationRoutes);
 app.use('/api/tour-booking', TourBookingRoutes);
 app.use('/api/destination-booking', DestinationBookingRoutes);
 app.use("/api", FeedbackRoutes);
+app.use("/api/qr", qrRoutes);
 
 // vN9RvwsMBLkwKU16
 

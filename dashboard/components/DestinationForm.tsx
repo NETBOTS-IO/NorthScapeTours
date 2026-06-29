@@ -40,18 +40,31 @@ import { Separator } from "@/components/ui/separator";
 import { Destination } from "@/lib/types";
 
 const tourCategories = [
-  "Swat",
-  "Skardu",
-  "Shogran-SiriPaye",
-  "Neelum Valley",
-  "Naran Kaghan",
-  "Murree",
-  "Malam Jabba",
-  "Lahore",
-  "Khanpur Dam",
-  "Islamabad",
-  "Karachi",
-  "Hunza Valley",
+  // "Swat",
+  // "Skardu",
+  // "Shogran-SiriPaye",
+  // "Neelum Valley",
+  // "Naran Kaghan",
+  // "Murree",
+  // "Malam Jabba",
+  // "Lahore",
+  // "Khanpur Dam",
+  // "Islamabad",
+  // "Karachi",
+  // "Hunza Valley",
+
+  "Valley",
+  "Mountain",
+  "Lake",
+  "Hill Station",
+  "National Park",
+  "Desert",
+  "Fort & Heritage",
+  "Religious Site",
+  "City",
+  "Dam",
+  "Meadow",
+  "Waterfall",
 ];
 
 const ImagePreview = ({
