@@ -88,7 +88,7 @@ const TeamSection = () => {
                     whileHover={{ y: -3 }}
                     className="p-2 bg-slate-100 hover:bg-orange-100 rounded-full text-slate-600 hover:text-orange-600 transition-colors"
                     href={
-                      `https://mail.google.com/mail/?view=cm&fs=1&to=${member.social.email}&su=Tour%20Inquiry&body=Hello%20Northscape%20Tours`
+                      `https://mail.google.com/mail/?view=cm&fs=1&to=${member.social.email}&su=Tour%20Inquiry&body=Hello%20Northscape%20Pakistan`
                       // i === 0
                       //   ? 
                         // `mailto:${member.social.email}`
