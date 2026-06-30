@@ -329,31 +329,38 @@ export const updateDestination = async (req, res) => {
 
 export const deleteDestination = async (req, res) => {
   try {
-    if (!req.params.id) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Destination ID is required" });
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Destination ID is required",
+      });
     }
 
-    const Destination = await Destination.findByIdAndDelete(req.params.id);
-    if (!Destination) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Destination not found" });
+    const deletedDestination = await Destination.findByIdAndDelete(id);
+
+    if (!deletedDestination) {
+      return res.status(404).json({
+        success: false,
+        message: "Destination not found",
+      });
     }
+
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
-    res.setHeader("ETag", Date.now().toString()); // Ensure new data each time
-    res.json({ success: true, message: "Destination deleted successfully" });
+
+    return res.json({
+      success: true,
+      message: "Destination deleted successfully",
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error deleting Destination",
-        error: error.message,
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting Destination",
+      error: error.message,
+    });
   }
 };
 
