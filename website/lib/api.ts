@@ -59,8 +59,8 @@ export async function fetchTours() {
     if (isAxiosError(err)) {
       throw new NetworkError(
         err.response?.data?.message ||
-          err.message ||
-          "Network error while fetching tours"
+        err.message ||
+        "Network error while fetching tours"
       );
     }
     throw new ApiError("Unexpected error while fetching tours");
@@ -85,8 +85,8 @@ export async function fetchTourById(id: string) {
     if (isAxiosError(err)) {
       throw new NetworkError(
         err.response?.data?.message ||
-          err.message ||
-          "Network error while fetching tour"
+        err.message ||
+        "Network error while fetching tour"
       );
     }
     throw new ApiError("Unexpected error while fetching tour");
@@ -109,8 +109,8 @@ export async function fetchRelatedTours(id: string) {
     if (isAxiosError(err)) {
       throw new NetworkError(
         err.response?.data?.message ||
-          err.message ||
-          "Network error while fetching related tours"
+        err.message ||
+        "Network error while fetching related tours"
       );
     }
     throw new ApiError("Unexpected error while fetching related tours");
@@ -135,8 +135,8 @@ export async function fetchTourCategories() {
     if (isAxiosError(err)) {
       throw new NetworkError(
         err.response?.data?.message ||
-          err.message ||
-          "Network error while fetching tour categories"
+        err.message ||
+        "Network error while fetching tour categories"
       );
     }
     throw new ApiError("Unexpected error while fetching tour categories");
@@ -243,8 +243,8 @@ export async function fetchBlogs() {
     if (isAxiosError(err)) {
       throw new NetworkError(
         err.response?.data?.message ||
-          err.message ||
-          "Network error while fetching tours"
+        err.message ||
+        "Network error while fetching tours"
       );
     }
     throw new ApiError("Unexpected error while fetching tours");
