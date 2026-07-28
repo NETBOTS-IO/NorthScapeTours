@@ -8,8 +8,8 @@ import { MapPin, Clock, Users, Star, Heart, Share2 } from "lucide-react"
 import { Destination } from "@/data/destinations-data"
 import { getDestinations } from "@/lib/api"
 
-// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
-const BASE_URL = "https://api.northscapepakistan.com"
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+// const BASE_URL = "https://api.northscapepakistan.com"
 
 const DestinationsGrid = () => {
   const ref = useRef(null)
