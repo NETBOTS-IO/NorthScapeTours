@@ -6,17 +6,21 @@ import Image from "next/image"
 import { motion, useInView } from "framer-motion"
 import { MapPin, Clock, Users, Star, Heart, Share2 } from "lucide-react"
 import { Destination } from "@/data/destinations-data"
-import { getDestinations } from "@/lib/api"
+import { getDestinations, seedDestinationsCache, getDestinationById } from "@/lib/api"
 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
-// const BASE_URL = "https://api.northscapepakistan.com"
+// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+const BASE_URL = "https://api.northscapepakistan.com"
+// const BASE_URL = "http://localhost:5000";
 
-const DestinationsGrid = () => {
+const DestinationsGrid = ({ initialDestinations }: { initialDestinations?: Destination[] }) => {
+  if (initialDestinations && initialDestinations.length > 0) {
+    seedDestinationsCache(initialDestinations);
+  }
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "200px" })
   const [favorites, setFavorites] = useState<string[]>([])
-  const [destinations, setDestinations] = useState<Destination[]>([])
-  const [loading, setLoading] = useState(true)
+  const [destinations, setDestinations] = useState<Destination[]>(initialDestinations || [])
+  const [loading, setLoading] = useState(!initialDestinations || initialDestinations.length === 0)
   const [error, setError] = useState<string | null>(null)
   const countPage = 6
   const [visibleCount, setVisibleCount] = useState(countPage)
@@ -27,12 +31,15 @@ const DestinationsGrid = () => {
 
     const fetchDestinations = async () => {
       try {
-        const response = await getDestinations() // ideally: getDestinations({ signal: controller.signal })
+        const response = await getDestinations()
         setDestinations(response)
+        seedDestinationsCache(response)
       } catch (err) {
         if ((err as any)?.name !== "AbortError") {
           console.error("Failed to load destinations:", err)
-          setError("Couldn't load destinations. Please try again.")
+          if (!initialDestinations || initialDestinations.length === 0) {
+            setError("Couldn't load destinations. Please try again.")
+          }
         }
       } finally {
         clearTimeout(timeout)
@@ -42,7 +49,7 @@ const DestinationsGrid = () => {
 
     fetchDestinations()
     return () => controller.abort()
-  }, [])
+  }, [initialDestinations])
 
   const toggleFavorite = (id?: string) => {
     if (!id) return
@@ -258,6 +265,11 @@ const DestinationsGrid = () => {
                       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                         <Link
                           href={`/destinations/${destination._id}`}
+                          onMouseEnter={() => {
+                            if (destination._id) {
+                              getDestinationById(destination._id);
+                            }
+                          }}
                           className="block bg-orange-600 hover:bg-green-600 text-white text-center py-3 px-4 rounded-lg font-semibold transition-all duration-300"
                         >
                           View Details
