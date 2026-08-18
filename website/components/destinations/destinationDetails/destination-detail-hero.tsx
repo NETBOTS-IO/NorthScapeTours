@@ -128,7 +128,8 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
     }
   }
 
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
+  const bgImage = destination?.images?.[0] ? `${BASE_URL}${destination.images[0]}` : "/images/sss.jpg"
 
   return (
     <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -136,7 +137,7 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
       <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${BASE_URL}${destination.images[0]})` || "./placeholder.jpg"}}
+          style={{ backgroundImage: `url(${bgImage})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

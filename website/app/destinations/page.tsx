@@ -10,12 +10,21 @@ export const metadata: Metadata = {
   keywords: "travel destinations, adventure tours, luxury travel Pakistan, cultural experiences, custom family tours, Skardu tours, Hunza trips",
 }
 
-export default function DestinationsPage() {
+import { getDestinations } from "@/lib/api"
+
+export default async function DestinationsPage() {
+  let initialDestinations: any[] = []
+  try {
+    initialDestinations = await getDestinations()
+  } catch (err) {
+    console.error("Failed to load destinations on server:", err)
+  }
+
   return (
     <div>
       <DestinationsHero />
       {/* <DestinationFilters /> */}
-      <DestinationsGrid />
+      <DestinationsGrid initialDestinations={initialDestinations} />
     </div>
   )
 }

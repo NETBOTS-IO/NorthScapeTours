@@ -52,7 +52,7 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
     }
   }
 
-const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
 
   return (
     <section ref={ref} className="py-20 bg-white">
@@ -70,40 +70,43 @@ const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {destination?.images?.map((image, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                onClick={() => setSelectedImage(index)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="aspect-w-16 aspect-h-12 bg-gray-200">
-                  <img
-                    src={`${BASE_URL}${image}` || "/placeholder.svg"}
-                    alt={`${destination.name} gallery image ${index + 1}`}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
+            {destination?.images?.map((image, index) => {
+              const imgSrc = image ? `${BASE_URL}${image}` : "/images/sss.jpg";
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
+                  onClick={() => setSelectedImage(index)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="aspect-w-16 aspect-h-12 bg-gray-200">
+                    <img
+                      src={imgSrc}
+                      alt={`${destination.name} gallery image ${index + 1}`}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    className="bg-white/20 backdrop-blur-sm rounded-full p-3"
-                  >
-                    <ZoomIn className="w-6 h-6 text-white" />
-                  </motion.div>
-                </div>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 1, opacity: 1 }}
+                      className="bg-white/20 backdrop-blur-sm rounded-full p-3"
+                    >
+                      <ZoomIn className="w-6 h-6 text-white" />
+                    </motion.div>
+                  </div>
 
-                {/* Image Number */}
-                <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {index + 1} / {destination.images.length}
-                </div>
-              </motion.div>
-            ))}
+                  {/* Image Number */}
+                  <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    {index + 1} / {destination.images.length}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
@@ -159,7 +162,7 @@ const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              src={`${BASE_URL}${destination.images[selectedImage]}`}
+              src={destination.images[selectedImage] ? `${BASE_URL}${destination.images[selectedImage]}` : "/images/sss.jpg"}
               alt={`${destination.name} gallery image ${selectedImage + 1}`}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
             />

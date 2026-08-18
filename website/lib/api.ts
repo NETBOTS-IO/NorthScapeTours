@@ -7,8 +7,8 @@ import { ContactDataTypes } from "@/data/contact-data";
 import axios from "axios";
 import { Destination } from "@/data/destinations-data";
 
-// const BASE_URL = "https://api.northscapepakistan.com"
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = "https://api.northscapepakistan.com"
+// const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 // const BASE_URL = "https://api.northscapepakistan.com"
 // const BASE_URL = "http://localhost:5000";
 
@@ -432,32 +432,95 @@ export async function createContact(contactData: ContactDataTypes) {
 }
 
 // ---------- Destinations ----------
-export async function getDestinations(): Promise<Destination | []> {
-  try {
-    const response = await axios.get<Destination>(
-      `${BASE_URL}/api/destinations/`
-    );
-    // console.log('response', response)
-    return response.data.data;
-  } catch (error) {
-    console.error("Failed to fetch Destinations:", error);
-    return [];
+let destinationsCache: Destination[] | null = null;
+let destinationsPromise: Promise<any> | null = null;
+const destinationByIdCache = new Map<string, Destination>();
+const destinationByIdPromises = new Map<string, Promise<Destination | null>>();
+
+export function seedDestinationsCache(destinations: Destination[]) {
+  if (!destinations || !Array.isArray(destinations)) return;
+  destinationsCache = destinations;
+  destinations.forEach((d) => {
+    if (d?._id) {
+      destinationByIdCache.set(d._id, d);
+    }
+  });
+}
+
+export async function getDestinations(): Promise<Destination[] | []> {
+  if (destinationsCache) {
+    return destinationsCache;
   }
+  if (destinationsPromise) {
+    return destinationsPromise;
+  }
+  destinationsPromise = (async () => {
+    try {
+      const response = await axios.get<any>(
+        `${BASE_URL}/api/destinations/`
+      );
+      const data = response.data?.data || [];
+      destinationsCache = Array.isArray(data) ? data : [];
+
+      // Populate individual cache
+      destinationsCache.forEach((d) => {
+        if (d?._id) {
+          destinationByIdCache.set(d._id, d);
+        }
+      });
+
+      return destinationsCache;
+    } catch (error) {
+      console.error("Failed to fetch Destinations:", error);
+      return [];
+    } finally {
+      destinationsPromise = null;
+    }
+  })();
+  return destinationsPromise;
+}
+
+export function getDestinationFromCache(id: string): Destination | null {
+  if (destinationByIdCache.has(id)) {
+    return destinationByIdCache.get(id)!;
+  }
+  if (destinationsCache) {
+    const found = destinationsCache.find((d) => d._id === id);
+    if (found) {
+      destinationByIdCache.set(id, found);
+      return found;
+    }
+  }
+  return null;
 }
 
 export async function getDestinationById(
   id: string
 ): Promise<Destination | null> {
-  try {
-    const res = await axios.get<{ data: Destination }>(
-      `${BASE_URL}/api/destinations/${id}`
-    );
-    console.log("res", res);
-    return res.data.data ?? null;
-  } catch (error) {
-    console.error(`Failed to fetch destination with ID ${id}:`, error);
-    return null;
+  const cached = getDestinationFromCache(id);
+  if (cached) return cached;
+  if (destinationByIdPromises.has(id)) {
+    return destinationByIdPromises.get(id)!;
   }
+  const promise = (async () => {
+    try {
+      const res = await axios.get<{ data: Destination }>(
+        `${BASE_URL}/api/destinations/${id}`
+      );
+      const dest = res.data?.data;
+      if (dest) {
+        destinationByIdCache.set(id, dest);
+      }
+      return dest ?? null;
+    } catch (error) {
+      console.error(`Failed to fetch destination with ID ${id}:`, error);
+      return null;
+    } finally {
+      destinationByIdPromises.delete(id);
+    }
+  })();
+  destinationByIdPromises.set(id, promise);
+  return promise;
 }
 
 //============ DESTINAITON BOOKING ===========
