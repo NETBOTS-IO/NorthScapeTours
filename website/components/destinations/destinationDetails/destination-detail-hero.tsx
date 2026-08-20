@@ -127,8 +127,9 @@ const DestinationDetailHero = ({ destination }: DestinationDetailHeroProps) => {
         return "bg-gray-100 text-gray-800 border-gray-200"
     }
   }
+const BASE_URL = "https://api.northscapepakistan.com"
 
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
   const bgImage = destination?.images?.[0] ? `${BASE_URL}${destination.images[0]}` : "/images/sss.jpg"
 
   return (

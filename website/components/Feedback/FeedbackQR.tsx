@@ -6,7 +6,8 @@ export default function FeedbackQR() {
   const [qrUrl, setQrUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  // const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const BaseUrl = "https://api.northscapepakistan.com"
   const BACKEND_URL = `${BaseUrl}/api/feedback-qr`;
 
   useEffect(() => {

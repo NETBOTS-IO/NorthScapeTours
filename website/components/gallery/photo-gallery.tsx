@@ -18,10 +18,12 @@ const getPhotoId = (photo: any): string => {
 const fixImagePath = (path: string): string => {
   if (!path) return "";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  const apiBaseUrl =
-    process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:8000";
+
+  // process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:8000";
+  const BASE_URL = "https://api.northscapepakistan.com"
+
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  return `${apiBaseUrl}${normalizedPath}`;
+  return `${BASE_URL}${normalizedPath}`;
 };
 
 const normalizePhoto = (photo: any): GalleryPhoto => {
@@ -62,7 +64,7 @@ const PhotoGallery = () => {
   const galleryToShown = 6
   const [hasMore, setHasMore] = useState(galleryToShown);
 
-const handleLoadMore = () => {
+  const handleLoadMore = () => {
     setHasMore((prev) => prev + galleryToShown);
   };
 
@@ -74,8 +76,8 @@ const handleLoadMore = () => {
       const rawPhotos = Array.isArray(data)
         ? data
         : Array.isArray(data.photos)
-        ? data.photos
-        : [];
+          ? data.photos
+          : [];
 
       const normalized = rawPhotos.map(normalizePhoto);
 
@@ -127,7 +129,7 @@ const handleLoadMore = () => {
     );
   };
 
-//same as dashboard gallery form categories
+  //same as dashboard gallery form categories
   // const categories = [
   //   "All",
   //   "Trekking",
@@ -185,11 +187,10 @@ const handleLoadMore = () => {
             <button
               key={category.name}
               onClick={() => setSelectedCategory(category.name)}
-              className={`px-6 py-3 rounded-full font-semibold transform transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-95 ${
-                selectedCategory === category.name
-                  ? "bg-orange-600 text-white shadow-lg"
-                  : "bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-800 shadow-sm"
-              }`}
+              className={`px-6 py-3 rounded-full font-semibold transform transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-95 ${selectedCategory === category.name
+                ? "bg-orange-600 text-white shadow-lg"
+                : "bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-800 shadow-sm"
+                }`}
             >
               {category.name}
             </button>
@@ -197,46 +198,46 @@ const handleLoadMore = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {!filteredPhotos || filteredPhotos.length ===0 ?  
-          <div className="w-full text-center py-24">
-          <h2 className="text-2xl font-bold text-slate-700 mb-4">
-            No photos found in the gallery.
-          </h2>
-          <p className="text-slate-500">
-            Please check back later or contact support if you believe this is an
-            error.
-          </p>
-        </div> : filteredPhotos?.slice(0, hasMore).map((photo) => {
-            const id = getPhotoId(photo);
-            return (
-              <PhotoCard
-                key={id || photo._id || photo.id}
-                photo={photo}
-                isFavorite={favorites.includes(id)}
-                onCardClick={() => !isMobile && handleViewDetails(id)}
-                onFavoriteClick={() => toggleFavorite(id)}
-              />
-            );
-          })}
+          {!filteredPhotos || filteredPhotos.length === 0 ?
+            <div className="w-full text-center py-24">
+              <h2 className="text-2xl font-bold text-slate-700 mb-4">
+                No photos found in the gallery.
+              </h2>
+              <p className="text-slate-500">
+                Please check back later or contact support if you believe this is an
+                error.
+              </p>
+            </div> : filteredPhotos?.slice(0, hasMore).map((photo) => {
+              const id = getPhotoId(photo);
+              return (
+                <PhotoCard
+                  key={id || photo._id || photo.id}
+                  photo={photo}
+                  isFavorite={favorites.includes(id)}
+                  onCardClick={() => !isMobile && handleViewDetails(id)}
+                  onFavoriteClick={() => toggleFavorite(id)}
+                />
+              );
+            })}
         </div>
 
-       {hasMore < filteredPhotos.length && (
-                 <motion.div
-                 initial={{ opacity: 0, y: 30 }}
-                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                 transition={{ duration: 0.6, delay: 1.2 }}
-                 className="text-center mt-12"
-               >
-                 <motion.button
-                   whileHover={{ scale: 1.05 }}
-                   whileTap={{ scale: 0.95 }}
-                   className="btn-outline"
-                   onClick={handleLoadMore}
-                 >
-                   Load More Blogs
-                 </motion.button>
-               </motion.div>
-               )}
+        {hasMore < filteredPhotos.length && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            className="text-center mt-12"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline"
+              onClick={handleLoadMore}
+            >
+              Load More Blogs
+            </motion.button>
+          </motion.div>
+        )}
         {!isMobile && selectedPhoto && (
           <div
             className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
@@ -293,18 +294,16 @@ const handleLoadMore = () => {
                   <div className="flex space-x-3">
                     <button
                       onClick={() => toggleFavorite(getPhotoId(selectedPhoto))}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
-                        favorites.includes(getPhotoId(selectedPhoto))
-                          ? "bg-red-500 hover:bg-red-600 text-white"
-                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-                      }`}
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${favorites.includes(getPhotoId(selectedPhoto))
+                        ? "bg-red-500 hover:bg-red-600 text-white"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                        }`}
                     >
                       <Heart
-                        className={`w-4 h-4 ${
-                          favorites.includes(getPhotoId(selectedPhoto))
-                            ? "fill-current"
-                            : ""
-                        }`}
+                        className={`w-4 h-4 ${favorites.includes(getPhotoId(selectedPhoto))
+                          ? "fill-current"
+                          : ""
+                          }`}
                       />
                       <span>Like</span>
                     </button>

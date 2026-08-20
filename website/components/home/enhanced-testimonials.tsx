@@ -25,18 +25,18 @@ export default function EnhancedTestimonials() {
   const intervalRef = useRef<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [testimonialsData, setTestimonialsData] = useState<TestimonialsFormState[]>([]);
-const router = useRouter()
+  const router = useRouter()
 
   useEffect(() => {
-  (async () => {
-    try {
-      const response = await getTestimonials({});
-      setTestimonialsData(response.testimonials || []);
-    } catch (error) {
-      console.error("Error fetching testimonials", error);
-    }
-  })();
-}, []);
+    (async () => {
+      try {
+        const response = await getTestimonials({});
+        setTestimonialsData(response.testimonials || []);
+      } catch (error) {
+        console.error("Error fetching testimonials", error);
+      }
+    })();
+  }, []);
 
 
 
@@ -48,9 +48,9 @@ const router = useRouter()
       setIsMobile(isMobileView);
       // Auto-expand all cards on mobile
       if (isMobileView) {
-       const allIds = testimonialsData
-        .map((t) => t._id)
-        .filter((id): id is string => typeof id === "string");
+        const allIds = testimonialsData
+          .map((t) => t._id)
+          .filter((id): id is string => typeof id === "string");
         setExpandedCards(new Set(allIds));
       }
     };
@@ -135,16 +135,15 @@ const router = useRouter()
         transition={{ duration: 0.3, delay: i * 0.1 }}
       >
         <Star
-          className={`w-4 h-4 ${
-            i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-          }`}
+          className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+            }`}
         />
       </motion.div>
     ));
   };
 
-// const BASE_URL = "https://api.northscapepakistan.com" 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+  const BASE_URL = "https://api.northscapepakistan.com"
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -283,9 +282,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
                   </motion.div>
 
                   <div
-                    className={`${
-                      isMobile ? "flex flex-col" : "grid md:grid-cols-3"
-                    } gap-6 md:gap-8`}
+                    className={`${isMobile ? "flex flex-col" : "grid md:grid-cols-3"
+                      } gap-6 md:gap-8`}
                   >
                     {/* Left profile section */}
                     <div className="text-center">
@@ -343,21 +341,18 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
 
                     {/* Right content section */}
                     <div
-                      className={`${
-                        isMobile ? "" : "md:col-span-2"
-                      } pr-2 cursor-pointer flex flex-col justify-center min-h-[180px]`}
+                      className={`${isMobile ? "" : "md:col-span-2"
+                        } pr-2 cursor-pointer flex flex-col justify-center min-h-[180px]`}
                       onClick={() =>
                         toggleExpanded(currentTestimonial?._id || "")
                       }
                     >
                       <motion.div
-                        className={`${
-                          isMobile ? "text-base" : "text-lg md:text-xl"
-                        } text-gray-400 leading-relaxed ${
-                          expandedCards.has(currentTestimonial?._id || "")
+                        className={`${isMobile ? "text-base" : "text-lg md:text-xl"
+                          } text-gray-400 leading-relaxed ${expandedCards.has(currentTestimonial?._id || "")
                             ? ""
                             : "line-clamp-3"
-                        }`}
+                          }`}
                         initial={false}
                         animate={{
                           height: expandedCards.has(currentTestimonial?._id || "")
@@ -402,9 +397,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === currentIndex ? "bg-orange-500 w-6" : "bg-gray-300"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all ${index === currentIndex ? "bg-orange-500 w-6" : "bg-gray-300"
+                  }`}
               />
             ))}
           </div>
@@ -421,9 +415,9 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
           <Button
             size={isMobile ? "default" : "lg"}
             className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            onClick={()=>router.push('/destinations')}
+            onClick={() => router.push('/destinations')}
           >
-           Explore Best Destination
+            Explore Best Destination
           </Button>
         </motion.div>
       </div>

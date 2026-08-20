@@ -19,7 +19,7 @@ const BlogGrid = ({ posts = [] }: BlogGridProps) => {
   const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
 
   console.log('posts', posts);
-  
+
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
   };
@@ -57,7 +57,8 @@ const BlogGrid = ({ posts = [] }: BlogGridProps) => {
       },
     },
   } as const;
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = "https://api.northscapepakistan.com"
 
   return (
     <section ref={ref} className="section-padding bg-slate-50">
@@ -127,20 +128,20 @@ const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
         </motion.div>
         {visibleCount < posts.length && (
           <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="text-center mt-12"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-outline"
-            onClick={handleLoadMore}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            className="text-center mt-12"
           >
-            Load More Blogs
-          </motion.button>
-        </motion.div>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline"
+              onClick={handleLoadMore}
+            >
+              Load More Blogs
+            </motion.button>
+          </motion.div>
         )}
       </div>
     </section>

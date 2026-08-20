@@ -52,7 +52,8 @@ const DestinationGallery = ({ destination }: DestinationGalleryProps) => {
     }
   }
 
-const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
+  // const BASE_URL= process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:5000"
+  const BASE_URL = "https://api.northscapepakistan.com"
 
   return (
     <section ref={ref} className="py-20 bg-white">
