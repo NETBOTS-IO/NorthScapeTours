@@ -39,13 +39,15 @@ export default function PopularPackagesClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const featuredTrips = tours.filter((trip: any) => trip.featured);
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = "https://api.northscapepakistan.com"
+
   const BLOGS_PER_PAGE = 9;
-      const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
-    
-      const handleLoadMore = () => {
-        setVisibleCount((prev) => prev + BLOGS_PER_PAGE); 
-      };
+  const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
+  };
 
   useEffect(() => {
     fetchTours()
@@ -128,14 +130,14 @@ export default function PopularPackagesClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-       <motion.h2
-  className="text-4xl sm:text-5xl font-bold text-black mb-4 font-serif"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, delay: 0.2 }}
->
-  Featured Tour Packages
-</motion.h2>
+          <motion.h2
+            className="text-4xl sm:text-5xl font-bold text-black mb-4 font-serif"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Featured Tour Packages
+          </motion.h2>
           <motion.p
             className="text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
@@ -245,10 +247,10 @@ export default function PopularPackagesClient() {
                         <Badge
                           variant="outline"
                           className={`$${trip.difficulty === "Easy"
-                              ? "border-green-300 text-green-700"
-                              : trip.difficulty === "Moderate"
-                                ? "border-yellow-300 text-yellow-700"
-                                : "border-red-300 text-red-700"
+                            ? "border-green-300 text-green-700"
+                            : trip.difficulty === "Moderate"
+                              ? "border-yellow-300 text-yellow-700"
+                              : "border-red-300 text-red-700"
                             }`}
                         >
                           {trip.difficulty}
@@ -468,10 +470,10 @@ export default function PopularPackagesClient() {
                         <Badge
                           variant="outline"
                           className={`$${trip.difficulty === "Easy"
-                              ? "border-green-300 text-green-700"
-                              : trip.difficulty === "Moderate"
-                                ? "border-yellow-300 text-yellow-700"
-                                : "border-red-300 text-red-700"
+                            ? "border-green-300 text-green-700"
+                            : trip.difficulty === "Moderate"
+                              ? "border-yellow-300 text-yellow-700"
+                              : "border-red-300 text-red-700"
                             }`}
                         >
                           {trip.difficulty}
@@ -600,23 +602,23 @@ export default function PopularPackagesClient() {
         )}
 
         {/* View All Button */}
-         {
-          visibleCount < featuredTrips.length &&(
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-2 border-gray-300 text-gray-700 hover:border-green-500 hover:text-green-600 hover:bg-green-50 px-8 py-4 text-lg font-semibold rounded-full bg-white transition-all duration-300"
-             onClick={handleLoadMore}
-          >
-            View All Tour Packages
-          </Button>
-        </motion.div>
+        {
+          visibleCount < featuredTrips.length && (
+            <motion.div
+              className="text-center mt-12"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-gray-300 text-gray-700 hover:border-green-500 hover:text-green-600 hover:bg-green-50 px-8 py-4 text-lg font-semibold rounded-full bg-white transition-all duration-300"
+                onClick={handleLoadMore}
+              >
+                View All Tour Packages
+              </Button>
+            </motion.div>
           )}
       </div>
     </section>

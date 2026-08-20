@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Users, Fuel, Settings, Shield, MapPin, Calendar, Clock, Phone, Mail,CarFront } from "lucide-react";
+import { Users, Fuel, Settings, Shield, MapPin, Calendar, Clock, Phone, Mail, CarFront } from "lucide-react";
 import { RentCar } from "@/data/rent-data";
 
 const fadeInUp = {
@@ -55,8 +55,9 @@ const CarDetails = () => {
     fetchCarDetails();
   }, [id]);
 
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
-  const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL
+  // const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const BASE_URL = "https://api.northscapepakistan.com"
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -167,84 +168,84 @@ const CarDetails = () => {
 
           {/* Right Column - Details */}
           <motion.div {...fadeInUp} className="space-y-6">
-  <div>
-    <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
-      {car?.carName}
-    </h1>
-    <p className="text-xl text-slate-600">{car?.carModel} Model</p>
-  </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
+                {car?.carName}
+              </h1>
+              <p className="text-xl text-slate-600">{car?.carModel} Model</p>
+            </div>
 
-  <div className="bg-slate-50 rounded-xl p-6">
-    <div className="grid grid-cols-2 gap-4">
-      <div className="flex items-center gap-3">
-        <Users className="w-5 h-5 text-orange-600" />
-        <div>
-          <p className="text-sm text-slate-600">Max People</p>
-          <p className="font-semibold">{car?.seats}</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3">
-        <CarFront className="w-5 h-5 text-orange-600" />
-        <div>
-          <p className="text-sm text-slate-600">Door Count</p>
-          <p className="font-semibold">{car?.fuelType}</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3">
-        <Settings className="w-5 h-5 text-orange-600" />
-        <div>
-          <p className="text-sm text-slate-600">Transmission</p>
-          <p className="font-semibold">{car?.transmission}</p>
-        </div>
-      </div>
-      
-      {/* <div className="flex items-center gap-3">
+            <div className="bg-slate-50 rounded-xl p-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Users className="w-5 h-5 text-orange-600" />
+                  <div>
+                    <p className="text-sm text-slate-600">Max People</p>
+                    <p className="font-semibold">{car?.seats}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <CarFront className="w-5 h-5 text-orange-600" />
+                  <div>
+                    <p className="text-sm text-slate-600">Door Count</p>
+                    <p className="font-semibold">{car?.fuelType}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Settings className="w-5 h-5 text-orange-600" />
+                  <div>
+                    <p className="text-sm text-slate-600">Transmission</p>
+                    <p className="font-semibold">{car?.transmission}</p>
+                  </div>
+                </div>
+
+                {/* <div className="flex items-center gap-3">
         <Shield className="w-5 h-5 text-orange-600" />
         <div>
           <p className="text-sm text-slate-600">Insurance</p>
           <p className="font-semibold">Included</p>
         </div>
       </div> */}
-      
-      {/* Mileage */}
-      <div className="flex items-center gap-3">
-        <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-        </svg>
-        <div>
-          <p className="text-sm text-slate-600">Mileage</p>
-          <p className="font-semibold">{car?.mileage}</p>
-        </div>
-      </div>
-      
-      {/* Air Conditioned */}
-      <div className="flex items-center gap-3">
-        <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-        <div>
-          <p className="text-sm text-slate-600">Air Conditioned</p>
-          <p className="font-semibold">{car?.conditioned}</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div className="bg-blue-50 rounded-xl p-6">
-    <div className="flex items-center justify-between mb-4">
-      <div>
-        <p className="text-sm text-slate-600">Price per day</p>
-        <p className="text-3xl font-bold text-orange-600">${car?.pricePerDay}</p>
-      </div>
-      <div className="text-right">
-        <p className="text-sm text-slate-600">Minimum Driver Age</p>
-        <p className="font-semibold text-slate-800">{car?.driverName}</p>
-      </div>
-    </div>
-  </div>
-</motion.div>
+                {/* Mileage */}
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <div>
+                    <p className="text-sm text-slate-600">Mileage</p>
+                    <p className="font-semibold">{car?.mileage}</p>
+                  </div>
+                </div>
+
+                {/* Air Conditioned */}
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                  <div>
+                    <p className="text-sm text-slate-600">Air Conditioned</p>
+                    <p className="font-semibold">{car?.conditioned}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-sm text-slate-600">Price per day</p>
+                  <p className="text-3xl font-bold text-orange-600">${car?.pricePerDay}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-slate-600">Minimum Driver Age</p>
+                  <p className="font-semibold text-slate-800">{car?.driverName}</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Booking Form */}
