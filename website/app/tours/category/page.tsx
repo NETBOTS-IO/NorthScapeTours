@@ -22,22 +22,22 @@ import { fetchRelatedTours, fetchTours } from "@/lib/api";
 const TripsListing = () => {
   const container = useRef(null);
   const ref = useRef(null);
-  const isInView = useInView(ref, { root: container,initial: true, once: true, margin: "-100px" });
+  const isInView = useInView(ref, { root: container, initial: true, once: true, margin: "-100px" });
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("popularity");
   const [category, setCategory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const BLOGS_PER_PAGE = 9;
-    const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
-  
-    const handleLoadMore = () => {
-      setVisibleCount((prev) => prev + BLOGS_PER_PAGE); 
-    };
+  const [visibleCount, setVisibleCount] = useState(BLOGS_PER_PAGE);
 
-    // const BASE_URL = "https://api.northscapepakistan.com" 
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
+  };
 
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = "https://api.northscapepakistan.com"
+
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
   const minPrice = searchParams.get("minPrice");
@@ -49,24 +49,24 @@ const TripsListing = () => {
   const activities = searchParams.get("activities");
   const tripType = searchParams.get("tripType");
 
-const router = useRouter();
-const categoryId = searchParams.get("category");
+  const router = useRouter();
+  const categoryId = searchParams.get("category");
 
-useEffect(() => {
-  const fetchCategory = async () => {
-    if (!categoryId) return; 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      if (!categoryId) return;
 
-    try {
-      const response = await fetchRelatedTours(categoryId); 
-      setCategory(response);
-       setLoading(false)
-    } catch (error) {
-      console.log("Error fetching trip category", error);
-    }
-  };
+      try {
+        const response = await fetchRelatedTours(categoryId);
+        setCategory(response);
+        setLoading(false)
+      } catch (error) {
+        console.log("Error fetching trip category", error);
+      }
+    };
 
-  fetchCategory();
-}, [categoryId]);
+    fetchCategory();
+  }, [categoryId]);
 
   let filteredTrips = category;
   if (tripType) {
@@ -113,7 +113,7 @@ useEffect(() => {
     const actArr = activities.split(",");
     filteredTrips = filteredTrips.filter((trip) => {
       if (!trip.features) return false;
-      return actArr.some((a) => trip.features?.some((f:any) => f.toLowerCase().includes(a.toLowerCase())));
+      return actArr.some((a) => trip.features?.some((f: any) => f.toLowerCase().includes(a.toLowerCase())));
     });
   }
   // Sort filteredTrips based on sortBy
@@ -216,21 +216,19 @@ useEffect(() => {
             <div className="hidden lg:flex bg-slate-200 rounded-lg p-1">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`px-4 py-2 rounded-md transition-all duration-300 ${
-                  viewMode === "grid"
-                    ? "bg-white shadow-sm text-slate-800"
-                    : "text-slate-600"
-                }`}
+                className={`px-4 py-2 rounded-md transition-all duration-300 ${viewMode === "grid"
+                  ? "bg-white shadow-sm text-slate-800"
+                  : "text-slate-600"
+                  }`}
               >
                 Grid
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`px-4 py-2 rounded-md transition-all duration-300 ${
-                  viewMode === "list"
-                    ? "bg-white shadow-sm text-slate-800"
-                    : "text-slate-600"
-                }`}
+                className={`px-4 py-2 rounded-md transition-all duration-300 ${viewMode === "list"
+                  ? "bg-white shadow-sm text-slate-800"
+                  : "text-slate-600"
+                  }`}
               >
                 List
               </button>
@@ -266,11 +264,10 @@ useEffect(() => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`group ${
-                viewMode === "list"
-                  ? "flex bg-white overflow-hidden shadow-lg border border-orange-600"
-                  : ""
-              }`}
+              className={`group ${viewMode === "list"
+                ? "flex bg-white overflow-hidden shadow-lg border border-orange-600"
+                : ""
+                }`}
             >
               {viewMode === "grid" ? (
                 /* Grid View */
@@ -309,11 +306,10 @@ useEffect(() => {
                     {/* Availability */}
                     <div className="absolute bottom-4 left-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                          trip.availability
+                        className={`px-3 py-1 rounded-full text-sm font-semibold ${trip.availability
                           ? "bg-green-600 text-white"
                           : "bg-red-600 text-white"
-                        }`}
+                          }`}
                       >
                         {trip.availability ? "Available" : "Limited"}
                       </span>
@@ -593,23 +589,23 @@ useEffect(() => {
 
         {/* Load More */}
         {
-          visibleCount < sortedTrips.length &&(
+          visibleCount < sortedTrips.length && (
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="text-center mt-12"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-outline"
-            onClick={handleLoadMore}
-          >
-            Load More Adventures
-          </motion.button>
-        </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              className="text-center mt-12"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-outline"
+                onClick={handleLoadMore}
+              >
+                Load More Adventures
+              </motion.button>
+            </motion.div>
           )
         }
       </div>

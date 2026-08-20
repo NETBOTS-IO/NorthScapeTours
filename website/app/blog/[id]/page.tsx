@@ -128,7 +128,8 @@ export default function BlogDetailPage() {
   const readTime = getReadTimeFromEditor(post.content);
   const related = getRelatedPosts(post, blogs);
   const { prev, next } = getPrevNext(post, blogs);
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = "https://api.northscapepakistan.com"
 
   return (
     <div className="pb-16">

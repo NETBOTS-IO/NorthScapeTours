@@ -7,7 +7,8 @@ interface Props {
   params: { id: string };
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:8000";
+// const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "http://localhost:8000";
+const BASE_URL = "https://api.northscapepakistan.com"
 
 export default async function PhotoDetailsPage({ params }: Props) {
   const photo = await fetchPhotoById(params.id);
