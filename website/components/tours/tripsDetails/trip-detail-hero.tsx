@@ -11,7 +11,9 @@ interface TripDetailHeroProps {
 }
 
 const TripDetailHero = ({ trip }: TripDetailHeroProps) => {
-  const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  // const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const BASE_URL = "https://api.northscapepakistan.com"
+
   const [current, setCurrent] = useState(0);
   const images = trip.images && trip.images.length > 0 ? trip.images : ["/placeholder.svg?height=200&width=300"];
   const hasMultiple = images.length > 1;
@@ -223,7 +225,7 @@ const TripDetailHero = ({ trip }: TripDetailHeroProps) => {
               <div className="bg-white/95 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20">
                 <div className="text-center mb-6">
                   <div className="text-sm text-slate-500 line-through mb-1">
-                  {trip.originalPrice ? `$${trip.originalPrice}` : ""}
+                    {trip.originalPrice ? `$${trip.originalPrice}` : ""}
                   </div>
                   <div className="text-4xl font-bold text-orange-600 mb-2">
                     ${trip.price}
@@ -243,9 +245,8 @@ const TripDetailHero = ({ trip }: TripDetailHeroProps) => {
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-600">Availability:</span>
                     <span
-                      className={`font-semibold ${
-                        trip.availability ? "text-green-600" : "text-red-600"
-                      }`}
+                      className={`font-semibold ${trip.availability ? "text-green-600" : "text-red-600"
+                        }`}
                     >
                       {trip.availability ? "Available" : "Limited"}
                     </span>
